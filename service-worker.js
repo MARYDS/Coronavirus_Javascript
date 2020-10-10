@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/www.MARYDS.github.io/coronavirus/precache-manifest.b4ccd1ea2d44408bcb244c8d4ed1e179.js"
+  "/www.MARYDS.github.io/Coronavirus_Javascript/precache-manifest.7db154bee9bd9d5fce5efb0b6915e7f1.js"
 );
 
 self.addEventListener('message', (event) => {
@@ -33,7 +33,7 @@ workbox.core.clientsClaim();
 self.__precacheManifest = [].concat(self.__precacheManifest || []);
 workbox.precaching.precacheAndRoute(self.__precacheManifest, {});
 
-workbox.routing.registerNavigationRoute(workbox.precaching.getCacheKeyForURL("/www.MARYDS.github.io/coronavirus/index.html"), {
+workbox.routing.registerNavigationRoute(workbox.precaching.getCacheKeyForURL("/www.MARYDS.github.io/Coronavirus_Javascript/index.html"), {
   
   blacklist: [/^\/_/,/\/[^\/?]+\.[^\/]+$/],
 });

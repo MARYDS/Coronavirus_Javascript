@@ -1,22 +1,22 @@
 {
   "files": {
-    "main.css": "/www.MARYDS.github.io/coronavirus/static/css/main.34bd5715.chunk.css",
-    "main.js": "/www.MARYDS.github.io/coronavirus/static/js/main.261cb8cb.chunk.js",
-    "main.js.map": "/www.MARYDS.github.io/coronavirus/static/js/main.261cb8cb.chunk.js.map",
-    "runtime-main.js": "/www.MARYDS.github.io/coronavirus/static/js/runtime-main.e72e671d.js",
-    "runtime-main.js.map": "/www.MARYDS.github.io/coronavirus/static/js/runtime-main.e72e671d.js.map",
-    "static/js/2.6c03b137.chunk.js": "/www.MARYDS.github.io/coronavirus/static/js/2.6c03b137.chunk.js",
-    "static/js/2.6c03b137.chunk.js.map": "/www.MARYDS.github.io/coronavirus/static/js/2.6c03b137.chunk.js.map",
-    "index.html": "/www.MARYDS.github.io/coronavirus/index.html",
-    "precache-manifest.b4ccd1ea2d44408bcb244c8d4ed1e179.js": "/www.MARYDS.github.io/coronavirus/precache-manifest.b4ccd1ea2d44408bcb244c8d4ed1e179.js",
-    "service-worker.js": "/www.MARYDS.github.io/coronavirus/service-worker.js",
-    "static/css/main.34bd5715.chunk.css.map": "/www.MARYDS.github.io/coronavirus/static/css/main.34bd5715.chunk.css.map",
-    "static/js/2.6c03b137.chunk.js.LICENSE.txt": "/www.MARYDS.github.io/coronavirus/static/js/2.6c03b137.chunk.js.LICENSE.txt"
+    "main.css": "/www.MARYDS.github.io/Coronavirus_Javascript/static/css/main.34bd5715.chunk.css",
+    "main.js": "/www.MARYDS.github.io/Coronavirus_Javascript/static/js/main.da900630.chunk.js",
+    "main.js.map": "/www.MARYDS.github.io/Coronavirus_Javascript/static/js/main.da900630.chunk.js.map",
+    "runtime-main.js": "/www.MARYDS.github.io/Coronavirus_Javascript/static/js/runtime-main.431f04ea.js",
+    "runtime-main.js.map": "/www.MARYDS.github.io/Coronavirus_Javascript/static/js/runtime-main.431f04ea.js.map",
+    "static/js/2.6c03b137.chunk.js": "/www.MARYDS.github.io/Coronavirus_Javascript/static/js/2.6c03b137.chunk.js",
+    "static/js/2.6c03b137.chunk.js.map": "/www.MARYDS.github.io/Coronavirus_Javascript/static/js/2.6c03b137.chunk.js.map",
+    "index.html": "/www.MARYDS.github.io/Coronavirus_Javascript/index.html",
+    "precache-manifest.7db154bee9bd9d5fce5efb0b6915e7f1.js": "/www.MARYDS.github.io/Coronavirus_Javascript/precache-manifest.7db154bee9bd9d5fce5efb0b6915e7f1.js",
+    "service-worker.js": "/www.MARYDS.github.io/Coronavirus_Javascript/service-worker.js",
+    "static/css/main.34bd5715.chunk.css.map": "/www.MARYDS.github.io/Coronavirus_Javascript/static/css/main.34bd5715.chunk.css.map",
+    "static/js/2.6c03b137.chunk.js.LICENSE.txt": "/www.MARYDS.github.io/Coronavirus_Javascript/static/js/2.6c03b137.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
-    "static/js/runtime-main.e72e671d.js",
+    "static/js/runtime-main.431f04ea.js",
     "static/js/2.6c03b137.chunk.js",
     "static/css/main.34bd5715.chunk.css",
-    "static/js/main.261cb8cb.chunk.js"
+    "static/js/main.da900630.chunk.js"
   ]
 }
