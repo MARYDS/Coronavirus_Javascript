@@ -13,8 +13,9 @@ body {
 }
 
 .custom-tooltip {
-  background: 'rgba(255, 255, 255, 0.9)';
+  background: rgba(255, 255, 255, 0.8);
   border: 1px solid #ccc;
+  box-shadow: 2px 2px 3px 0px rgb(204, 204, 204);
   text-align: center;
   padding: 1px 3px;
   border-radius: 2px;
