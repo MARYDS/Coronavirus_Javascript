@@ -1,0 +1,29 @@
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  background-color: #eee;
+}
+.custom-scrollbar {
+  position: relative;
+  height: 300px;
+  overflow: auto;
+}
+
+.table-wrapper-scroll-y {
+  display: block;
+}
+
+.custom-tooltip {
+  background: 'rgba(255, 255, 255, 0.9)';
+  border: 1px solid #ccc;
+  text-align: center;
+  padding: 1px 3px;
+  border-radius: 2px;
+}
+.label {
+   font-size: 0.8rem
+}
+
+.data {
+  font-size: 0.8rem;
+  font-weight: bold;
+}
