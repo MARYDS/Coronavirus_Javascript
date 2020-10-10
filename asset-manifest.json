@@ -1,22 +1,22 @@
 {
   "files": {
-    "main.css": "/static/css/main.34bd5715.chunk.css",
-    "main.js": "/static/js/main.146565b4.chunk.js",
-    "main.js.map": "/static/js/main.146565b4.chunk.js.map",
-    "runtime-main.js": "/static/js/runtime-main.1142ef6f.js",
-    "runtime-main.js.map": "/static/js/runtime-main.1142ef6f.js.map",
-    "static/js/2.6c03b137.chunk.js": "/static/js/2.6c03b137.chunk.js",
-    "static/js/2.6c03b137.chunk.js.map": "/static/js/2.6c03b137.chunk.js.map",
-    "index.html": "/index.html",
-    "precache-manifest.77b408393db03165329765849ad866c5.js": "/precache-manifest.77b408393db03165329765849ad866c5.js",
-    "service-worker.js": "/service-worker.js",
-    "static/css/main.34bd5715.chunk.css.map": "/static/css/main.34bd5715.chunk.css.map",
-    "static/js/2.6c03b137.chunk.js.LICENSE.txt": "/static/js/2.6c03b137.chunk.js.LICENSE.txt"
+    "main.css": "/www.MARYDS.github.io/coronavirus/static/css/main.34bd5715.chunk.css",
+    "main.js": "/www.MARYDS.github.io/coronavirus/static/js/main.261cb8cb.chunk.js",
+    "main.js.map": "/www.MARYDS.github.io/coronavirus/static/js/main.261cb8cb.chunk.js.map",
+    "runtime-main.js": "/www.MARYDS.github.io/coronavirus/static/js/runtime-main.e72e671d.js",
+    "runtime-main.js.map": "/www.MARYDS.github.io/coronavirus/static/js/runtime-main.e72e671d.js.map",
+    "static/js/2.6c03b137.chunk.js": "/www.MARYDS.github.io/coronavirus/static/js/2.6c03b137.chunk.js",
+    "static/js/2.6c03b137.chunk.js.map": "/www.MARYDS.github.io/coronavirus/static/js/2.6c03b137.chunk.js.map",
+    "index.html": "/www.MARYDS.github.io/coronavirus/index.html",
+    "precache-manifest.b4ccd1ea2d44408bcb244c8d4ed1e179.js": "/www.MARYDS.github.io/coronavirus/precache-manifest.b4ccd1ea2d44408bcb244c8d4ed1e179.js",
+    "service-worker.js": "/www.MARYDS.github.io/coronavirus/service-worker.js",
+    "static/css/main.34bd5715.chunk.css.map": "/www.MARYDS.github.io/coronavirus/static/css/main.34bd5715.chunk.css.map",
+    "static/js/2.6c03b137.chunk.js.LICENSE.txt": "/www.MARYDS.github.io/coronavirus/static/js/2.6c03b137.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
-    "static/js/runtime-main.1142ef6f.js",
+    "static/js/runtime-main.e72e671d.js",
     "static/js/2.6c03b137.chunk.js",
     "static/css/main.34bd5715.chunk.css",
-    "static/js/main.146565b4.chunk.js"
+    "static/js/main.261cb8cb.chunk.js"
   ]
 }
