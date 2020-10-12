@@ -1,5 +1,6 @@
-Running version of this dashboard is at https://maryds.github.io/Coronavirus_Javascript/
+Live version of this dashboard is at https://maryds.github.io/Coronavirus_Javascript/
 
+Data is retrieved using the API at https://api.coronavirus.data.gov.uk/v1/data
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
