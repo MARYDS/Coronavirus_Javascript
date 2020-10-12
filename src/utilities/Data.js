@@ -62,8 +62,9 @@ export default class Data {
 
   // Fetch todays death data from API
   async getAPIDeathDataByLA(latest) {
-    let filters = "areaType=ltla"
-    filters += `;date=${latest}`
+
+    let deaths = []
+    let count = 0
 
     const structure = {
       "locn": "areaName",
@@ -72,12 +73,40 @@ export default class Data {
       "count": "newDeaths28DaysByPublishDate",
     }
 
-    const request = `
-    https://api.coronavirus.data.gov.uk/v1/data?filters=${filters}&structure=${JSON.stringify(structure)}
-    `
-    let response = await fetch(request);
-    let results = await response.json();
-    let deaths = results.data.filter(la => la.count !== 0)
+    while (deaths.length === 0 && count <= 3) {
+      count = count + 1
+      let filters = "areaType=ltla"
+      filters += `;date=${latest}`
+
+      const request = `
+      https://api.coronavirus.data.gov.uk/v1/data?filters=${filters}&structure=${JSON.stringify(structure)}
+      `
+      let response = await fetch(request);
+      let results = await response.json();
+
+      if (results.data === undefined) {
+        break
+      } else {
+        deaths = results.data.filter(la => {
+          const prefix = la.code.charAt(0)
+          return la.count !== 0 &&
+            (
+              this.areaName === '' ||
+              (this.areaName === 'England' && prefix === 'E') ||
+              (this.areaName === 'Scotland' && prefix === 'S') ||
+              (this.areaName === 'Wales' && prefix === 'W') ||
+              (this.areaName === 'Northern Ireland' && prefix === 'N')
+            )
+        })
+
+        if (deaths.length === 0) {
+          const latestDate = new Date(latest)
+          latestDate.setDate(latestDate.getDate() - 1)
+          latest = '' + latestDate.getFullYear() + '-' + ("0" + (latestDate.getMonth() + 1)).slice(-2) + '-' + ("0" + latestDate.getDate()).slice(-2)
+        }
+      }
+    }
+
     deaths.sort((a, b) => {
       if (b.count > a.count) return 1
       if (b.count < a.count) return -1
@@ -85,27 +114,18 @@ export default class Data {
     })
     let deathsByLocation = []
     deaths.forEach((locn) => {
-      const prefix = locn.code.charAt(0)
-      if (this.areaName === '' ||
-        (this.areaName === 'England' && prefix === 'E') ||
-        (this.areaName === 'Scotland' && prefix === 'S') ||
-        (this.areaName === 'Wales' && prefix === 'W') ||
-        (this.areaName === 'Northern Ireland' && prefix === 'N')) {
-        deathsByLocation.push({
-          date: locn.date,
-          location: locn.locn,
-          code: locn.code,
-          count: locn.count
-        })
-      }
+      deathsByLocation.push({
+        date: locn.date,
+        location: locn.locn,
+        code: locn.code,
+        count: locn.count
+      })
     })
     return deathsByLocation;
   }
 
   // Fetch todays cases data from API
   async getAPICaseDataByLA(latest) {
-    let filters = "areaType=ltla"
-    filters += `;date=${latest}`
 
     const structure = {
       "locn": "areaName",
@@ -114,12 +134,43 @@ export default class Data {
       "count": "newCasesByPublishDate",
     }
 
-    const request = `
-    https://api.coronavirus.data.gov.uk/v1/data?filters=${filters}&structure=${JSON.stringify(structure)}
-    `
-    let response = await fetch(request);
-    let results = await response.json();
-    let cases = results.data.filter(la => la.count !== 0)
+    let cases = []
+    let count = 0
+
+    while (cases.length === 0 && count <= 3) {
+      count = count + 1
+      let filters = "areaType=ltla"
+      filters += `;date=${latest}`
+
+      const request = `
+      https://api.coronavirus.data.gov.uk/v1/data?filters=${filters}&structure=${JSON.stringify(structure)}
+      `
+      let response = await fetch(request);
+      let results = await response.json();
+
+      if (results.data === undefined) {
+        break
+      } else {
+        cases = results.data.filter(la => {
+          const prefix = la.code.charAt(0)
+          return la.count !== 0 &&
+            (
+              this.areaName === '' ||
+              (this.areaName === 'England' && prefix === 'E') ||
+              (this.areaName === 'Scotland' && prefix === 'S') ||
+              (this.areaName === 'Wales' && prefix === 'W') ||
+              (this.areaName === 'Northern Ireland' && prefix === 'N')
+            )
+        })
+
+        if (cases.length === 0) {
+          const latestDate = new Date(latest)
+          latestDate.setDate(latestDate.getDate() - 1)
+          latest = '' + latestDate.getFullYear() + '-' + ("0" + (latestDate.getMonth() + 1)).slice(-2) + '-' + ("0" + latestDate.getDate()).slice(-2)
+        }
+      }
+    }
+
     cases.sort((a, b) => {
       if (b.count > a.count) return 1
       if (b.count < a.count) return -1
@@ -127,19 +178,12 @@ export default class Data {
     })
     let casesByLocation = []
     cases.forEach((locn) => {
-      const prefix = locn.code.charAt(0)
-      if (this.areaName === '' ||
-        (this.areaName === 'England' && prefix === 'E') ||
-        (this.areaName === 'Scotland' && prefix === 'S') ||
-        (this.areaName === 'Wales' && prefix === 'W') ||
-        (this.areaName === 'Northern Ireland' && prefix === 'N')) {
-        casesByLocation.push({
-          date: locn.date,
-          location: locn.locn,
-          code: locn.code,
-          count: locn.count
-        })
-      }
+      casesByLocation.push({
+        date: locn.date,
+        location: locn.locn,
+        code: locn.code,
+        count: locn.count
+      })
     })
     return casesByLocation;
   }
