@@ -11,6 +11,9 @@ body {
 .table-wrapper-scroll-y {
   display: block;
 }
+.card {
+  box-shadow: 2px 2px 3px 0px rgb(204, 204, 204);  
+}
 
 .custom-tooltip {
   background: rgba(255, 255, 255, 0.8);
