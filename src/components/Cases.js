@@ -1,33 +1,39 @@
 import React from 'react'
 import Graph from '../utilities/Graph'
-import DataTable from '../components/DataTable'
+import TableData from '../utilities/TableData'
 import { compare } from '../utilities/Utils'
 
-export default function Cases({ date, latest, cumulative, rate, cases,
-  dateActual, latestActual, cumulativeActual, rateActual, casesActual }
-  = this.props) {
+export default function Cases(
+  { areaType, datePub, newPub, cumPub, ratePub, casesPub,
+    dateAct, newAct, cumAct, rateAct, casesAct, casesLoc }
+    = this.props) {
 
-  const casesSorted = [...cases].sort(compare())
-  const casesActualSorted = [...casesActual].sort(compare())
-
-  console.log(date, latest, cumulative, rate, cases,
-    dateActual, latestActual, cumulativeActual, rateActual, casesActual)
+  if (casesPub === undefined) casesPub = []
+  if (casesAct === undefined) casesAct = []
+  const casesPubSorted = [...casesPub].sort(compare())
+  const casesActSorted = [...casesAct].sort(compare())
 
   return (
-    <div className="col-md-4">
+    <div className="col-md-4 col-sm-6">
       <div className="card h-100">
 
         <div className="card-header text-center">
           Cases
           <ul className="nav nav-tabs" id="cases-list" role="tablist">
             <li className="nav-item">
-              <a className="nav-link active" id="published-cases-tab" data-toggle="tab" href="#publishedcases" role="tab" aria-controls="publishedcases" aria-selected="true">Published Date</a>
+              <a className="nav-link active" id="published-cases-tab" data-toggle="tab" href="#publishedcases" role="tab" aria-controls="publishedcases" aria-selected="true">Published</a>
             </li>
+            {(areaType === 'overview' || areaType === 'nation')
+              ?
+              <li className="nav-item">
+                <a className="nav-link" id="area-cases-tab" data-toggle="tab" href="#areacases" role="tab" aria-controls="areacases" aria-selected="false">Areas</a>
+              </li>
+              : null}
             <li className="nav-item">
               <a className="nav-link" id="published-cases-data-tab" data-toggle="tab" href="#publishedcasesdata" role="tab" aria-controls="publishedcasesdata" aria-selected="false">Data</a>
             </li>
             <li className="nav-item">
-              <a className="nav-link" id="actual-cases-tab" data-toggle="tab" href="#actualcases" role="tab" aria-controls="actualcases" aria-selected="false">Actual Date</a>
+              <a className="nav-link" id="actual-cases-tab" data-toggle="tab" href="#actualcases" role="tab" aria-controls="actualcases" aria-selected="false">Actual</a>
             </li>
             <li className="nav-item">
               <a className="nav-link" id="actual-cases-data-tab" data-toggle="tab" href="#actualcasesdata" role="tab" aria-controls="actualcasesdata" aria-selected="false">Data</a>
@@ -40,66 +46,77 @@ export default function Cases({ date, latest, cumulative, rate, cases,
             <div className="tab-pane fade show active" id="publishedcases" role="tabpanel"
               aria-labelledby="published-cases-tab">
               <div className="row">
-                <span className="col-sm-8 text-left">
-                  {date}
+                <span className="col-sm-6 text-left">
+                  {datePub}
                 </span>
-                <span className="col-sm-4 text-right">
-                  {latest}
+                <span className="col-sm-6 text-right">
+                  {newPub}
                 </span>
               </div>
               <div className="row">
-                <span className="col-sm-8 text-left">
+                <span className="col-sm-6 text-left">
                   Cumulative
             </span>
-                <span className="col-sm-4 text-right">
-                  {cumulative}
+                <span className="col-sm-6 text-right">
+                  {cumPub}
                 </span>
               </div>
               <div className="row">
-                <span className="col-sm-8 text-left">
+                <span className="col-sm-6 text-left">
                   Rate
             </span>
-                <span className="col-sm-4 text-right">
-                  {rate}
+                <span className="col-sm-6 text-right">
+                  {ratePub}
                 </span>
               </div>
-              <Graph data={casesSorted} />
+              <div className="row">
+                <Graph data={casesPubSorted} />
+              </div>
             </div>
 
             <div className="tab-pane fade" id="publishedcasesdata" role="tabpanel" aria-labelledby="published-cases-data-tab">
-              <DataTable data={cases} />
+              <TableData data={casesPub} cols={['Date', 'Day', 'Cases']} id="casespubtable" />
             </div>
+
+            {(areaType === 'overview' || areaType === 'nation')
+              ?
+              <div className="tab-pane fade" id="areacases" role="tabpanel" aria-labelledby="area-cases-tab">
+                <TableData data={casesLoc} cols={['Date', 'Location', 'Cases']} id="casesareatable" />
+              </div>
+              : null}
 
             <div className="tab-pane fade" id="actualcases" role="tabpanel" aria-labelledby="actual-cases-tab">
               <div className="row">
-                <span className="col-sm-8 text-left">
-                  {dateActual}
+                <span className="col-sm-6 text-left">
+                  {dateAct}
                 </span>
-                <span className="col-sm-4 text-right">
-                  {latestActual}
+                <span className="col-sm-6 text-right">
+                  {newAct}
                 </span>
               </div>
               <div className="row">
-                <span className="col-sm-8 text-left">
+                <span className="col-sm-6 text-left">
                   Cumulative
                 </span>
-                <span className="col-sm-4 text-right">
-                  {cumulativeActual}
+                <span className="col-sm-6 text-right">
+                  {cumAct}
                 </span>
               </div>
               <div className="row">
-                <span className="col-sm-8 text-left">
+                <span className="col-sm-6 text-left">
                   Rate
                 </span>
-                <span className="col-sm-4 text-right">
-                  {rateActual}
+                <span className="col-sm-6 text-right">
+                  {rateAct}
                 </span>
               </div>
-              <Graph data={casesActualSorted} />
+              <div className="row">
+                <Graph data={casesActSorted} />
+              </div>
             </div>
 
             <div className="tab-pane fade" id="actualcasesdata" role="tabpanel" aria-labelledby="actual-cases-data-tab">
-              <DataTable data={casesActual} />
+              <TableData data={casesAct} cols={['Date', 'Day', 'Cases']} id="casesacttable" />
             </div>
 
           </div>

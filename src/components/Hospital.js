@@ -1,13 +1,14 @@
 import React from 'react'
 import Graph from '../utilities/Graph'
-import DataTable from '../components/DataTable'
+import TableData from '../utilities/TableData'
 import { compare } from '../utilities/Utils'
 
 export default function Hospital({ date, latest, patients } = this.props) {
+  if (patients === undefined) patients = []
   const patientsSorted = [...patients].sort(compare())
-  return (
 
-    <div className="col-md-4">
+  return (
+    <div className="col-md-4 col-sm-6">
       <div className="card mb-5 h-100">
 
         <div className="card-header text-center">
@@ -27,18 +28,20 @@ export default function Hospital({ date, latest, patients } = this.props) {
             <div className="tab-pane fade show active" id="patients" role="tabpanel"
               aria-labelledby="patients-tab">
               <div className="row">
-                <span className="col-sm-8 text-left">
+                <span className="col-sm-6 text-left">
                   {date}
                 </span>
-                <span className="col-sm-4 text-right">
+                <span className="col-sm-6 text-right">
                   {latest}
                 </span>
               </div>
-              <Graph data={patientsSorted} />
+              <div className="row">
+                <Graph data={patientsSorted} />
+              </div>
             </div>
 
             <div className="tab-pane fade" id="patientsdata" role="tabpanel" aria-labelledby="patients-data-tab">
-              <DataTable data={patients} />
+              <TableData data={patients} cols={['Date', 'Day', 'Patients']} id="hospitaltable" />
             </div>
 
           </div>

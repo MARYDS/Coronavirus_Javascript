@@ -1,12 +1,14 @@
 import React from 'react'
 import Graph from '../utilities/Graph'
-import DataTable from '../components/DataTable'
+import TableData from '../utilities/TableData'
 import { compare } from '../utilities/Utils'
 
 export default function Admissions({ date, latest, cumulative, admissions } = this.props) {
+  if (admissions === undefined) admissions = []
   const admissionsSorted = [...admissions].sort(compare())
+
   return (
-    <div className="col-md-4">
+    <div className="col-md-4 col-sm-6">
       <div className="card mb-5 h-100">
 
         <div className="card-header text-center">
@@ -26,18 +28,20 @@ export default function Admissions({ date, latest, cumulative, admissions } = th
             <div className="tab-pane fade show active" id="admissions" role="tabpanel"
               aria-labelledby="admissions-tab">
               <div className="row">
-                <span className="col-sm-8 text-left">
+                <span className="col-sm-6 text-left">
                   {date}
                 </span>
-                <span className="col-sm-4 text-right">
+                <span className="col-sm-6 text-right">
                   {latest}
                 </span>
               </div>
-              <Graph data={admissionsSorted} />
+              <div className="row">
+                <Graph data={admissionsSorted} />
+              </div>
             </div>
 
             <div className="tab-pane fade" id="admissionsdata" role="tabpanel" aria-labelledby="admissions-data-tab">
-              <DataTable data={admissions} />
+              <TableData data={admissions} cols={['Date', 'Day', 'Admissions']} id='admissionstable' />
             </div>
 
           </div>

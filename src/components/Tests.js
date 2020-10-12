@@ -1,19 +1,22 @@
 import React from 'react'
 import Graph from '../utilities/Graph'
-import DataTable from '../components/DataTable'
+import TableData from '../utilities/TableData'
 import { compare } from '../utilities/Utils'
 
-export default function Tests({ date, piller1, piller2, piller3, piller4, total, cumPiller1, cumPiller2, cumPiller3, cumPiller4, cumPillerTotal, tests1, tests2, tests3, tests4, testsTotal } = this.props) {
-
-  const tests1Sorted = [...tests1].sort(compare())
-  const tests2Sorted = [...tests2].sort(compare())
-  const tests3Sorted = [...tests3].sort(compare())
-  const tests4Sorted = [...tests4].sort(compare())
-  const testsTotalSorted = [...testsTotal].sort(compare())
+export default function Tests(
+  { date, newP1, newP2, newP3, newP4, newTotal,
+    cumP1, cumP2, cumP3, cumP4, cumTotal,
+    tests1, tests2, tests3, tests4, testsTot } = this.props) {
+  if (tests1 === undefined) tests1 = []
+  if (tests2 === undefined) tests2 = []
+  if (tests3 === undefined) tests3 = []
+  if (tests4 === undefined) tests4 = []
+  if (testsTot === undefined) testsTot = []
+  const testsTotSorted = [...testsTot].sort(compare())
 
   return (
 
-    <div className="col-md-4">
+    <div className="col-md-4 col-sm-6">
       <div className="card h-100">
 
         <div className="card-header text-center">
@@ -58,10 +61,10 @@ export default function Tests({ date, piller1, piller2, piller3, piller4, total,
                   Pillar 1
                 </span>
                 <span className="col-sm-4 text-right">
-                  {piller1}
+                  {newP1}
                 </span>
                 <span className="col-sm-4 text-right">
-                  {cumPiller1}
+                  {cumP1}
                 </span>
               </div>
               <div className="row">
@@ -69,10 +72,10 @@ export default function Tests({ date, piller1, piller2, piller3, piller4, total,
                   Pillar 2
                 </span>
                 <span className="col-sm-4 text-right">
-                  {piller2}
+                  {newP2}
                 </span>
                 <span className="col-sm-4 text-right">
-                  {cumPiller2}
+                  {cumP2}
                 </span>
               </div>
               <div className="row">
@@ -80,10 +83,10 @@ export default function Tests({ date, piller1, piller2, piller3, piller4, total,
                   Pillar 3
                 </span>
                 <span className="col-sm-4 text-right">
-                  {piller3}
+                  {newP3}
                 </span>
                 <span className="col-sm-4 text-right">
-                  {cumPiller3}
+                  {cumP3}
                 </span>
               </div>
               <div className="row">
@@ -91,10 +94,10 @@ export default function Tests({ date, piller1, piller2, piller3, piller4, total,
                   Pillar 4
                 </span>
                 <span className="col-sm-4 text-right">
-                  {piller4}
+                  {newP4}
                 </span>
                 <span className="col-sm-4 text-right">
-                  {cumPiller4}
+                  {cumP4}
                 </span>
               </div>
               <div className="row">
@@ -102,33 +105,35 @@ export default function Tests({ date, piller1, piller2, piller3, piller4, total,
                   Total
                 </span>
                 <span className="col-sm-4 text-right">
-                  {total}
+                  {newTotal}
                 </span>
                 <span className="col-sm-4 text-right">
-                  {cumPillerTotal}
+                  {cumTotal}
                 </span>
               </div>
-              <Graph data={testsTotalSorted} />
+              <div className="row">
+                <Graph data={testsTotSorted} />
+              </div>
             </div>
 
             <div className="tab-pane fade" id="p1data" role="tabpanel" aria-labelledby="p1-data-tab">
-              <DataTable data={tests1} />
+              <TableData data={tests1} cols={['Date', 'Day', 'Tests']} id="testsp1table" />
             </div>
 
             <div className="tab-pane fade" id="p2data" role="tabpanel" aria-labelledby="p2-data-tab">
-              <DataTable data={tests2} />
+              <TableData data={tests2} cols={['Date', 'Day', 'Tests']} id="testsp2table" />
             </div>
 
             <div className="tab-pane fade" id="p3data" role="tabpanel" aria-labelledby="p3-data-tab">
-              <DataTable data={tests3} />
+              <TableData data={tests3} cols={['Date', 'Day', 'Tests']} id="testsp3table" />
             </div>
 
             <div className="tab-pane fade" id="p4data" role="tabpanel" aria-labelledby="p4-data-tab">
-              <DataTable data={tests4} />
+              <TableData data={tests4} cols={['Date', 'Day', 'Tests']} id="testsp4table" />
             </div>
 
             <div className="tab-pane fade" id="testsdata" role="tabpanel" aria-labelledby="tests-data-tab">
-              <DataTable data={testsTotal} />
+              <TableData data={testsTot} cols={['Date', 'Day', 'Tests']} id="teststottable" />
             </div>
 
           </div>

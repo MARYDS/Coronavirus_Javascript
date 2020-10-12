@@ -1,12 +1,14 @@
 import React from 'react'
 import Graph from '../utilities/Graph'
-import DataTable from '../components/DataTable'
+import TableData from '../utilities/TableData'
 import { compare } from '../utilities/Utils'
 
 export default function IntensiveCare({ date, latest, intensiveCare } = this.props) {
+  if (intensiveCare === undefined) intensiveCare = []
   const intensiveCareSorted = [...intensiveCare].sort(compare())
+
   return (
-    <div className="col-md-4">
+    <div className="col-md-4 col-sm-6">
       <div className="card mb-5 h-100">
 
         <div className="card-header text-center">
@@ -26,18 +28,20 @@ export default function IntensiveCare({ date, latest, intensiveCare } = this.pro
             <div className="tab-pane fade show active" id="intensivecare" role="tabpanel"
               aria-labelledby="intensivecare-tab">
               <div className="row">
-                <span className="col-sm-8 text-left">
+                <span className="col-sm-6 text-left">
                   {date}
                 </span>
-                <span className="col-sm-4 text-right">
+                <span className="col-sm-6 text-right">
                   {latest}
                 </span>
               </div>
-              <Graph data={intensiveCareSorted} />
+              <div className="row">
+                <Graph data={intensiveCareSorted} />
+              </div>
             </div>
 
             <div className="tab-pane fade" id="intensivecaredata" role="tabpanel" aria-labelledby="intensivecare-data-tab">
-              <DataTable data={intensiveCare} />
+              <TableData data={intensiveCare} cols={['Date', 'Day', 'Beds']} id="intensivecaretable" />
             </div>
 
           </div>
