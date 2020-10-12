@@ -14,7 +14,7 @@ export default function Deaths(
   const deathsActSorted = [...deathsAct].sort(compare())
 
   return (
-    <div className="col-md-4 col-sm-6">
+    <div className="col-md-4 col-sm-6 mb-3">
       <div className="card h-100">
 
         <div className="card-header text-center">

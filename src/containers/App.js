@@ -81,7 +81,7 @@ function App() {
           (areaType === 'nhsRegion')
             ? null
             :
-            <div className="row mb-3">
+            <div className="row">
               <Deaths
                 areaType={areaType}
                 datePub={apiData.deathsDate}
@@ -139,7 +139,7 @@ function App() {
           (areaType === 'region' || areaType === 'ltla' || areaType === "utla")
             ? null
             :
-            <div className="row mb-3">
+            <div className="row">
               <Hospital
                 date={apiData.hospitalDate}
                 latest={apiData.hospitalNew}

@@ -8,7 +8,7 @@ export default function Hospital({ date, latest, patients } = this.props) {
   const patientsSorted = [...patients].sort(compare())
 
   return (
-    <div className="col-md-4 col-sm-6">
+    <div className="col-md-4 col-sm-6 mb-3">
       <div className="card mb-5 h-100">
 
         <div className="card-header text-center">
