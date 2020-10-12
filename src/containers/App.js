@@ -6,6 +6,7 @@ import Tests from '../components/Tests'
 import Hospital from '../components/Hospital'
 import Admissions from '../components/Admissions'
 import IntensiveCare from '../components/IntensiveCare'
+import Footer from '../components/Footer'
 import Input from '../components/Input'
 import './App.css'
 
@@ -157,6 +158,9 @@ function App() {
               />
             </div>
         }
+        <div className="row mb-5">
+          <Footer />
+        </div>
       </div>
     </div >
   )
