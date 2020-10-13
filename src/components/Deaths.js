@@ -70,7 +70,7 @@ export default function Deaths(
                 </span>
               </div>
               <div className="row">
-                <Graph data={deathsPubSorted} />
+                <Graph data={deathsPubSorted} desc={['Deaths by Published Date']} />
               </div>
             </div>
 
@@ -111,7 +111,7 @@ export default function Deaths(
                 </span>
               </div>
               <div className="row">
-                <Graph data={deathsActSorted} />
+                <Graph data={deathsActSorted} desc={['Deaths by Date of Death']} />
               </div>
             </div>
 

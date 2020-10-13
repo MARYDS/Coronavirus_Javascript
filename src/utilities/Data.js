@@ -3,6 +3,7 @@ export default class Data {
   constructor(areaType, areaName) {
     this.areaType = areaType;
     this.areaName = areaName;
+    this.weekdays = ['Sun', 'Mon', 'Tues', 'Wed', 'Thur', 'Fri', 'Sat']
   }
 
   // Fetch data from the government API
@@ -60,7 +61,8 @@ export default class Data {
     return requiredData;
   }
 
-  // Fetch todays death data from API
+  // Fetch todays or most recent death data from API
+  // May vary by nation
   async getAPIDeathDataByLA(latest) {
 
     let deaths = []
@@ -118,13 +120,14 @@ export default class Data {
         date: locn.date,
         location: locn.locn,
         code: locn.code,
-        count: locn.count
+        count1: locn.count
       })
     })
     return deathsByLocation;
   }
 
-  // Fetch todays cases data from API
+  // Fetch todays or most recent cases data from API
+  // May vary by nation
   async getAPICaseDataByLA(latest) {
 
     const structure = {
@@ -182,10 +185,197 @@ export default class Data {
         date: locn.date,
         location: locn.locn,
         code: locn.code,
-        count: locn.count
+        count1: locn.count
       })
     })
     return casesByLocation;
+  }
+
+  // Fetch todays or most recent hospital data from API
+  async getAPIHospitalDataByNHSRegion() {
+
+    const structure = {
+      "locn": "areaName",
+      "code": "areaCode",
+      "date": "date",
+      "admissions": "newAdmissions",
+      "intensiveCare": "covidOccupiedMVBeds",
+      "patients": "hospitalCases"
+    }
+
+    const nhsRegions = ['East of England', 'London', 'Midlands',
+      'North East and Yorkshire', 'North West', 'South East',
+      'South West']
+
+    let hosp = {}
+    let region = ''
+
+    // Retrieve data for each region and merge results
+    for (let k = 0; k < nhsRegions.length; k++) {
+      region = nhsRegions[k]
+      let filters = "areaType=nhsRegion"
+      filters += `;areaName=${region}`
+
+      const request = `
+      https://api.coronavirus.data.gov.uk/v1/data?filters=${filters}&structure=${JSON.stringify(structure)}
+      `
+      let response = await fetch(request);
+      let results = await response.json();
+
+      if (results.data !== undefined && results.data != null) {
+        for (let i = 0; i < results.data.length; i++) {
+          const c = results.data[i]
+          const rowDay = this.weekdays[(new Date(c.date)).getDay()]
+
+          if (!(c.date in hosp)) {
+            hosp[c.date] = {
+              'day': rowDay,
+              'patientsEastOfEngland': null,
+              'patientsLondon': null,
+              'patientsMidlands': null,
+              'patientsNorthEastAndYorkshire': null,
+              'patientsNorthWest': null,
+              'patientsSouthEast': null,
+              'patientsSouthWest': null,
+              'admissionsEastOfEngland': null,
+              'admissionsLondon': null,
+              'admissionsMidlands': null,
+              'admissionsNorthEastAndYorkshire': null,
+              'admissionsNorthWest': null,
+              'admissionsSouthEast': null,
+              'admissionsSouthWest': null,
+              'intensiveCareEastOfEngland': null,
+              'intensiveCareLondon': null,
+              'intensiveCareMidlands': null,
+              'intensiveCareNorthEastAndYorkshire': null,
+              'intensiveCareNorthWest': null,
+              'intensiveCareSouthEast': null,
+              'intensiveCareSouthWest': null,
+            }
+          }
+
+          switch (region) {
+            case 'East of England': {
+              hosp[c.date]['patientsEastOfEngland'] = c.patients
+              hosp[c.date]['admissionsEastOfEngland'] = c.admissions
+              hosp[c.date]['intensiveCareEastOfEngland'] = c.intensiveCare
+              break
+            }
+            case 'London': {
+              hosp[c.date]['patientsLondon'] = c.patients
+              hosp[c.date]['admissionsLondon'] = c.admissions
+              hosp[c.date]['intensiveCareLondon'] = c.intensiveCare
+              break
+            }
+            case 'Midlands': {
+              hosp[c.date]['patientsMidlands'] = c.patients
+              hosp[c.date]['admissionsMidlands'] = c.admissions
+              hosp[c.date]['intensiveCareMidlands'] = c.intensiveCare
+              break
+            }
+            case 'North East and Yorkshire': {
+              hosp[c.date]['patientsNorthEastAndYorkshire'] = c.patients
+              hosp[c.date]['admissionsNorthEastAndYorkshire'] = c.admissions
+              hosp[c.date]['intensiveCareNorthEastAndYorkshire'] = c.intensiveCare
+              break
+            }
+            case 'North West': {
+              hosp[c.date]['patientsNorthWest'] = c.patients
+              hosp[c.date]['admissionsNorthWest'] = c.admissions
+              hosp[c.date]['intensiveCareNorthWest'] = c.intensiveCare
+              break
+            }
+            case 'South East': {
+              hosp[c.date]['patientsSouthEast'] = c.patients
+              hosp[c.date]['admissionsSouthEast'] = c.admissions
+              hosp[c.date]['intensiveCareSouthEast'] = c.intensiveCare
+              break
+            }
+            case 'South West': {
+              hosp[c.date]['patientsSouthWest'] = c.patients
+              hosp[c.date]['admissionsSouthWest'] = c.admissions
+              hosp[c.date]['intensiveCareSouthWest'] = c.intensiveCare
+              break
+            }
+            default: {
+
+            }
+          }
+        }
+      }
+    }
+
+    // Split out patients, admissions, intensiveCare
+    let hospital = {
+      patients: [],
+      admissions: [],
+      intensiveCare: []
+    }
+
+    for (const [key, value] of Object.entries(hosp)) {
+      if (value.patientsEastOfEngland != null ||
+        value.patientsLondon != null ||
+        value.patientsMidlands != null ||
+        value.patientsNorthEastAndYorkshire != null ||
+        value.patientsNorthWest != null ||
+        value.patientsSouthEast != null ||
+        value.patientsSouthWest != null
+      ) {
+        hospital.patients[hospital.patients.length] = {
+          'date': key,
+          'day': value.day,
+          'count1': value.patientsEastOfEngland,
+          'count2': value.patientsLondon,
+          'count3': value.patientsMidlands,
+          'count4': value.patientsNorthEastAndYorkshire,
+          'count5': value.patientsNorthWest,
+          'count6': value.patientsSouthEast,
+          'count7': value.patientsSouthWest,
+        }
+      }
+      if (value.admissionsEastOfEngland != null ||
+        value.admissionsLondon != null ||
+        value.admissionsMidlands != null ||
+        value.admissionsNorthEastAndYorkshire != null ||
+        value.admissionsNorthWest != null ||
+        value.admissionsSouthEast != null ||
+        value.admissionsSouthWest != null
+      ) {
+        hospital.admissions[hospital.admissions.length] = {
+          'date': key,
+          'day': value.day,
+          'count1': value.admissionsEastOfEngland,
+          'count2': value.admissionsLondon,
+          'count3': value.admissionsMidlands,
+          'count4': value.admissionsNorthEastAndYorkshire,
+          'count5': value.admissionsNorthWest,
+          'count6': value.admissionsSouthEast,
+          'count7': value.admissionsSouthWest,
+        }
+      }
+      if (value.intensiveCareEastOfEngland != null ||
+        value.intensiveCareLondon != null ||
+        value.intensiveCareMidlands != null ||
+        value.intensiveCareNorthEastAndYorkshire != null ||
+        value.intensiveCareNorthWest != null ||
+        value.intensiveCareSouthEast != null ||
+        value.intensiveCareSouthWest != null
+      ) {
+        hospital.intensiveCare[hospital.intensiveCare.length] = {
+          'date': key,
+          'day': value.day,
+          'count1': value.intensiveCareEastOfEngland,
+          'count2': value.intensiveCareLondon,
+          'count3': value.intensiveCareMidlands,
+          'count4': value.intensiveCareNorthEastAndYorkshire,
+          'count5': value.intensiveCareNorthWest,
+          'count6': value.intensiveCareSouthEast,
+          'count7': value.intensiveCareSouthWest,
+        }
+      }
+    }
+
+    return hospital;
   }
 
   extractRequiredFields(apiData) {
@@ -196,14 +386,13 @@ export default class Data {
 
     if (apiData !== undefined && apiData.length > 0) {
 
-      const weekdays = ['Sun', 'Mon', 'Tues', 'Wed', 'Thur', 'Fri', 'Sat']
       data.dateLatest = apiData[0].date
 
       if (data.dateLatest != null) {
         for (let i = 0; i < apiData.length; i++) {
           const c = apiData[i]
           const rowDate = (new Date(c.date)).toLocaleDateString()
-          const rowDay = weekdays[(new Date(c.date)).getDay()]
+          const rowDay = this.weekdays[(new Date(c.date)).getDay()]
 
           // Get the latest values for each variable, may be on different dates
           // Deaths Published
@@ -280,85 +469,89 @@ export default class Data {
               data.deathsPub[data.deathsPub.length] = {
                 date: c.date,
                 day: rowDay,
-                count: c.newDeaths28DaysByPublishDate
+                count1: c.newDeaths28DaysByPublishDate
               }
             }
             if (c.newDeaths28DaysByDeathDate != null) {
               data.deathsAct[data.deathsAct.length] = {
                 date: c.date,
                 day: rowDay,
-                count: c.newDeaths28DaysByDeathDate
+                count1: c.newDeaths28DaysByDeathDate
               }
             }
             if (c.newCasesByPublishDate != null) {
               data.casesPub[data.casesPub.length] = {
                 date: c.date,
                 day: rowDay,
-                count: c.newCasesByPublishDate
+                count1: c.newCasesByPublishDate
               }
             }
             if (c.newCasesBySpecimenDate != null) {
               data.casesAct[data.casesAct.length] = {
                 date: c.date,
                 day: rowDay,
-                count: c.newCasesBySpecimenDate
+                count1: c.newCasesBySpecimenDate
               }
             }
             if (c.newPillarOneTestsByPublishDate != null) {
               data.tests1[data.tests1.length] = {
                 date: c.date,
                 day: rowDay,
-                count: c.newPillarOneTestsByPublishDate
+                count1: c.newPillarOneTestsByPublishDate
               }
             }
             if (c.newPillarTwoTestsByPublishDate != null) {
               data.tests2[data.tests2.length] = {
                 date: c.date,
                 day: rowDay,
-                count: c.newPillarTwoTestsByPublishDate
+                count1: c.newPillarTwoTestsByPublishDate
               }
             }
             if (c.newPillarThreeTestsByPublishDate != null) {
               data.tests3[data.tests3.length] = {
                 date: c.date,
                 day: rowDay,
-                count: c.newPillarThreeTestsByPublishDate
+                count1: c.newPillarThreeTestsByPublishDate
               }
             }
             if (c.newPillarFourTestsByPublishDate != null) {
               data.tests4[data.tests4.length] = {
                 date: c.date,
                 day: rowDay,
-                count: c.newPillarFourTestsByPublishDate
+                count1: c.newPillarFourTestsByPublishDate
               }
             }
             data.testsTot[data.testsTot.length] = {
               date: c.date,
               day: rowDay,
-              count: parseInt(c.newPillarOneTestsByPublishDate || 0) +
+              count1: parseInt(c.newPillarOneTestsByPublishDate || 0) +
                 parseInt(c.newPillarTwoTestsByPublishDate || 0) +
                 parseInt(c.newPillarThreeTestsByPublishDate || 0) +
-                parseInt(c.newPillarFourTestsByPublishDate || 0)
+                parseInt(c.newPillarFourTestsByPublishDate || 0),
+              count2: parseInt(c.newPillarOneTestsByPublishDate || 0),
+              count3: parseInt(c.newPillarTwoTestsByPublishDate || 0),
+              count4: parseInt(c.newPillarThreeTestsByPublishDate || 0),
+              count5: parseInt(c.newPillarFourTestsByPublishDate || 0),
             }
             if (c.hospitalCases != null) {
               data.patients[data.patients.length] = {
                 date: c.date,
                 day: rowDay,
-                count: c.hospitalCases
+                count1: c.hospitalCases
               }
             }
             if (c.newAdmissions != null) {
               data.admissions[data.admissions.length] = {
                 date: c.date,
                 day: rowDay,
-                count: c.newAdmissions
+                count1: c.newAdmissions
               }
             }
             if (c.covidOccupiedMVBeds != null) {
               data.intensiveCare[data.intensiveCare.length] = {
                 date: c.date,
                 day: rowDay,
-                count: c.covidOccupiedMVBeds
+                count1: c.covidOccupiedMVBeds
               }
             }
           }

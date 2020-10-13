@@ -112,7 +112,7 @@ export default function Tests(
                 </span>
               </div>
               <div className="row">
-                <Graph data={testsTotSorted} />
+                <Graph data={testsTotSorted} desc={['Total Tests', 'Pillar 1', 'Pillar 2', 'Pillar 3', 'Pillar 4']} />
               </div>
             </div>
 

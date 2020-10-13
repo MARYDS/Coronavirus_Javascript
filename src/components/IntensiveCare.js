@@ -3,9 +3,15 @@ import Graph from '../utilities/Graph'
 import TableData from '../utilities/TableData'
 import { compare } from '../utilities/Utils'
 
-export default function IntensiveCare({ date, latest, intensiveCare } = this.props) {
+export default function IntensiveCare({ date, latest, intensiveCare, regions } = this.props) {
   if (intensiveCare === undefined) intensiveCare = []
+  if (regions === undefined) regions = []
   const intensiveCareSorted = [...intensiveCare].sort(compare())
+  const regionsSorted = [...regions].sort(compare())
+
+  const nhsRegions = ['East of England', 'London', 'Midlands',
+    'North East and Yorkshire', 'North West', 'South East',
+    'South West']
 
   return (
     <div className="col-md-4 col-sm-6 mb-3">
@@ -19,6 +25,9 @@ export default function IntensiveCare({ date, latest, intensiveCare } = this.pro
             </li>
             <li className="nav-item">
               <a className="nav-link" id="intensivecare-data-tab" data-toggle="tab" href="#intensivecaredata" role="tab" aria-controls="intensivecaredata" aria-selected="false">Data</a>
+            </li>
+            <li className="nav-item">
+              <a className="nav-link" id="regions-intensivecare-data-tab" data-toggle="tab" href="#regionsintensivecaredata" role="tab" aria-controls="regionsintensivecaredata" aria-selected="false">Regions</a>
             </li>
           </ul>
         </div>
@@ -36,12 +45,19 @@ export default function IntensiveCare({ date, latest, intensiveCare } = this.pro
                 </span>
               </div>
               <div className="row">
-                <Graph data={intensiveCareSorted} />
+                <Graph data={intensiveCareSorted} desc={['Intensive Care']} />
               </div>
             </div>
 
             <div className="tab-pane fade" id="intensivecaredata" role="tabpanel" aria-labelledby="intensivecare-data-tab">
               <TableData data={intensiveCare} cols={['Date', 'Day', 'Beds']} id="intensivecaretable" />
+            </div>
+
+            <div className="tab-pane fade" id="regionsintensivecaredata" role="tabpanel"
+              aria-labelledby="regions-intensivecare-data-tab">
+              <div className="row">
+                <Graph data={regionsSorted} desc={nhsRegions} />
+              </div>
             </div>
 
           </div>

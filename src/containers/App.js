@@ -17,6 +17,7 @@ function App() {
   const [apiData, setAPIData] = useState({})
   const [apiCaseData, setAPICaseData] = useState([])
   const [apiDeathData, setAPIDeathData] = useState([])
+  const [apiHospitalData, setAPIHospitalData] = useState({})
   const [noData, setNoData] = useState(false)
 
   useEffect(() => {
@@ -57,6 +58,19 @@ function App() {
         })
     }
   }, [apiData.deathsDate, apiData.casesDate, areaType, areaName]);
+
+  useEffect(() => {
+    let data = new Data()
+    data
+      .getAPIHospitalDataByNHSRegion()
+      .then((response) => {
+        setAPIHospitalData(response)
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+
+  }, []);
 
   const updateAreaTypeAndName = (newAreaType, newAreaName) => {
     setAreaType(newAreaType)
@@ -144,17 +158,20 @@ function App() {
                 date={apiData.hospitalDate}
                 latest={apiData.hospitalNew}
                 patients={apiData.patients}
+                regions={apiHospitalData.patients}
               />
               <Admissions
                 date={apiData.admissionsDate}
                 latest={apiData.admissionsNew}
                 cumulative={apiData.admissionsCum}
                 admissions={apiData.admissions}
+                regions={apiHospitalData.admissions}
               />
               <IntensiveCare
                 date={apiData.intensiveCareDate}
                 latest={apiData.intensiveCareNew}
                 intensiveCare={apiData.intensiveCare}
+                regions={apiHospitalData.intensiveCare}
               />
             </div>
         }

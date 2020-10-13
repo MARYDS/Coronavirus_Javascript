@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import {
   LineChart, Line, XAxis, YAxis,
-  Tooltip, CartesianGrid,
+  Tooltip, Legend, CartesianGrid
 } from 'recharts';
 
-export default function Graph({ data } = this.props) {
+export default function Graph({ data, desc } = this.props) {
+
+  if (data === undefined) data = []
+  if (desc === undefined) desc = []
 
   const [sizes, setSizes] = useState(
     {
@@ -21,18 +24,26 @@ export default function Graph({ data } = this.props) {
     }
     window.addEventListener('resize', handleResize)
 
-    return _ => {
+    return () => {
       window.removeEventListener('resize', handleResize)
     }
 
   })
 
   function CustomTooltip({ payload, label, active }) {
-    if (active && payload != null) {
+    if (active && payload != null && payload[0] !== undefined) {
       return (
         <div className="custom-tooltip">
-          <span className="label">{(new Date(payload[0].payload.date)).toLocaleDateString()} </span>
-          <span className="data">{(payload[0].value).toLocaleString()}</span>
+          <div className="label">{(new Date(payload[0].payload.date)).toLocaleDateString()} </div>
+          {payload.map((load) => {
+            return (
+              <div key={load.name}>
+                <span className="label">{load.name} </span>
+                <span className="data">{load.value.toLocaleString()}</span>
+              </div>
+            )
+          })
+          }
         </div>
       );
     }
@@ -51,7 +62,7 @@ export default function Graph({ data } = this.props) {
   } else {
     w = Math.floor(400 * sizes.width / 1440) * 3
   }
-  const h = Math.floor(w / 2)
+  const h = Math.floor(w * 0.8)
 
   return (
     <div className="line-chart-wrapper">
@@ -62,9 +73,41 @@ export default function Graph({ data } = this.props) {
         <CartesianGrid stroke="#ccc" vertical={false} />
         <YAxis tick={{ fontSize: '0.8rem' }} />
         <XAxis interval={30} tickFormatter={formatXAxis}
-          tick={{ fontSize: '0.8rem' }} dataKey="date" />
+          tick={{ fontSize: '0.8rem' }} dataKey="date" height={80} />
         <Tooltip content={<CustomTooltip />} />
-        <Line type="monotone" dataKey="count" stroke="#ff7300" dot={false} />
+        <Legend verticalAlign="bottom" height={5}
+          wrapperStyle={{ paddingtop: "20px" }} />
+
+        <Line name={(desc !== undefined) ? desc[0] : 'data'} type="monotone" dataKey="count1" stroke="#ff7300" dot={false} />
+
+        {(data.length > 0 && data[0].count2 === undefined) ? null :
+          <Line name={desc[1]} type="monotone" dataKey="count2" stroke="#003EFF" dot={false} />
+        }
+        {(data.length > 0 && data[0].count3 === undefined) ? null :
+          <Line name={desc[2]} type="monotone" dataKey="count3" stroke="#008000" dot={false} />
+        }
+        {(data.length > 0 && data[0].count4 === undefined) ? null :
+          <Line name={desc[3]} type="monotone" dataKey="count4" stroke="#00C5CD" dot={false} />
+        }
+        {(data.length > 0 && data[0].count5 === undefined) ? null :
+          <Line name={desc[4]} type="monotone" dataKey="count5" stroke="#1A1A1A" dot={false} />
+        }
+        {(data.length > 0 && data[0].count6 === undefined) ? null :
+          <Line name={desc[5]} type="monotone" dataKey="count6" stroke="#8B2500" dot={false} />
+        }
+        {(data.length > 0 && data[0].count7 === undefined) ? null :
+          <Line name={desc[6]} type="monotone" dataKey="count7" stroke="#551A8B" dot={false} />
+        }
+        {(data.length > 0 && data[0].count8 === undefined) ? null :
+          <Line name={desc[7]} type="monotone" dataKey="count8" stroke="#551011" dot={false} />
+        }
+        {(data.length > 0 && data[0].count9 === undefined) ? null :
+          <Line name={desc[8]} type="monotone" dataKey="count9" stroke="#EEC900" dot={false} />
+        }
+        {(data.length > 0 && data[0].count10 === undefined) ? null :
+          <Line name={desc[9]} type="monotone" dataKey="count10" stroke="#F08080" dot={false} />
+        }
+
       </LineChart>
     </div>
   );

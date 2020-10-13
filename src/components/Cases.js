@@ -70,7 +70,7 @@ export default function Cases(
                 </span>
               </div>
               <div className="row">
-                <Graph data={casesPubSorted} />
+                <Graph data={casesPubSorted} desc={['Cases by Published Date']} />
               </div>
             </div>
 
@@ -111,7 +111,7 @@ export default function Cases(
                 </span>
               </div>
               <div className="row">
-                <Graph data={casesActSorted} />
+                <Graph data={casesActSorted} desc={['Cases by Specimen Date']} />
               </div>
             </div>
 

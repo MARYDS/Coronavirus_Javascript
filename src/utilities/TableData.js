@@ -28,7 +28,7 @@ export default function TableData({ data, cols, id } = this.props) {
                     {(elem.day !== undefined)
                       ? <td>{elem.day}</td>
                       : null}
-                    <td>{elem.count.toLocaleString()}</td>
+                    <td>{elem.count1.toLocaleString()}</td>
                   </tr>
                 )
               })

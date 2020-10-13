@@ -5,7 +5,7 @@ body {
 }
 .custom-scrollbar {
   position: relative;
-  height: 300px;
+  height: 400px;
   overflow: auto;
 }
 

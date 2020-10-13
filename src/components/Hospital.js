@@ -3,9 +3,15 @@ import Graph from '../utilities/Graph'
 import TableData from '../utilities/TableData'
 import { compare } from '../utilities/Utils'
 
-export default function Hospital({ date, latest, patients } = this.props) {
+export default function Hospital({ date, latest, patients, regions } = this.props) {
   if (patients === undefined) patients = []
+  if (regions === undefined) regions = []
   const patientsSorted = [...patients].sort(compare())
+  const regionsSorted = [...regions].sort(compare())
+
+  const nhsRegions = ['East of England', 'London', 'Midlands',
+    'North East and Yorkshire', 'North West', 'South East',
+    'South West']
 
   return (
     <div className="col-md-4 col-sm-6 mb-3">
@@ -19,6 +25,9 @@ export default function Hospital({ date, latest, patients } = this.props) {
             </li>
             <li className="nav-item">
               <a className="nav-link" id="patients-data-tab" data-toggle="tab" href="#patientsdata" role="tab" aria-controls="patientsdata" aria-selected="false">Data</a>
+            </li>
+            <li className="nav-item">
+              <a className="nav-link" id="regions-data-tab" data-toggle="tab" href="#regionsdata" role="tab" aria-controls="regionsdata" aria-selected="false">Regions</a>
             </li>
           </ul>
         </div>
@@ -36,12 +45,19 @@ export default function Hospital({ date, latest, patients } = this.props) {
                 </span>
               </div>
               <div className="row">
-                <Graph data={patientsSorted} />
+                <Graph data={patientsSorted} desc={['Patients']} />
               </div>
             </div>
 
             <div className="tab-pane fade" id="patientsdata" role="tabpanel" aria-labelledby="patients-data-tab">
               <TableData data={patients} cols={['Date', 'Day', 'Patients']} id="hospitaltable" />
+            </div>
+
+            <div className="tab-pane fade" id="regionsdata" role="tabpanel"
+              aria-labelledby="regions-data-tab">
+              <div className="row">
+                <Graph data={regionsSorted} desc={nhsRegions} />
+              </div>
             </div>
 
           </div>
