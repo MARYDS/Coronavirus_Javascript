@@ -4,7 +4,7 @@ import Chart from '../utilities/Chart'
 import TableData from '../utilities/TableData'
 import { compare } from '../utilities/Utils'
 
-export default function Hospital({ date, latest, patients, regions } = this.props) {
+export default function Hospital({ date, latest, average, patients, regions } = this.props) {
   if (patients === undefined) patients = []
   if (regions === undefined) regions = []
   const patientsSorted = [...patients].sort(compare())
@@ -46,7 +46,15 @@ export default function Hospital({ date, latest, patients, regions } = this.prop
                 </span>
               </div>
               <div className="row">
-                <Chart data={patientsSorted} desc={['Patients']} />
+                <span className="col-sm-6 text-left">
+                  7 Day Average
+                </span>
+                <span className="col-sm-6 text-right">
+                  {average}
+                </span>
+              </div>
+              <div className="row">
+                <Chart data={patientsSorted} desc={['Patients']} linesDesc={['7 Day Average']} />
               </div>
             </div>
 

@@ -5,7 +5,7 @@ import TableData from '../utilities/TableData'
 import { compare } from '../utilities/Utils'
 
 export default function Admissions(
-  { date, latest, cumulative, admissions, admissionsByAge, regions }
+  { date, latest, average, cumulative, admissions, admissionsByAge, regions }
     = this.props) {
 
   if (admissions === undefined || admissions === null) admissions = []
@@ -54,7 +54,15 @@ export default function Admissions(
                 </span>
               </div>
               <div className="row">
-                <Chart data={admissionsSorted} desc={['Admissions']} />
+                <span className="col-sm-6 text-left">
+                  7 Day Average
+                </span>
+                <span className="col-sm-6 text-right">
+                  {average}
+                </span>
+              </div>
+              <div className="row">
+                <Chart data={admissionsSorted} desc={['Admissions']} linesDesc={['7 Day Average']} />
               </div>
             </div>
 
@@ -65,7 +73,7 @@ export default function Admissions(
             <div className="tab-pane fade" id="admissionsbyagedata" role="tabpanel"
               aria-labelledby="admissions-byage-data-tab">
               <div className="row">
-                <Chart data={admissionsByAgeSorted} desc={['0-5', '6-17', '18-64', '65-84', '85+']} />
+                <Chart data={admissionsByAgeSorted} desc={['0-5', '6-17', '18-64', '65-84', '85+']} linesDesc={['7 Day Average']} />
               </div>
             </div>
 

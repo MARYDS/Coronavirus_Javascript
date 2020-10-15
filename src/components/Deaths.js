@@ -4,8 +4,8 @@ import TableData from '../utilities/TableData'
 import { compare } from '../utilities/Utils'
 
 export default function Deaths(
-  { areaType, datePub, newPub, cumPub, ratePub, deathsPub,
-    dateAct, newAct, cumAct, rateAct, deathsAct, deathsLoc }
+  { areaType, datePub, newPub, cumPub, ratePub, averPub, deathsPub,
+    dateAct, newAct, cumAct, rateAct, averAct, deathsAct, deathsLoc }
     = this.props) {
 
   if (deathsPub === undefined) deathsPub = []
@@ -55,6 +55,14 @@ export default function Deaths(
               </div>
               <div className="row">
                 <span className="col-sm-6 text-left">
+                  7 Day Average
+                </span>
+                <span className="col-sm-6 text-right">
+                  {averPub}
+                </span>
+              </div>
+              <div className="row">
+                <span className="col-sm-6 text-left">
                   Cumulative
                 </span>
                 <span className="col-sm-6 text-right">
@@ -70,7 +78,7 @@ export default function Deaths(
                 </span>
               </div>
               <div className="row">
-                <Chart data={deathsPubSorted} desc={['Deaths by Published Date']} />
+                <Chart data={deathsPubSorted} desc={['Deaths by Published Date']} linesDesc={['7 Day Average']} />
               </div>
             </div>
 
@@ -96,6 +104,14 @@ export default function Deaths(
               </div>
               <div className="row">
                 <span className="col-sm-6 text-left">
+                  7 Day Average
+                </span>
+                <span className="col-sm-6 text-right">
+                  {averAct}
+                </span>
+              </div>
+              <div className="row">
+                <span className="col-sm-6 text-left">
                   Cumulative
                 </span>
                 <span className="col-sm-6 text-right">
@@ -111,7 +127,7 @@ export default function Deaths(
                 </span>
               </div>
               <div className="row">
-                <Chart data={deathsActSorted} desc={['Deaths by Date of Death']} />
+                <Chart data={deathsActSorted} desc={['Deaths by Date of Death']} linesDesc={['7 Day Average']} />
               </div>
             </div>
 

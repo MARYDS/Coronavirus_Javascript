@@ -102,11 +102,13 @@ function App() {
                 newPub={apiData.deathsNew}
                 cumPub={apiData.deathsCum}
                 ratePub={apiData.deathsRate}
+                averPub={apiData.deathsAverage}
                 deathsPub={apiData.deathsPub}
                 dateAct={apiData.deathsDateAct}
                 newAct={apiData.deathsNewAct}
                 cumAct={apiData.deathsCumAct}
                 rateAct={apiData.deathsRateAct}
+                averAct={apiData.deathsAverageAct}
                 deathsAct={apiData.deathsAct}
                 deathsLoc={apiDeathData}
               />
@@ -116,11 +118,13 @@ function App() {
                 newPub={apiData.casesNew}
                 cumPub={apiData.casesCum}
                 ratePub={apiData.casesRate}
+                averPub={apiData.casesAverage}
                 casesPub={apiData.casesPub}
                 dateAct={apiData.casesDateAct}
                 newAct={apiData.casesNewAct}
                 cumAct={apiData.casesCumAct}
                 rateAct={apiData.casesRateAct}
+                averAct={apiData.casesAverageAct}
                 casesAct={apiData.casesAct}
                 casesLoc={apiCaseData}
               />
@@ -157,12 +161,14 @@ function App() {
               <Hospital
                 date={apiData.hospitalDate}
                 latest={apiData.hospitalNew}
+                average={apiData.hospitalAverage}
                 patients={apiData.patients}
                 regions={apiHospitalData.patients}
               />
               <Admissions
                 date={apiData.admissionsDate}
                 latest={apiData.admissionsNew}
+                average={apiData.admissionsAverage}
                 cumulative={apiData.admissionsCum}
                 admissions={apiData.admissions}
                 admissionsByAge={apiData.admissionsByAge}
@@ -171,6 +177,7 @@ function App() {
               <IntensiveCare
                 date={apiData.intensiveCareDate}
                 latest={apiData.intensiveCareNew}
+                average={apiData.intensiveCareAverage}
                 intensiveCare={apiData.intensiveCare}
                 regions={apiHospitalData.intensiveCare}
               />

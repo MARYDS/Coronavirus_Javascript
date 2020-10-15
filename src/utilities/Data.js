@@ -387,7 +387,7 @@ export default class Data {
   extractRequiredFields(apiData) {
 
     const data = {
-      dateLatest: null, deathsDate: null, deathsDateYMD: null, deathsNew: null, deathsCum: null, deathsRate: null, deathsDateAct: null, deathsNewAct: null, deathsCumAct: null, deathsRateAct: null, casesDate: null, casesDateYMD: null, casesNew: null, casesCum: null, casesRate: null, casesDateAct: null, casesNewAct: null, casesCumAct: null, casesRateAct: null, hospitalDate: null, hospitalNew: null, admissionsDate: null, admissionsNew: null, admissionsCum: null, intensiveCareDate: null, intensiveCareNew: null, testsDate: null, newP1: null, newP2: null, newP3: null, newP4: null, newTests: null, cumP1: null, cumP2: null, cumP3: null, cumP4: null, cumTests: null, deathsPub: [], deathsAct: [], casesPub: [], casesAct: [], tests1: [], tests2: [], tests3: [], tests4: [], testsTot: [], patients: [], admissions: [], admissionsByAge: [], intensiveCare: []
+      dateLatest: null, deathsDate: null, deathsDateYMD: null, deathsNew: null, deathsCum: null, deathsRate: null, deathsAverage: null, deathsDateAct: null, deathsNewAct: null, deathsCumAct: null, deathsRateAct: null, deathsAverageAct: null, casesDate: null, casesDateYMD: null, casesNew: null, casesCum: null, casesRate: null, casesAverage: null, casesDateAct: null, casesNewAct: null, casesCumAct: null, casesRateAct: null, casesAverageAct: null, hospitalDate: null, hospitalNew: null, hospitalAverage: null, admissionsDate: null, admissionsNew: null, admissionsCum: null, admissionsAverage: null, intensiveCareDate: null, intensiveCareNew: null, intensiveCareAverage: null, testsDate: null, newP1: null, newP2: null, newP3: null, newP4: null, newTests: null, cumP1: null, cumP2: null, cumP3: null, cumP4: null, cumTests: null, deathsPub: [], deathsAct: [], casesPub: [], casesAct: [], tests1: [], tests2: [], tests3: [], tests4: [], testsTot: [], patients: [], admissions: [], admissionsByAge: [], intensiveCare: []
     }
 
     // Got data
@@ -419,6 +419,17 @@ export default class Data {
             data.deathsRate = c.cumDeathsPubRate
             data.deathsDate = rowDate
             data.deathsDateYMD = c.date
+            data.deathsAverage = Math.floor(
+              (
+                (c.newDeathsPub || 0) +
+                ((i + 1 < apiData.length) ? (apiData[i + 1].newDeathsPub || 0) : 0) +
+                ((i + 2 < apiData.length) ? (apiData[i + 2].newDeathsPub || 0) : 0) +
+                ((i + 3 < apiData.length) ? (apiData[i + 3].newDeathsPub || 0) : 0) +
+                ((i + 4 < apiData.length) ? (apiData[i + 4].newDeathsPub || 0) : 0) +
+                ((i + 5 < apiData.length) ? (apiData[i + 5].newDeathsPub || 0) : 0) +
+                ((i + 6 < apiData.length) ? (apiData[i + 6].newDeathsPub || 0) : 0)
+              ) / 7)
+              .toLocaleString()
           }
           // Deaths by Death Date - Set if not already set
           if (data.deathsNewAct == null && c.newDeathsAct) {
@@ -426,6 +437,13 @@ export default class Data {
             data.deathsCumAct = (c.cumDeathsAct || '').toLocaleString()
             data.deathsRateAct = c.cumDeathsActRate
             data.deathsDateAct = rowDate
+            data.deathsAverageAct = Math.floor(((c.newDeathsAct || 0) +
+              ((i + 1 < apiData.length) ? (apiData[i + 1].newDeathsAct || 0) : 0) +
+              ((i + 2 < apiData.length) ? (apiData[i + 2].newDeathsAct || 0) : 0) +
+              ((i + 3 < apiData.length) ? (apiData[i + 3].newDeathsAct || 0) : 0) +
+              ((i + 4 < apiData.length) ? (apiData[i + 4].newDeathsAct || 0) : 0) +
+              ((i + 5 < apiData.length) ? (apiData[i + 5].newDeathsAct || 0) : 0) +
+              ((i + 6 < apiData.length) ? (apiData[i + 6].newDeathsAct || 0) : 0)) / 7).toLocaleString()
           }
           // Cases Published - Set if not already set
           if (data.casesNew == null && c.newCasesPub) {
@@ -434,6 +452,13 @@ export default class Data {
             data.casesRate = c.cumCasesPubRate
             data.casesDate = rowDate
             data.casesDateYMD = c.date
+            data.casesAverage = Math.floor(((c.newCasesPub || 0) +
+              ((i + 1 < apiData.length) ? (apiData[i + 1].newCasesPub || 0) : 0) +
+              ((i + 2 < apiData.length) ? (apiData[i + 2].newCasesPub || 0) : 0) +
+              ((i + 3 < apiData.length) ? (apiData[i + 3].newCasesPub || 0) : 0) +
+              ((i + 4 < apiData.length) ? (apiData[i + 4].newCasesPub || 0) : 0) +
+              ((i + 5 < apiData.length) ? (apiData[i + 5].newCasesPub || 0) : 0) +
+              ((i + 6 < apiData.length) ? (apiData[i + 6].newCasesPub || 0) : 0)) / 7).toLocaleString()
           }
           // Cases by specimen date - Set if not already set
           if (data.casesNewAct == null && c.newCasesAct) {
@@ -441,6 +466,13 @@ export default class Data {
             data.casesCumAct = (c.cumCasesAct || '').toLocaleString()
             data.casesRateAct = c.cumCasesActRate
             data.casesDateAct = rowDate
+            data.casesAverageAct = Math.floor(((c.newCasesAct || 0) +
+              ((i + 1 < apiData.length) ? (apiData[i + 1].newCasesAct || 0) : 0) +
+              ((i + 2 < apiData.length) ? (apiData[i + 2].newCasesAct || 0) : 0) +
+              ((i + 3 < apiData.length) ? (apiData[i + 3].newCasesAct || 0) : 0) +
+              ((i + 4 < apiData.length) ? (apiData[i + 4].newCasesAct || 0) : 0) +
+              ((i + 5 < apiData.length) ? (apiData[i + 5].newCasesAct || 0) : 0) +
+              ((i + 6 < apiData.length) ? (apiData[i + 6].newCasesAct || 0) : 0)) / 7).toLocaleString()
           }
           // Tests - Set if not already set
           if (data.newP1 == null &&
@@ -463,18 +495,39 @@ export default class Data {
           if (data.hospitalNew == null && c.hospitalCases) {
             data.hospitalNew = (c.hospitalCases).toLocaleString()
             data.hospitalDate = rowDate
+            data.hospitalAverage = Math.floor(((c.hospitalCases || 0) +
+              ((i + 1 < apiData.length) ? (apiData[i + 1].hospitalCases || 0) : 0) +
+              ((i + 2 < apiData.length) ? (apiData[i + 2].hospitalCases || 0) : 0) +
+              ((i + 3 < apiData.length) ? (apiData[i + 3].hospitalCases || 0) : 0) +
+              ((i + 4 < apiData.length) ? (apiData[i + 4].hospitalCases || 0) : 0) +
+              ((i + 5 < apiData.length) ? (apiData[i + 5].hospitalCases || 0) : 0) +
+              ((i + 6 < apiData.length) ? (apiData[i + 6].hospitalCases || 0) : 0)) / 7).toLocaleString()
           }
           // Hospital admissions - Set if not already set
           if (data.admissionsNew == null && c.newAdmissions) {
             data.admissionsNew = (c.newAdmissions).toLocaleString()
             data.admissionsCum = (c.cumAdmissions || '').toLocaleString()
             data.admissionsDate = rowDate
+            data.admissionsAverage = Math.floor(((c.newAdmissions || 0) +
+              ((i + 1 < apiData.length) ? (apiData[i + 1].newAdmissions || 0) : 0) +
+              ((i + 2 < apiData.length) ? (apiData[i + 2].newAdmissions || 0) : 0) +
+              ((i + 3 < apiData.length) ? (apiData[i + 3].newAdmissions || 0) : 0) +
+              ((i + 4 < apiData.length) ? (apiData[i + 4].newAdmissions || 0) : 0) +
+              ((i + 5 < apiData.length) ? (apiData[i + 5].newAdmissions || 0) : 0) +
+              ((i + 6 < apiData.length) ? (apiData[i + 6].newAdmissions || 0) : 0)) / 7).toLocaleString()
           }
 
           // Intensive care - Set if not already set
           if (data.intensiveCareNew == null && c.covidOccupiedMVBeds) {
             data.intensiveCareNew = (c.covidOccupiedMVBeds).toLocaleString()
             data.intensiveCareDate = rowDate
+            data.intensiveCareAverage = Math.floor(((c.covidOccupiedMVBeds || 0) +
+              ((i + 1 < apiData.length) ? (apiData[i + 1].covidOccupiedMVBeds || 0) : 0) +
+              ((i + 2 < apiData.length) ? (apiData[i + 2].covidOccupiedMVBeds || 0) : 0) +
+              ((i + 3 < apiData.length) ? (apiData[i + 3].covidOccupiedMVBeds || 0) : 0) +
+              ((i + 4 < apiData.length) ? (apiData[i + 4].covidOccupiedMVBeds || 0) : 0) +
+              ((i + 5 < apiData.length) ? (apiData[i + 5].covidOccupiedMVBeds || 0) : 0) +
+              ((i + 6 < apiData.length) ? (apiData[i + 6].covidOccupiedMVBeds || 0) : 0)) / 7).toLocaleString()
           }
 
           // Arrays of date / values after covid start date
@@ -485,7 +538,14 @@ export default class Data {
                 date: c.date,
                 day: rowDay,
                 counts: [c.newDeathsPub],
-                rate: c.cumDeathsPubRate
+                rate: c.cumDeathsPubRate,
+                lines: [Math.floor(((c.newDeathsPub || 0) +
+                  ((i + 1 < apiData.length) ? (apiData[i + 1].newDeathsPub || 0) : 0) +
+                  ((i + 2 < apiData.length) ? (apiData[i + 2].newDeathsPub || 0) : 0) +
+                  ((i + 3 < apiData.length) ? (apiData[i + 3].newDeathsPub || 0) : 0) +
+                  ((i + 4 < apiData.length) ? (apiData[i + 4].newDeathsPub || 0) : 0) +
+                  ((i + 5 < apiData.length) ? (apiData[i + 5].newDeathsPub || 0) : 0) +
+                  ((i + 6 < apiData.length) ? (apiData[i + 6].newDeathsPub || 0) : 0)) / 7)],
               }
             }
             if (c.newDeathsAct) {
@@ -493,7 +553,14 @@ export default class Data {
                 date: c.date,
                 day: rowDay,
                 counts: [c.newDeathsAct],
-                rate: c.cumDeathsActRate
+                rate: c.cumDeathsActRate,
+                lines: [Math.floor(((c.newDeathsAct || 0) +
+                  ((i + 1 < apiData.length) ? (apiData[i + 1].newDeathsAct || 0) : 0) +
+                  ((i + 2 < apiData.length) ? (apiData[i + 2].newDeathsAct || 0) : 0) +
+                  ((i + 3 < apiData.length) ? (apiData[i + 3].newDeathsAct || 0) : 0) +
+                  ((i + 4 < apiData.length) ? (apiData[i + 4].newDeathsAct || 0) : 0) +
+                  ((i + 5 < apiData.length) ? (apiData[i + 5].newDeathsAct || 0) : 0) +
+                  ((i + 6 < apiData.length) ? (apiData[i + 6].newDeathsAct || 0) : 0)) / 7)],
               }
             }
             if (c.newCasesPub) {
@@ -501,7 +568,14 @@ export default class Data {
                 date: c.date,
                 day: rowDay,
                 counts: [c.newCasesPub],
-                rate: c.cumCasesPubRate
+                rate: c.cumCasesPubRate,
+                lines: [Math.floor(((c.newCasesPub || 0) +
+                  ((i + 1 < apiData.length) ? (apiData[i + 1].newCasesPub || 0) : 0) +
+                  ((i + 2 < apiData.length) ? (apiData[i + 2].newCasesPub || 0) : 0) +
+                  ((i + 3 < apiData.length) ? (apiData[i + 3].newCasesPub || 0) : 0) +
+                  ((i + 4 < apiData.length) ? (apiData[i + 4].newCasesPub || 0) : 0) +
+                  ((i + 5 < apiData.length) ? (apiData[i + 5].newCasesPub || 0) : 0) +
+                  ((i + 6 < apiData.length) ? (apiData[i + 6].newCasesPub || 0) : 0)) / 7)],
               }
             }
             if (c.newCasesAct) {
@@ -509,35 +583,46 @@ export default class Data {
                 date: c.date,
                 day: rowDay,
                 counts: [c.newCasesAct],
-                rate: c.cumCasesActRate
+                rate: c.cumCasesActRate,
+                lines: [Math.floor(((c.newCasesAct || 0) +
+                  ((i + 1 < apiData.length) ? (apiData[i + 1].newCasesAct || 0) : 0) +
+                  ((i + 2 < apiData.length) ? (apiData[i + 2].newCasesAct || 0) : 0) +
+                  ((i + 3 < apiData.length) ? (apiData[i + 3].newCasesAct || 0) : 0) +
+                  ((i + 4 < apiData.length) ? (apiData[i + 4].newCasesAct || 0) : 0) +
+                  ((i + 5 < apiData.length) ? (apiData[i + 5].newCasesAct || 0) : 0) +
+                  ((i + 6 < apiData.length) ? (apiData[i + 6].newCasesAct || 0) : 0)) / 7)],
               }
             }
             if (c.newPillarOneTestsByPublishDate) {
               data.tests1[data.tests1.length] = {
                 date: c.date,
                 day: rowDay,
-                counts: [c.newPillarOneTestsByPublishDate]
+                counts: [c.newPillarOneTestsByPublishDate],
+                lines: []
               }
             }
             if (c.newPillarTwoTestsByPublishDate) {
               data.tests2[data.tests2.length] = {
                 date: c.date,
                 day: rowDay,
-                counts: [c.newPillarTwoTestsByPublishDate]
+                counts: [c.newPillarTwoTestsByPublishDate],
+                lines: []
               }
             }
             if (c.newPillarThreeTestsByPublishDate) {
               data.tests3[data.tests3.length] = {
                 date: c.date,
                 day: rowDay,
-                counts: [c.newPillarThreeTestsByPublishDate]
+                counts: [c.newPillarThreeTestsByPublishDate],
+                lines: []
               }
             }
             if (c.newPillarFourTestsByPublishDate) {
               data.tests4[data.tests4.length] = {
                 date: c.date,
                 day: rowDay,
-                counts: [c.newPillarFourTestsByPublishDate]
+                counts: [c.newPillarFourTestsByPublishDate],
+                lines: []
               }
             }
             data.testsTot[data.testsTot.length] = {
@@ -549,28 +634,50 @@ export default class Data {
                 parseInt(c.newPillarTwoTestsByPublishDate || 0),
                 parseInt(c.newPillarThreeTestsByPublishDate || 0),
                 parseInt(c.newPillarFourTestsByPublishDate || 0)
-              ]
+              ],
+              lines: []
             }
 
             if (c.hospitalCases) {
               data.patients[data.patients.length] = {
                 date: c.date,
                 day: rowDay,
-                counts: [c.hospitalCases]
+                counts: [c.hospitalCases],
+                lines: [Math.floor(((c.hospitalCases || 0) +
+                  ((i + 1 < apiData.length) ? (apiData[i + 1].hospitalCases || 0) : 0) +
+                  ((i + 2 < apiData.length) ? (apiData[i + 2].hospitalCases || 0) : 0) +
+                  ((i + 3 < apiData.length) ? (apiData[i + 3].hospitalCases || 0) : 0) +
+                  ((i + 4 < apiData.length) ? (apiData[i + 4].hospitalCases || 0) : 0) +
+                  ((i + 5 < apiData.length) ? (apiData[i + 5].hospitalCases || 0) : 0) +
+                  ((i + 6 < apiData.length) ? (apiData[i + 6].hospitalCases || 0) : 0)) / 7)]
               }
             }
             if (c.newAdmissions) {
               data.admissions[data.admissions.length] = {
                 date: c.date,
                 day: rowDay,
-                counts: [c.newAdmissions]
+                counts: [c.newAdmissions],
+                lines: [Math.floor(((c.newAdmissions || 0) +
+                  ((i + 1 < apiData.length) ? (apiData[i + 1].newAdmissions) || 0 : 0) +
+                  ((i + 2 < apiData.length) ? (apiData[i + 2].newAdmissions) || 0 : 0) +
+                  ((i + 3 < apiData.length) ? (apiData[i + 3].newAdmissions) || 0 : 0) +
+                  ((i + 4 < apiData.length) ? (apiData[i + 4].newAdmissions) || 0 : 0) +
+                  ((i + 5 < apiData.length) ? (apiData[i + 5].newAdmissions) || 0 : 0) +
+                  ((i + 6 < apiData.length) ? (apiData[i + 6].newAdmissions) || 0 : 0)) / 7)]
               }
             }
             if (c.covidOccupiedMVBeds) {
               data.intensiveCare[data.intensiveCare.length] = {
                 date: c.date,
                 day: rowDay,
-                counts: [c.covidOccupiedMVBeds]
+                counts: [c.covidOccupiedMVBeds],
+                lines: [Math.floor(((c.covidOccupiedMVBeds || 0) +
+                  ((i + 1 < apiData.length) ? (apiData[i + 1].covidOccupiedMVBeds || 0) : 0) +
+                  ((i + 2 < apiData.length) ? (apiData[i + 2].covidOccupiedMVBeds || 0) : 0) +
+                  ((i + 3 < apiData.length) ? (apiData[i + 3].covidOccupiedMVBeds || 0) : 0) +
+                  ((i + 4 < apiData.length) ? (apiData[i + 4].covidOccupiedMVBeds || 0) : 0) +
+                  ((i + 5 < apiData.length) ? (apiData[i + 5].covidOccupiedMVBeds || 0) : 0) +
+                  ((i + 6 < apiData.length) ? (apiData[i + 6].covidOccupiedMVBeds || 0) : 0)) / 7)]
               }
             }
             if (c.cumAdmissionsByAge) {
@@ -627,7 +734,8 @@ export default class Data {
                   admByAge[2] - admByAgePrev[2],
                   admByAge[3] - admByAgePrev[3],
                   admByAge[4] - admByAgePrev[4]
-                ]
+                ],
+                lines: []
               }
             }
           }

@@ -4,8 +4,8 @@ import TableData from '../utilities/TableData'
 import { compare } from '../utilities/Utils'
 
 export default function Cases(
-  { areaType, datePub, newPub, cumPub, ratePub, casesPub,
-    dateAct, newAct, cumAct, rateAct, casesAct, casesLoc }
+  { areaType, datePub, newPub, cumPub, ratePub, averPub, casesPub,
+    dateAct, newAct, cumAct, rateAct, averAct, casesAct, casesLoc }
     = this.props) {
 
   if (casesPub === undefined) casesPub = []
@@ -55,6 +55,14 @@ export default function Cases(
               </div>
               <div className="row">
                 <span className="col-sm-6 text-left">
+                  7 Day Average
+                </span>
+                <span className="col-sm-6 text-right">
+                  {averPub}
+                </span>
+              </div>
+              <div className="row">
+                <span className="col-sm-6 text-left">
                   Cumulative
             </span>
                 <span className="col-sm-6 text-right">
@@ -70,7 +78,7 @@ export default function Cases(
                 </span>
               </div>
               <div className="row">
-                <Chart data={casesPubSorted} desc={['Cases by Published Date']} />
+                <Chart data={casesPubSorted} desc={['Cases by Published Date']} linesDesc={['7 Day Average']} />
               </div>
             </div>
 
@@ -96,6 +104,14 @@ export default function Cases(
               </div>
               <div className="row">
                 <span className="col-sm-6 text-left">
+                  7 Day Average
+                </span>
+                <span className="col-sm-6 text-right">
+                  {averAct}
+                </span>
+              </div>
+              <div className="row">
+                <span className="col-sm-6 text-left">
                   Cumulative
                 </span>
                 <span className="col-sm-6 text-right">
@@ -111,7 +127,7 @@ export default function Cases(
                 </span>
               </div>
               <div className="row">
-                <Chart data={casesActSorted} desc={['Cases by Specimen Date']} />
+                <Chart data={casesActSorted} desc={['Cases by Specimen Date']} linesDesc={['7 Day Average']} />
               </div>
             </div>
 
