@@ -383,6 +383,42 @@ export default class Data {
     return hospital;
   }
 
+  get7DayAverage(apiData, i, field) {
+    let tot = 0
+    for (let a = i; a < (i + 7); a++) {
+      let val = 0
+      switch (field) {
+        case "newDeathsPub":
+          val = apiData[a].newDeathsPub
+          break
+        case "newDeathsAct":
+          val = apiData[a].newDeathsAct
+          break
+        case "newCasesPub":
+          val = apiData[a].newCasesPub
+          break
+        case "newCasesAct":
+          val = apiData[a].newCasesAct
+          break
+        case "hospitalCases":
+          val = apiData[a].hospitalCases
+          break
+        case "newAdmissions":
+          val = apiData[a].newAdmissions
+          break
+        case "covidOccupiedMVBeds":
+          val = apiData[a].covidOccupiedMVBeds
+          break
+        default:
+          break
+      }
+      if (a < apiData.length && val != null) {
+        tot += val
+      }
+    }
+    return Math.floor(tot / 7)
+  }
+
   // Get required fields from the main extract and reformat
   extractRequiredFields(apiData) {
 
@@ -419,32 +455,20 @@ export default class Data {
             data.deathsRate = c.cumDeathsPubRate
             data.deathsDate = rowDate
             data.deathsDateYMD = c.date
-            data.deathsAverage = Math.floor(
-              (
-                (c.newDeathsPub || 0) +
-                ((i + 1 < apiData.length) ? (apiData[i + 1].newDeathsPub || 0) : 0) +
-                ((i + 2 < apiData.length) ? (apiData[i + 2].newDeathsPub || 0) : 0) +
-                ((i + 3 < apiData.length) ? (apiData[i + 3].newDeathsPub || 0) : 0) +
-                ((i + 4 < apiData.length) ? (apiData[i + 4].newDeathsPub || 0) : 0) +
-                ((i + 5 < apiData.length) ? (apiData[i + 5].newDeathsPub || 0) : 0) +
-                ((i + 6 < apiData.length) ? (apiData[i + 6].newDeathsPub || 0) : 0)
-              ) / 7)
+            data.deathsAverage = this.get7DayAverage(apiData, i, "newDeathsPub")
               .toLocaleString()
           }
+
           // Deaths by Death Date - Set if not already set
           if (data.deathsNewAct == null && c.newDeathsAct) {
             data.deathsNewAct = (c.newDeathsAct || '').toLocaleString()
             data.deathsCumAct = (c.cumDeathsAct || '').toLocaleString()
             data.deathsRateAct = c.cumDeathsActRate
             data.deathsDateAct = rowDate
-            data.deathsAverageAct = Math.floor(((c.newDeathsAct || 0) +
-              ((i + 1 < apiData.length) ? (apiData[i + 1].newDeathsAct || 0) : 0) +
-              ((i + 2 < apiData.length) ? (apiData[i + 2].newDeathsAct || 0) : 0) +
-              ((i + 3 < apiData.length) ? (apiData[i + 3].newDeathsAct || 0) : 0) +
-              ((i + 4 < apiData.length) ? (apiData[i + 4].newDeathsAct || 0) : 0) +
-              ((i + 5 < apiData.length) ? (apiData[i + 5].newDeathsAct || 0) : 0) +
-              ((i + 6 < apiData.length) ? (apiData[i + 6].newDeathsAct || 0) : 0)) / 7).toLocaleString()
+            data.deathsAverageAct = this.get7DayAverage(apiData, i, "newDeathsAct")
+              .toLocaleString()
           }
+
           // Cases Published - Set if not already set
           if (data.casesNew == null && c.newCasesPub) {
             data.casesNew = (c.newCasesPub || '').toLocaleString()
@@ -452,13 +476,8 @@ export default class Data {
             data.casesRate = c.cumCasesPubRate
             data.casesDate = rowDate
             data.casesDateYMD = c.date
-            data.casesAverage = Math.floor(((c.newCasesPub || 0) +
-              ((i + 1 < apiData.length) ? (apiData[i + 1].newCasesPub || 0) : 0) +
-              ((i + 2 < apiData.length) ? (apiData[i + 2].newCasesPub || 0) : 0) +
-              ((i + 3 < apiData.length) ? (apiData[i + 3].newCasesPub || 0) : 0) +
-              ((i + 4 < apiData.length) ? (apiData[i + 4].newCasesPub || 0) : 0) +
-              ((i + 5 < apiData.length) ? (apiData[i + 5].newCasesPub || 0) : 0) +
-              ((i + 6 < apiData.length) ? (apiData[i + 6].newCasesPub || 0) : 0)) / 7).toLocaleString()
+            data.casesAverage = this.get7DayAverage(apiData, i, "newCasesPub")
+              .toLocaleString()
           }
           // Cases by specimen date - Set if not already set
           if (data.casesNewAct == null && c.newCasesAct) {
@@ -466,13 +485,8 @@ export default class Data {
             data.casesCumAct = (c.cumCasesAct || '').toLocaleString()
             data.casesRateAct = c.cumCasesActRate
             data.casesDateAct = rowDate
-            data.casesAverageAct = Math.floor(((c.newCasesAct || 0) +
-              ((i + 1 < apiData.length) ? (apiData[i + 1].newCasesAct || 0) : 0) +
-              ((i + 2 < apiData.length) ? (apiData[i + 2].newCasesAct || 0) : 0) +
-              ((i + 3 < apiData.length) ? (apiData[i + 3].newCasesAct || 0) : 0) +
-              ((i + 4 < apiData.length) ? (apiData[i + 4].newCasesAct || 0) : 0) +
-              ((i + 5 < apiData.length) ? (apiData[i + 5].newCasesAct || 0) : 0) +
-              ((i + 6 < apiData.length) ? (apiData[i + 6].newCasesAct || 0) : 0)) / 7).toLocaleString()
+            data.casesAverageAct = this.get7DayAverage(apiData, i, "newCasesAct")
+              .toLocaleString()
           }
           // Tests - Set if not already set
           if (data.newP1 == null &&
@@ -495,39 +509,24 @@ export default class Data {
           if (data.hospitalNew == null && c.hospitalCases) {
             data.hospitalNew = (c.hospitalCases).toLocaleString()
             data.hospitalDate = rowDate
-            data.hospitalAverage = Math.floor(((c.hospitalCases || 0) +
-              ((i + 1 < apiData.length) ? (apiData[i + 1].hospitalCases || 0) : 0) +
-              ((i + 2 < apiData.length) ? (apiData[i + 2].hospitalCases || 0) : 0) +
-              ((i + 3 < apiData.length) ? (apiData[i + 3].hospitalCases || 0) : 0) +
-              ((i + 4 < apiData.length) ? (apiData[i + 4].hospitalCases || 0) : 0) +
-              ((i + 5 < apiData.length) ? (apiData[i + 5].hospitalCases || 0) : 0) +
-              ((i + 6 < apiData.length) ? (apiData[i + 6].hospitalCases || 0) : 0)) / 7).toLocaleString()
+            data.hospitalAverage = this.get7DayAverage(apiData, i, "hospitalCases")
+              .toLocaleString()
           }
           // Hospital admissions - Set if not already set
           if (data.admissionsNew == null && c.newAdmissions) {
             data.admissionsNew = (c.newAdmissions).toLocaleString()
             data.admissionsCum = (c.cumAdmissions || '').toLocaleString()
             data.admissionsDate = rowDate
-            data.admissionsAverage = Math.floor(((c.newAdmissions || 0) +
-              ((i + 1 < apiData.length) ? (apiData[i + 1].newAdmissions || 0) : 0) +
-              ((i + 2 < apiData.length) ? (apiData[i + 2].newAdmissions || 0) : 0) +
-              ((i + 3 < apiData.length) ? (apiData[i + 3].newAdmissions || 0) : 0) +
-              ((i + 4 < apiData.length) ? (apiData[i + 4].newAdmissions || 0) : 0) +
-              ((i + 5 < apiData.length) ? (apiData[i + 5].newAdmissions || 0) : 0) +
-              ((i + 6 < apiData.length) ? (apiData[i + 6].newAdmissions || 0) : 0)) / 7).toLocaleString()
+            data.admissionsAverage = this.get7DayAverage(apiData, i, "newAdmissions")
+              .toLocaleString()
           }
 
           // Intensive care - Set if not already set
           if (data.intensiveCareNew == null && c.covidOccupiedMVBeds) {
             data.intensiveCareNew = (c.covidOccupiedMVBeds).toLocaleString()
             data.intensiveCareDate = rowDate
-            data.intensiveCareAverage = Math.floor(((c.covidOccupiedMVBeds || 0) +
-              ((i + 1 < apiData.length) ? (apiData[i + 1].covidOccupiedMVBeds || 0) : 0) +
-              ((i + 2 < apiData.length) ? (apiData[i + 2].covidOccupiedMVBeds || 0) : 0) +
-              ((i + 3 < apiData.length) ? (apiData[i + 3].covidOccupiedMVBeds || 0) : 0) +
-              ((i + 4 < apiData.length) ? (apiData[i + 4].covidOccupiedMVBeds || 0) : 0) +
-              ((i + 5 < apiData.length) ? (apiData[i + 5].covidOccupiedMVBeds || 0) : 0) +
-              ((i + 6 < apiData.length) ? (apiData[i + 6].covidOccupiedMVBeds || 0) : 0)) / 7).toLocaleString()
+            data.intensiveCareAverage = this.get7DayAverage(apiData, i, "covidOccupiedMVBeds")
+              .toLocaleString()
           }
 
           // Arrays of date / values after covid start date
@@ -539,13 +538,7 @@ export default class Data {
                 day: rowDay,
                 counts: [c.newDeathsPub],
                 rate: c.cumDeathsPubRate,
-                lines: [Math.floor(((c.newDeathsPub || 0) +
-                  ((i + 1 < apiData.length) ? (apiData[i + 1].newDeathsPub || 0) : 0) +
-                  ((i + 2 < apiData.length) ? (apiData[i + 2].newDeathsPub || 0) : 0) +
-                  ((i + 3 < apiData.length) ? (apiData[i + 3].newDeathsPub || 0) : 0) +
-                  ((i + 4 < apiData.length) ? (apiData[i + 4].newDeathsPub || 0) : 0) +
-                  ((i + 5 < apiData.length) ? (apiData[i + 5].newDeathsPub || 0) : 0) +
-                  ((i + 6 < apiData.length) ? (apiData[i + 6].newDeathsPub || 0) : 0)) / 7)],
+                lines: [this.get7DayAverage(apiData, i, "newDeathsPub")]
               }
             }
             if (c.newDeathsAct) {
@@ -554,13 +547,7 @@ export default class Data {
                 day: rowDay,
                 counts: [c.newDeathsAct],
                 rate: c.cumDeathsActRate,
-                lines: [Math.floor(((c.newDeathsAct || 0) +
-                  ((i + 1 < apiData.length) ? (apiData[i + 1].newDeathsAct || 0) : 0) +
-                  ((i + 2 < apiData.length) ? (apiData[i + 2].newDeathsAct || 0) : 0) +
-                  ((i + 3 < apiData.length) ? (apiData[i + 3].newDeathsAct || 0) : 0) +
-                  ((i + 4 < apiData.length) ? (apiData[i + 4].newDeathsAct || 0) : 0) +
-                  ((i + 5 < apiData.length) ? (apiData[i + 5].newDeathsAct || 0) : 0) +
-                  ((i + 6 < apiData.length) ? (apiData[i + 6].newDeathsAct || 0) : 0)) / 7)],
+                lines: [this.get7DayAverage(apiData, i, "newDeathsAct")],
               }
             }
             if (c.newCasesPub) {
@@ -569,13 +556,7 @@ export default class Data {
                 day: rowDay,
                 counts: [c.newCasesPub],
                 rate: c.cumCasesPubRate,
-                lines: [Math.floor(((c.newCasesPub || 0) +
-                  ((i + 1 < apiData.length) ? (apiData[i + 1].newCasesPub || 0) : 0) +
-                  ((i + 2 < apiData.length) ? (apiData[i + 2].newCasesPub || 0) : 0) +
-                  ((i + 3 < apiData.length) ? (apiData[i + 3].newCasesPub || 0) : 0) +
-                  ((i + 4 < apiData.length) ? (apiData[i + 4].newCasesPub || 0) : 0) +
-                  ((i + 5 < apiData.length) ? (apiData[i + 5].newCasesPub || 0) : 0) +
-                  ((i + 6 < apiData.length) ? (apiData[i + 6].newCasesPub || 0) : 0)) / 7)],
+                lines: [this.get7DayAverage(apiData, i, "newCasesPub")],
               }
             }
             if (c.newCasesAct) {
@@ -584,13 +565,7 @@ export default class Data {
                 day: rowDay,
                 counts: [c.newCasesAct],
                 rate: c.cumCasesActRate,
-                lines: [Math.floor(((c.newCasesAct || 0) +
-                  ((i + 1 < apiData.length) ? (apiData[i + 1].newCasesAct || 0) : 0) +
-                  ((i + 2 < apiData.length) ? (apiData[i + 2].newCasesAct || 0) : 0) +
-                  ((i + 3 < apiData.length) ? (apiData[i + 3].newCasesAct || 0) : 0) +
-                  ((i + 4 < apiData.length) ? (apiData[i + 4].newCasesAct || 0) : 0) +
-                  ((i + 5 < apiData.length) ? (apiData[i + 5].newCasesAct || 0) : 0) +
-                  ((i + 6 < apiData.length) ? (apiData[i + 6].newCasesAct || 0) : 0)) / 7)],
+                lines: [this.get7DayAverage(apiData, i, "newCasesAct")],
               }
             }
             if (c.newPillarOneTestsByPublishDate) {
@@ -643,13 +618,7 @@ export default class Data {
                 date: c.date,
                 day: rowDay,
                 counts: [c.hospitalCases],
-                lines: [Math.floor(((c.hospitalCases || 0) +
-                  ((i + 1 < apiData.length) ? (apiData[i + 1].hospitalCases || 0) : 0) +
-                  ((i + 2 < apiData.length) ? (apiData[i + 2].hospitalCases || 0) : 0) +
-                  ((i + 3 < apiData.length) ? (apiData[i + 3].hospitalCases || 0) : 0) +
-                  ((i + 4 < apiData.length) ? (apiData[i + 4].hospitalCases || 0) : 0) +
-                  ((i + 5 < apiData.length) ? (apiData[i + 5].hospitalCases || 0) : 0) +
-                  ((i + 6 < apiData.length) ? (apiData[i + 6].hospitalCases || 0) : 0)) / 7)]
+                lines: [this.get7DayAverage(apiData, i, "hospitalCases")]
               }
             }
             if (c.newAdmissions) {
@@ -657,13 +626,7 @@ export default class Data {
                 date: c.date,
                 day: rowDay,
                 counts: [c.newAdmissions],
-                lines: [Math.floor(((c.newAdmissions || 0) +
-                  ((i + 1 < apiData.length) ? (apiData[i + 1].newAdmissions) || 0 : 0) +
-                  ((i + 2 < apiData.length) ? (apiData[i + 2].newAdmissions) || 0 : 0) +
-                  ((i + 3 < apiData.length) ? (apiData[i + 3].newAdmissions) || 0 : 0) +
-                  ((i + 4 < apiData.length) ? (apiData[i + 4].newAdmissions) || 0 : 0) +
-                  ((i + 5 < apiData.length) ? (apiData[i + 5].newAdmissions) || 0 : 0) +
-                  ((i + 6 < apiData.length) ? (apiData[i + 6].newAdmissions) || 0 : 0)) / 7)]
+                lines: [this.get7DayAverage(apiData, i, "newAdmissions")]
               }
             }
             if (c.covidOccupiedMVBeds) {
@@ -671,13 +634,7 @@ export default class Data {
                 date: c.date,
                 day: rowDay,
                 counts: [c.covidOccupiedMVBeds],
-                lines: [Math.floor(((c.covidOccupiedMVBeds || 0) +
-                  ((i + 1 < apiData.length) ? (apiData[i + 1].covidOccupiedMVBeds || 0) : 0) +
-                  ((i + 2 < apiData.length) ? (apiData[i + 2].covidOccupiedMVBeds || 0) : 0) +
-                  ((i + 3 < apiData.length) ? (apiData[i + 3].covidOccupiedMVBeds || 0) : 0) +
-                  ((i + 4 < apiData.length) ? (apiData[i + 4].covidOccupiedMVBeds || 0) : 0) +
-                  ((i + 5 < apiData.length) ? (apiData[i + 5].covidOccupiedMVBeds || 0) : 0) +
-                  ((i + 6 < apiData.length) ? (apiData[i + 6].covidOccupiedMVBeds || 0) : 0)) / 7)]
+                lines: [this.get7DayAverage(apiData, i, "covidOccupiedMVBeds")]
               }
             }
             if (c.cumAdmissionsByAge) {
