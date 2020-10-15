@@ -165,6 +165,7 @@ function App() {
                 latest={apiData.admissionsNew}
                 cumulative={apiData.admissionsCum}
                 admissions={apiData.admissions}
+                admissionsByAge={apiData.admissionsByAge}
                 regions={apiHospitalData.admissions}
               />
               <IntensiveCare

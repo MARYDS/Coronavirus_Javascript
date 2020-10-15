@@ -1,5 +1,5 @@
 import React from 'react'
-import Graph from '../utilities/Graph'
+import Chart from '../utilities/Chart'
 import TableData from '../utilities/TableData'
 import { compare } from '../utilities/Utils'
 
@@ -12,7 +12,16 @@ export default function Tests(
   if (tests3 === undefined) tests3 = []
   if (tests4 === undefined) tests4 = []
   if (testsTot === undefined) testsTot = []
-  const testsTotSorted = [...testsTot].sort(compare())
+  const testsTotSorted =
+    [...testsTot.map(
+      (day) => {
+        return {
+          date: day.date,
+          day: day.day,
+          counts: [...day.counts].slice(1)
+        }
+      })
+    ].sort(compare())
 
   return (
 
@@ -112,7 +121,7 @@ export default function Tests(
                 </span>
               </div>
               <div className="row">
-                <Graph data={testsTotSorted} desc={['Total Tests', 'Pillar 1', 'Pillar 2', 'Pillar 3', 'Pillar 4']} />
+                <Chart data={testsTotSorted} desc={['Pillar 1', 'Pillar 2', 'Pillar 3', 'Pillar 4']} />
               </div>
             </div>
 

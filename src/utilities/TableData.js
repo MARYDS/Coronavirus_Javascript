@@ -12,6 +12,9 @@ export default function TableData({ data, cols, id } = this.props) {
               <th>{cols[0]}</th>
               <th>{cols[1]}</th>
               <th>{cols[2]}</th>
+              {(cols.length > 3)
+                ? <th>{cols[3]}</th>
+                : null}
             </tr>
           </thead>
           <tbody>
@@ -28,7 +31,10 @@ export default function TableData({ data, cols, id } = this.props) {
                     {(elem.day !== undefined)
                       ? <td>{elem.day}</td>
                       : null}
-                    <td>{elem.count1.toLocaleString()}</td>
+                    <td>{elem.counts[0].toLocaleString()}</td>
+                    {(elem.rate !== undefined)
+                      ? <td>{elem.rate}</td>
+                      : null}
                   </tr>
                 )
               })

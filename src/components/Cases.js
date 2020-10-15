@@ -1,5 +1,5 @@
 import React from 'react'
-import Graph from '../utilities/Graph'
+import Chart from '../utilities/Chart'
 import TableData from '../utilities/TableData'
 import { compare } from '../utilities/Utils'
 
@@ -70,12 +70,12 @@ export default function Cases(
                 </span>
               </div>
               <div className="row">
-                <Graph data={casesPubSorted} desc={['Cases by Published Date']} />
+                <Chart data={casesPubSorted} desc={['Cases by Published Date']} />
               </div>
             </div>
 
             <div className="tab-pane fade" id="publishedcasesdata" role="tabpanel" aria-labelledby="published-cases-data-tab">
-              <TableData data={casesPub} cols={['Date', 'Day', 'Cases']} id="casespubtable" />
+              <TableData data={casesPub} cols={['Date', 'Day', 'Cases', 'Cum.Rate']} id="casespubtable" />
             </div>
 
             {(areaType === 'overview' || areaType === 'nation')
@@ -111,12 +111,12 @@ export default function Cases(
                 </span>
               </div>
               <div className="row">
-                <Graph data={casesActSorted} desc={['Cases by Specimen Date']} />
+                <Chart data={casesActSorted} desc={['Cases by Specimen Date']} />
               </div>
             </div>
 
             <div className="tab-pane fade" id="actualcasesdata" role="tabpanel" aria-labelledby="actual-cases-data-tab">
-              <TableData data={casesAct} cols={['Date', 'Day', 'Cases']} id="casesacttable" />
+              <TableData data={casesAct} cols={['Date', 'Day', 'Cases', 'Cum.Rate']} id="casesacttable" />
             </div>
 
           </div>

@@ -1,5 +1,6 @@
 import React from 'react'
 import Graph from '../utilities/Graph'
+import Chart from '../utilities/Chart'
 import TableData from '../utilities/TableData'
 import { compare } from '../utilities/Utils'
 
@@ -11,7 +12,7 @@ export default function Hospital({ date, latest, patients, regions } = this.prop
 
   const nhsRegions = ['East of England', 'London', 'Midlands',
     'North East and Yorkshire', 'North West', 'South East',
-    'South West']
+    'South West', 'Scotland', 'Wales', 'Northern Ireland']
 
   return (
     <div className="col-md-4 col-sm-6 mb-3">
@@ -45,7 +46,7 @@ export default function Hospital({ date, latest, patients, regions } = this.prop
                 </span>
               </div>
               <div className="row">
-                <Graph data={patientsSorted} desc={['Patients']} />
+                <Chart data={patientsSorted} desc={['Patients']} />
               </div>
             </div>
 

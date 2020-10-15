@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import {
-  LineChart, Line, XAxis, YAxis,
+  AreaChart, Area, XAxis, YAxis,
   Tooltip, Legend, CartesianGrid
 } from 'recharts';
 import CustomTooltip from './CustomTooltip'
 import { getChartSize } from './Utils';
 
-export default function Graph({ data, desc } = this.props) {
+export default function Chart({ data, desc } = this.props) {
   if (data === undefined) data = []
   if (desc === undefined) desc = []
 
@@ -36,23 +36,27 @@ export default function Graph({ data, desc } = this.props) {
 
   const { w, h } = getChartSize(sizes)
   const strokeColours =
-    ["#ff7300", "#003EFF", "#008000", "#00C5CD", "#1A1A1A",
-      "#8B2500", "#551A8B", "#ff0000", "#EEC900", "#F08080"]
+    ["#7e8a97", "#28abb9", "#ffe05d", "#b8de6f", "#01cfc4",
+      "#ff9a76", "#ffeadb", "#637373", "#ffcbcb", "#e97171"]
+  const fillColours =
+    ["#a9b1ba", "#28abb9", "#ffe05d", "#b8de6f", "#01cfc4",
+      "#ff9a76", "#ffeadb", "#637373", "#ffcbcb", "#e97171"]
 
   return (
     <div className="line-chart-wrapper">
       {(data.length === 0)
         ?
-        <div className="text-info font-weight-bold mt-5 ml-3">No Data Available for this level</div>
+        <div className="text-info font-weight-bold mt-5 ml-3">
+          No Data Available for this level
+        </div>
         :
-        <LineChart
-          width={w} height={h} data={data}
-          margin={{ top: 30, right: 10, bottom: 10, left: 10 }}
-        >
-          <CartesianGrid stroke="#ccc" vertical={false} />
+        <AreaChart width={w} height={h} data={data}
+          margin={{ top: 30, right: 10, left: 10, bottom: 10 }}>
+
           <YAxis tick={{ fontSize: '0.8rem' }} />
           <XAxis interval={30} tickFormatter={formatXAxis}
             tick={{ fontSize: '0.8rem' }} dataKey="date" height={80} />
+          <CartesianGrid stroke="#ccc" vertical={false} />
           <Tooltip content={<CustomTooltip />} />
           <Legend verticalAlign="bottom" height={5}
             wrapperStyle={{ paddingtop: "20px" }} />
@@ -62,12 +66,12 @@ export default function Graph({ data, desc } = this.props) {
               return null
             } else {
               return (
-                <Line key={i} name={(desc[i] !== undefined) ? desc[i] : 'data'} type="monotone" dataKey={"counts[" + i + "]"} stroke={strokeColours[i]} dot={false} />
+                <Area key={i} type="monotone" name={(desc !== undefined) ? desc[i] : 'data'} dataKey={"counts[" + i + "]"}
+                  stroke={strokeColours[i]} stackId="1" fillOpacity={1} fill={fillColours[i]} />
               )
             }
           })}
-
-        </LineChart>
+        </AreaChart>
       }
     </div>
   );

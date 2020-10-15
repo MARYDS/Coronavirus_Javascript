@@ -1,5 +1,5 @@
 import React from 'react'
-import Graph from '../utilities/Graph'
+import Chart from '../utilities/Chart'
 import TableData from '../utilities/TableData'
 import { compare } from '../utilities/Utils'
 
@@ -70,12 +70,12 @@ export default function Deaths(
                 </span>
               </div>
               <div className="row">
-                <Graph data={deathsPubSorted} desc={['Deaths by Published Date']} />
+                <Chart data={deathsPubSorted} desc={['Deaths by Published Date']} />
               </div>
             </div>
 
             <div className="tab-pane fade" id="publisheddata" role="tabpanel" aria-labelledby="published-data-tab">
-              <TableData data={deathsPub} cols={['Date', 'Day', 'Deaths']} id="deathspubtable" />
+              <TableData data={deathsPub} cols={['Date', 'Day', 'Deaths', 'Cum.Rate']} id="deathspubtable" />
             </div>
 
             {(areaType === 'overview' || areaType === 'nation')
@@ -111,12 +111,12 @@ export default function Deaths(
                 </span>
               </div>
               <div className="row">
-                <Graph data={deathsActSorted} desc={['Deaths by Date of Death']} />
+                <Chart data={deathsActSorted} desc={['Deaths by Date of Death']} />
               </div>
             </div>
 
             <div className="tab-pane fade" id="actualdata" role="tabpanel" aria-labelledby="actual-data-tab">
-              <TableData data={deathsAct} cols={['Date', 'Day', 'Deaths']} id="casesacttable" />
+              <TableData data={deathsAct} cols={['Date', 'Day', 'Deaths', 'Cum.Rate']} id="casesacttable" />
             </div>
 
           </div>
