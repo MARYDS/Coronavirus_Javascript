@@ -2,7 +2,7 @@ import React from 'react'
 import Graph from '../utilities/Graph'
 import Chart from '../utilities/Chart'
 import TableData from '../utilities/TableData'
-import { compare } from '../utilities/Utils'
+import { compare, ukRegions } from '../utilities/Utils'
 
 export default function Admissions(
   { date, latest, average, cumulative, admissions, admissionsByAge, regions }
@@ -14,10 +14,6 @@ export default function Admissions(
   const admissionsSorted = [...admissions].sort(compare())
   const admissionsByAgeSorted = [...admissionsByAge].sort(compare())
   const regionsSorted = [...regions].sort(compare())
-
-  const nhsRegions = ['East of England', 'London', 'Midlands',
-    'North East and Yorkshire', 'North West', 'South East',
-    'South West', 'Scotland', 'Wales', 'Northern Ireland']
 
   return (
     <div className="col-md-4 col-sm-6 mb-3">
@@ -73,6 +69,22 @@ export default function Admissions(
             <div className="tab-pane fade" id="admissionsbyagedata" role="tabpanel"
               aria-labelledby="admissions-byage-data-tab">
               <div className="row">
+                <span className="col-sm-6 text-left">
+                  {date}
+                </span>
+                <span className="col-sm-6 text-right">
+                  {latest}
+                </span>
+              </div>
+              <div className="row">
+                <span className="col-sm-6 text-left">
+                  7 Day Average
+                </span>
+                <span className="col-sm-6 text-right">
+                  {average}
+                </span>
+              </div>
+              <div className="row">
                 <Chart data={admissionsByAgeSorted} desc={['0-5', '6-17', '18-64', '65-84', '85+']} linesDesc={['7 Day Average']} />
               </div>
             </div>
@@ -80,7 +92,7 @@ export default function Admissions(
             <div className="tab-pane fade" id="regionsadmissionsdata" role="tabpanel"
               aria-labelledby="regions-admissions-data-tab">
               <div className="row">
-                <Graph data={regionsSorted} desc={nhsRegions} />
+                <Graph data={regionsSorted} desc={ukRegions} />
               </div>
             </div>
 

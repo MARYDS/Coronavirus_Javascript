@@ -2,17 +2,13 @@ import React from 'react'
 import Graph from '../utilities/Graph'
 import Chart from '../utilities/Chart'
 import TableData from '../utilities/TableData'
-import { compare } from '../utilities/Utils'
+import { compare, ukRegions } from '../utilities/Utils'
 
 export default function Hospital({ date, latest, average, patients, regions } = this.props) {
   if (patients === undefined) patients = []
   if (regions === undefined) regions = []
   const patientsSorted = [...patients].sort(compare())
   const regionsSorted = [...regions].sort(compare())
-
-  const nhsRegions = ['East of England', 'London', 'Midlands',
-    'North East and Yorkshire', 'North West', 'South East',
-    'South West', 'Scotland', 'Wales', 'Northern Ireland']
 
   return (
     <div className="col-md-4 col-sm-6 mb-3">
@@ -65,7 +61,7 @@ export default function Hospital({ date, latest, average, patients, regions } = 
             <div className="tab-pane fade" id="regionsdata" role="tabpanel"
               aria-labelledby="regions-data-tab">
               <div className="row">
-                <Graph data={regionsSorted} desc={nhsRegions} />
+                <Graph data={regionsSorted} desc={ukRegions} />
               </div>
             </div>
 
