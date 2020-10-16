@@ -2,7 +2,7 @@ import React from 'react'
 import Graph from '../utilities/Graph'
 import Chart from '../utilities/Chart'
 import TableData from '../utilities/TableData'
-import { compare, ukRegions } from '../utilities/Utils'
+import { compare, ukRegionsNhs } from '../utilities/Utils'
 
 export default function Admissions(
   { date, latest, average, cumulative, admissions, admissionsByAge, regions }
@@ -20,13 +20,13 @@ export default function Admissions(
       <div className="card mb-5 h-100">
 
         <div className="card-header text-center">
-          Hospital Admissions
+          <h5>Hospital Admissions</h5>
           <ul className="nav nav-tabs" id="admissions-list" role="tablist">
             <li className="nav-item">
               <a className="nav-link active" id="admissions-tab" data-toggle="tab" href="#admissions" role="tab" aria-controls="admissions" aria-selected="true">Admissions</a>
             </li>
             <li className="nav-item">
-              <a className="nav-link" id="admissions-data-tab" data-toggle="tab" href="#admissionsdata" role="tab" aria-controls="admissionsdata" aria-selected="false">Data</a>
+              <a className="nav-link" id="admissions-data-tab" data-toggle="tab" href="#admissionsdata" role="tab" aria-controls="admissionsdata" aria-selected="false">#</a>
             </li>
             <li className="nav-item">
               <a className="nav-link" id="admissions-byage-data-tab" data-toggle="tab" href="#admissionsbyagedata" role="tab" aria-controls="admissionsbyagedata" aria-selected="false">By Age</a>
@@ -42,11 +42,16 @@ export default function Admissions(
             <div className="tab-pane fade show active" id="admissions" role="tabpanel"
               aria-labelledby="admissions-tab">
               <div className="row">
+                <span className="col-12 text-center">
+                  <h6>New Admissions to Hospital</h6>
+                </span>
+              </div>
+              <div className="row">
                 <span className="col-sm-6 text-left">
-                  {date}
+                  <h6>{date}</h6>
                 </span>
                 <span className="col-sm-6 text-right">
-                  {latest}
+                  <h6>{latest}</h6>
                 </span>
               </div>
               <div className="row">
@@ -63,17 +68,27 @@ export default function Admissions(
             </div>
 
             <div className="tab-pane fade" id="admissionsdata" role="tabpanel" aria-labelledby="admissions-data-tab">
+              <div className="row">
+                <span className="col-12 text-center">
+                  <h6>New Admissions to Hospital</h6>
+                </span>
+              </div>
               <TableData data={admissions} cols={['Date', 'Day', 'Admissions']} id='admissionstable' />
             </div>
 
             <div className="tab-pane fade" id="admissionsbyagedata" role="tabpanel"
               aria-labelledby="admissions-byage-data-tab">
               <div className="row">
+                <span className="col-12 text-center">
+                  <h6>New Admissions to Hospital by Age</h6>
+                </span>
+              </div>
+              <div className="row">
                 <span className="col-sm-6 text-left">
-                  {date}
+                  <h6>{date}</h6>
                 </span>
                 <span className="col-sm-6 text-right">
-                  {latest}
+                  <h6>{latest}</h6>
                 </span>
               </div>
               <div className="row">
@@ -92,7 +107,12 @@ export default function Admissions(
             <div className="tab-pane fade" id="regionsadmissionsdata" role="tabpanel"
               aria-labelledby="regions-admissions-data-tab">
               <div className="row">
-                <Graph data={regionsSorted} desc={ukRegions} />
+                <span className="col-12 text-center">
+                  <h6>All Regions New Admissions to Hospital</h6>
+                </span>
+              </div>
+              <div className="row">
+                <Graph data={regionsSorted} desc={ukRegionsNhs} />
               </div>
             </div>
 

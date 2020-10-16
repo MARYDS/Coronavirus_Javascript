@@ -37,7 +37,8 @@ export default function Graph({ data, desc } = this.props) {
   const { w, h } = getChartSize(sizes)
   const strokeColours =
     ["#ff7300", "#003EFF", "#008000", "#00C5CD", "#1A1A1A",
-      "#8B2500", "#551A8B", "#ff0000", "#EEC900", "#F08080"]
+      "#8B2500", "#551A8B", "#ff0000", "#EEC900", "#b8de6f",
+      "#F08080", "#7e8a97"]
 
   return (
     <div className="line-chart-wrapper">
@@ -52,12 +53,12 @@ export default function Graph({ data, desc } = this.props) {
           <CartesianGrid stroke="#ccc" vertical={false} />
           <YAxis tick={{ fontSize: '0.8rem' }} />
           <XAxis interval={30} tickFormatter={formatXAxis}
-            tick={{ fontSize: '0.8rem' }} dataKey="date" height={80} />
+            tick={{ fontSize: '0.8rem' }} dataKey="date" height={50} />
           <Tooltip content={<CustomTooltip />} />
           <Legend verticalAlign="bottom" height={5}
-            wrapperStyle={{ paddingtop: "20px" }} />
+            wrapperStyle={{ paddingtop: "10px" }} />
 
-          {[0, 1, 2, 3, 4, 5, 6, 7, 8, 9].map((i) => {
+          {[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11].map((i) => {
             if (data[0].counts[i] === undefined) {
               return null
             } else {

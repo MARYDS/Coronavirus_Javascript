@@ -55,7 +55,7 @@ export default function Input({ areaType, areaName, updateAreaTypeAndName } = th
           </select>
         </div>
 
-        <input className="btn btn-secondary ml-3" type="button" value="Submit" onClick={onSubmitClick} />
+        <input className="btn btn-secondary ml-4" type="button" value="Submit" onClick={onSubmitClick} />
       </form >
     </div>
   )

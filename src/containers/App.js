@@ -18,6 +18,7 @@ function App() {
   const [apiCaseData, setAPICaseData] = useState([])
   const [apiDeathData, setAPIDeathData] = useState([])
   const [apiHospitalData, setAPIHospitalData] = useState({})
+  const [apiRegionData, setAPIRegionData] = useState({})
   const [noData, setNoData] = useState(false)
 
   useEffect(() => {
@@ -69,7 +70,18 @@ function App() {
       .catch((err) => {
         console.log(err)
       })
+  }, []);
 
+  useEffect(() => {
+    let data = new Data()
+    data
+      .getAPIRegionData()
+      .then((response) => {
+        setAPIRegionData(response)
+      })
+      .catch((err) => {
+        console.log(err)
+      })
   }, []);
 
   const updateAreaTypeAndName = (newAreaType, newAreaName) => {
@@ -111,6 +123,7 @@ function App() {
                 averAct={apiData.deathsAverageAct}
                 deathsAct={apiData.deathsAct}
                 deathsLoc={apiDeathData}
+                regions={apiRegionData.deaths}
               />
               <Cases
                 areaType={areaType}
@@ -127,6 +140,7 @@ function App() {
                 averAct={apiData.casesAverageAct}
                 casesAct={apiData.casesAct}
                 casesLoc={apiCaseData}
+                regions={apiRegionData.cases}
               />
               {
                 (areaType === 'region' || areaType === 'ltla' || areaType === "utla")
@@ -183,7 +197,7 @@ function App() {
               />
             </div>
         }
-        <div className="row mb-5">
+        <div className="row mb-2">
           <Footer />
         </div>
       </div>

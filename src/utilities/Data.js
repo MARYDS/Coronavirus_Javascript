@@ -1,5 +1,5 @@
-import { structureAll, structureDeaths, structureCases, structureHospital } from './DataStructures'
-import { apiUrl, weekdays, ukRegions } from './Utils'
+import { structureAll, structureDeaths, structureCases, structureHospital, structureRegion } from './DataStructures'
+import { apiUrl, weekdays, ukRegionsNhs, ukRegions } from './Utils'
 
 export default class Data {
 
@@ -163,8 +163,8 @@ export default class Data {
     let region = ''
 
     // Retrieve data for each region and merge results
-    for (let k = 0; k < ukRegions.length; k++) {
-      region = ukRegions[k]
+    for (let k = 0; k < ukRegionsNhs.length; k++) {
+      region = ukRegionsNhs[k]
 
       let filters = ""
       if (region === "Scotland" || region === "Wales" || region === "Northern Ireland") {
@@ -307,11 +307,11 @@ export default class Data {
 
     for (const [key, value] of Object.entries(hosp)) {
       if (
-        value.patientsEastOfEngland || value.patientsLondon ||
-        value.patientsMidlands || value.patientsNorthEastAndYorkshire ||
-        value.patientsNorthWest || value.patientsSouthEast ||
-        value.patientsSouthWest || value.patientsScotland ||
-        value.patientsWales || value.patientsNorthernIreland
+        value.patientsEastOfEngland != null || value.patientsLondon != null ||
+        value.patientsMidlands != null || value.patientsNorthEastAndYorkshire != null ||
+        value.patientsNorthWest != null || value.patientsSouthEast != null ||
+        value.patientsSouthWest != null || value.patientsScotland != null ||
+        value.patientsWales != null || value.patientsNorthernIreland != null
       ) {
         hospital.patients[hospital.patients.length] = {
           'date': key,
@@ -331,11 +331,10 @@ export default class Data {
         }
       }
       if (
-        value.admissionsEastOfEngland || value.admissionsLondon ||
-        value.admissionsMidlands || value.admissionsNorthEastAndYorkshire ||
-        value.admissionsNorthWest || value.admissionsSouthEast ||
-        value.admissionsSouthWest || value.admissionsScotland ||
-        value.admissionsWales || value.admissionsNorthernIreland
+        value.admissionsEastOfEngland != null || value.admissionsLondon != null ||
+        value.admissionsMidlands != null || value.admissionsNorthEastAndYorkshire != null || value.admissionsNorthWest != null || value.admissionsSouthEast != null ||
+        value.admissionsSouthWest != null || value.admissionsScotland != null ||
+        value.admissionsWales != null || value.admissionsNorthernIreland != null
       ) {
         hospital.admissions[hospital.admissions.length] = {
           'date': key,
@@ -355,11 +354,8 @@ export default class Data {
         }
       }
       if (
-        value.intensiveCareEastOfEngland || value.intensiveCareLondon ||
-        value.intensiveCareMidlands || value.intensiveCareNorthEastAndYorkshire ||
-        value.intensiveCareNorthWest || value.intensiveCareSouthEast ||
-        value.intensiveCareSouthWest || value.intensiveCareScotland ||
-        value.intensiveCareWales || value.intensiveCareNorthernIreland
+        value.intensiveCareEastOfEngland != null || value.intensiveCareLondon != null ||
+        value.intensiveCareMidlands != null || value.intensiveCareNorthEastAndYorkshire != null || value.intensiveCareNorthWest != null || value.intensiveCareSouthEast != null || value.intensiveCareSouthWest != null || value.intensiveCareScotland != null || value.intensiveCareWales != null || value.intensiveCareNorthernIreland != null
       ) {
         hospital.intensiveCare[hospital.intensiveCare.length] = {
           'date': key,
@@ -383,6 +379,83 @@ export default class Data {
     return hospital;
   }
 
+  // Fetch todays or most recent regional data from API
+  async getAPIRegionData() {
+
+    let reg = {}
+    let region = ''
+
+    // Retrieve data for each region and merge results
+    for (let k = 0; k < ukRegions.length; k++) {
+      region = ukRegions[k]
+
+      let filters = ""
+      if (region === "Scotland" || region === "Wales" || region === "Northern Ireland") {
+        filters = "areaType=nation"
+      } else {
+        filters = "areaType=region"
+      }
+      filters += `;areaName=${region}`
+      const request = `
+      ${apiUrl}?filters=${filters}&structure=${JSON.stringify(structureRegion)}
+      `
+      let response = await fetch(request);
+      let results = await response.json();
+
+      // No data available
+      if (results.status >= 400) continue
+      if (results.data === undefined) continue
+
+      // Got data
+      if (results.data != null) {
+
+        // Merge with other regions data by date
+        for (let i = 0; i < results.data.length; i++) {
+          const c = results.data[i]
+
+          // Arrays of date / values after region data is available
+          if (c.date >= '2020-03-01' && c.date !== '2020-07-01') {
+            const rowDay = weekdays[(new Date(c.date)).getDay()]
+
+            // New date, create empty object
+            if (!(c.date in reg)) {
+              reg[c.date] = {
+                'day': rowDay,
+                'deaths': [],
+                'cases': []
+              }
+            }
+
+            reg[c.date]['deaths'][k] = c.deaths
+            reg[c.date]['cases'][k] = c.cases
+          }
+        }
+      }
+    }
+
+    // Split out deaths and cases
+    let regions = {
+      deaths: [],
+      cases: [],
+    }
+
+    for (const [key, value] of Object.entries(reg)) {
+      if (key >= '2020-08-16') {
+        regions.deaths[regions.deaths.length] = {
+          'date': key,
+          'day': value.day,
+          'counts': value.deaths
+        }
+      }
+      regions.cases[regions.cases.length] = {
+        'date': key,
+        'day': value.day,
+        'counts': value.cases
+      }
+    }
+    return regions;
+  }
+
   get7DayAverage(apiData, i, field) {
     let tot = 0
     for (let a = i; a < (i + 7); a++) {
@@ -395,7 +468,10 @@ export default class Data {
           val = apiData[a].newDeathsAct
           break
         case "newCasesPub":
-          val = apiData[a].newCasesPub
+          if (this.areaType !== 'region' ||
+            (this.areaType === 'region' && apiData[a].date !== '2020-07-01')) {
+            val = apiData[a].newCasesPub
+          }
           break
         case "newCasesAct":
           val = apiData[a].newCasesAct
@@ -423,7 +499,7 @@ export default class Data {
   extractRequiredFields(apiData) {
 
     const data = {
-      dateLatest: null, deathsDate: null, deathsDateYMD: null, deathsNew: null, deathsCum: null, deathsRate: null, deathsAverage: null, deathsDateAct: null, deathsNewAct: null, deathsCumAct: null, deathsRateAct: null, deathsAverageAct: null, casesDate: null, casesDateYMD: null, casesNew: null, casesCum: null, casesRate: null, casesAverage: null, casesDateAct: null, casesNewAct: null, casesCumAct: null, casesRateAct: null, casesAverageAct: null, hospitalDate: null, hospitalNew: null, hospitalAverage: null, admissionsDate: null, admissionsNew: null, admissionsCum: null, admissionsAverage: null, intensiveCareDate: null, intensiveCareNew: null, intensiveCareAverage: null, testsDate: null, newP1: null, newP2: null, newP3: null, newP4: null, newTests: null, cumP1: null, cumP2: null, cumP3: null, cumP4: null, cumTests: null, deathsPub: [], deathsAct: [], casesPub: [], casesAct: [], tests1: [], tests2: [], tests3: [], tests4: [], testsTot: [], patients: [], admissions: [], admissionsByAge: [], intensiveCare: []
+      dateLatest: null, deathsDate: null, deathsDateYMD: null, deathsNew: null, deathsCum: null, deathsRate: null, deathsAverage: null, deathsDateAct: null, deathsNewAct: null, deathsCumAct: null, deathsRateAct: null, deathsAverageAct: null, casesDate: null, casesDateYMD: null, casesNew: null, casesCum: null, casesRate: null, casesAverage: null, casesDateAct: null, casesNewAct: null, casesCumAct: null, casesRateAct: null, casesAverageAct: null, hospitalDate: null, hospitalNew: null, hospitalAverage: null, admissionsDate: null, admissionsNew: null, admissionsCum: null, admissionsAverage: null, intensiveCareDate: null, intensiveCareNew: null, intensiveCareAverage: null, testsDate: null, newP1: null, newP2: null, newP3: null, newP4: null, newTests: null, cumP1: null, cumP2: null, cumP3: null, cumP4: null, cumTests: null, deathsPub: [], deathsAct: [], casesPub: [], casesAct: [], casesByGender: [], tests1: [], tests2: [], tests3: [], tests4: [], testsTot: [], patients: [], admissions: [], admissionsByAge: [], intensiveCare: []
     }
 
     // Got data
@@ -449,9 +525,9 @@ export default class Data {
           // Get the latest values for each variable, may be on different dates
 
           // Deaths Published - Set if not already set
-          if (data.deathsNew == null && c.newDeathsPub) {
-            data.deathsNew = (c.newDeathsPub || '').toLocaleString()
-            data.deathsCum = (c.cumDeathsPub || '').toLocaleString()
+          if (data.deathsNew == null && c.newDeathsPub != null) {
+            data.deathsNew = (c.newDeathsPub || '0').toLocaleString()
+            data.deathsCum = (c.cumDeathsPub || '0').toLocaleString()
             data.deathsRate = c.cumDeathsPubRate
             data.deathsDate = rowDate
             data.deathsDateYMD = c.date
@@ -460,9 +536,9 @@ export default class Data {
           }
 
           // Deaths by Death Date - Set if not already set
-          if (data.deathsNewAct == null && c.newDeathsAct) {
-            data.deathsNewAct = (c.newDeathsAct || '').toLocaleString()
-            data.deathsCumAct = (c.cumDeathsAct || '').toLocaleString()
+          if (data.deathsNewAct == null && c.newDeathsAct != null) {
+            data.deathsNewAct = (c.newDeathsAct || '0').toLocaleString()
+            data.deathsCumAct = (c.cumDeathsAct || '0').toLocaleString()
             data.deathsRateAct = c.cumDeathsActRate
             data.deathsDateAct = rowDate
             data.deathsAverageAct = this.get7DayAverage(apiData, i, "newDeathsAct")
@@ -470,9 +546,9 @@ export default class Data {
           }
 
           // Cases Published - Set if not already set
-          if (data.casesNew == null && c.newCasesPub) {
-            data.casesNew = (c.newCasesPub || '').toLocaleString()
-            data.casesCum = (c.cumCasesPub || '').toLocaleString()
+          if (data.casesNew == null && c.newCasesPub != null) {
+            data.casesNew = (c.newCasesPub || '0').toLocaleString()
+            data.casesCum = (c.cumCasesPub || '0').toLocaleString()
             data.casesRate = c.cumCasesPubRate
             data.casesDate = rowDate
             data.casesDateYMD = c.date
@@ -480,49 +556,87 @@ export default class Data {
               .toLocaleString()
           }
           // Cases by specimen date - Set if not already set
-          if (data.casesNewAct == null && c.newCasesAct) {
-            data.casesNewAct = (c.newCasesAct || '').toLocaleString()
-            data.casesCumAct = (c.cumCasesAct || '').toLocaleString()
+          if (data.casesNewAct == null && c.newCasesAct != null) {
+            data.casesNewAct = (c.newCasesAct || '0').toLocaleString()
+            data.casesCumAct = (c.cumCasesAct || '0').toLocaleString()
             data.casesRateAct = c.cumCasesActRate
             data.casesDateAct = rowDate
             data.casesAverageAct = this.get7DayAverage(apiData, i, "newCasesAct")
               .toLocaleString()
           }
+
+          const caseAgeRanges =
+            ["0_to_4", "5_to_9", "10_to_14", "15_to_19", "20_to_24", "25_to_29", "30_to_34",
+              "35_to_39", "40_to_44", "45_to_49", "50_to_54", "55_to_59", "60_to_64", "65_to_69",
+              "70_to_74", "75_to_79", "80_to_84", "85_to_89", "90+"]
+
+          const maleCasesByAgeNow = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+          const femaleCasesByAgeNow = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+          if (data.casesByGender.length === 0 &&
+            (c.maleCases != null || c.femaleCases != null)) {
+            if (c.maleCases != null) {
+              c.maleCases.forEach((age) => {
+                const loc = caseAgeRanges.indexOf(age.age)
+                if (loc !== -1) {
+                  maleCasesByAgeNow[loc] = age.value
+                }
+              })
+            }
+            if (c.femaleCases != null) {
+              c.femaleCases.forEach((age) => {
+                const loc = caseAgeRanges.indexOf(age.age)
+                if (loc !== -1) {
+                  femaleCasesByAgeNow[loc] = age.value
+                }
+              })
+            }
+
+            for (let g = 0; g < 19; g++) {
+              data.casesByGender[data.casesByGender.length] = {
+                age: caseAgeRanges[g],
+                counts: [maleCasesByAgeNow[g], femaleCasesByAgeNow[g]],
+                lines: []
+              }
+            }
+          }
+
           // Tests - Set if not already set
           if (data.newP1 == null &&
-            (c.newPillarOneTestsByPublishDate || c.newPillarTwoTestsByPublishDate ||
-              c.newPillarThreeTestsByPublishDate || c.newPillarFourTestsByPublishDate)) {
-            data.newP1 = (c.newPillarOneTestsByPublishDate || '').toLocaleString()
-            data.newP2 = (c.newPillarTwoTestsByPublishDate || '').toLocaleString()
-            data.newP3 = (c.newPillarThreeTestsByPublishDate || '').toLocaleString()
-            data.newP4 = (c.newPillarFourTestsByPublishDate || '').toLocaleString()
+            (c.newPillarOneTestsByPublishDate != null ||
+              c.newPillarTwoTestsByPublishDate != null ||
+              c.newPillarThreeTestsByPublishDate != null ||
+              c.newPillarFourTestsByPublishDate != null)) {
+            data.newP1 = (c.newPillarOneTestsByPublishDate || '0').toLocaleString()
+            data.newP2 = (c.newPillarTwoTestsByPublishDate || '0').toLocaleString()
+            data.newP3 = (c.newPillarThreeTestsByPublishDate || '0').toLocaleString()
+            data.newP4 = (c.newPillarFourTestsByPublishDate || '0').toLocaleString()
             data.newTests = c.newTests.toLocaleString()
-            data.cumP1 = (c.cumPillarOneTestsByPublishDate || '').toLocaleString()
-            data.cumP2 = (c.cumPillarTwoTestsByPublishDate || '').toLocaleString()
-            data.cumP3 = (c.cumPillarThreeTestsByPublishDate || '').toLocaleString()
-            data.cumP4 = (c.cumPillarFourTestsByPublishDate || '').toLocaleString()
+            data.cumP1 = (c.cumPillarOneTestsByPublishDate || '0').toLocaleString()
+            data.cumP2 = (c.cumPillarTwoTestsByPublishDate || '0').toLocaleString()
+            data.cumP3 = (c.cumPillarThreeTestsByPublishDate || '0').toLocaleString()
+            data.cumP4 = (c.cumPillarFourTestsByPublishDate || '0').toLocaleString()
             data.cumTests = c.cumTests.toLocaleString()
             data.testsDate = rowDate
           }
 
           // Hospital patients - Set if not already set
-          if (data.hospitalNew == null && c.hospitalCases) {
+          if (data.hospitalNew == null && c.hospitalCases != null) {
             data.hospitalNew = (c.hospitalCases).toLocaleString()
             data.hospitalDate = rowDate
             data.hospitalAverage = this.get7DayAverage(apiData, i, "hospitalCases")
               .toLocaleString()
           }
           // Hospital admissions - Set if not already set
-          if (data.admissionsNew == null && c.newAdmissions) {
+          if (data.admissionsNew == null && c.newAdmissions != null) {
             data.admissionsNew = (c.newAdmissions).toLocaleString()
-            data.admissionsCum = (c.cumAdmissions || '').toLocaleString()
+            data.admissionsCum = (c.cumAdmissions || '0').toLocaleString()
             data.admissionsDate = rowDate
             data.admissionsAverage = this.get7DayAverage(apiData, i, "newAdmissions")
               .toLocaleString()
           }
 
           // Intensive care - Set if not already set
-          if (data.intensiveCareNew == null && c.covidOccupiedMVBeds) {
+          if (data.intensiveCareNew == null && c.covidOccupiedMVBeds != null) {
             data.intensiveCareNew = (c.covidOccupiedMVBeds).toLocaleString()
             data.intensiveCareDate = rowDate
             data.intensiveCareAverage = this.get7DayAverage(apiData, i, "covidOccupiedMVBeds")
@@ -530,9 +644,9 @@ export default class Data {
           }
 
           // Arrays of date / values after covid start date
-          if (c.date >= '2020-03-01') {
+          if (c.date >= '2020-03-01' && (c.date !== '2020-07-01' || c.areaType !== 'region')) {
 
-            if (c.newDeathsPub) {
+            if (c.newDeathsPub != null) {
               data.deathsPub[data.deathsPub.length] = {
                 date: c.date,
                 day: rowDay,
@@ -541,7 +655,7 @@ export default class Data {
                 lines: [this.get7DayAverage(apiData, i, "newDeathsPub")]
               }
             }
-            if (c.newDeathsAct) {
+            if (c.newDeathsAct != null) {
               data.deathsAct[data.deathsAct.length] = {
                 date: c.date,
                 day: rowDay,
@@ -550,7 +664,7 @@ export default class Data {
                 lines: [this.get7DayAverage(apiData, i, "newDeathsAct")],
               }
             }
-            if (c.newCasesPub) {
+            if (c.newCasesPub != null) {
               data.casesPub[data.casesPub.length] = {
                 date: c.date,
                 day: rowDay,
@@ -559,7 +673,7 @@ export default class Data {
                 lines: [this.get7DayAverage(apiData, i, "newCasesPub")],
               }
             }
-            if (c.newCasesAct) {
+            if (c.newCasesAct != null) {
               data.casesAct[data.casesAct.length] = {
                 date: c.date,
                 day: rowDay,
@@ -568,7 +682,7 @@ export default class Data {
                 lines: [this.get7DayAverage(apiData, i, "newCasesAct")],
               }
             }
-            if (c.newPillarOneTestsByPublishDate) {
+            if (c.newPillarOneTestsByPublishDate != null) {
               data.tests1[data.tests1.length] = {
                 date: c.date,
                 day: rowDay,
@@ -576,7 +690,7 @@ export default class Data {
                 lines: []
               }
             }
-            if (c.newPillarTwoTestsByPublishDate) {
+            if (c.newPillarTwoTestsByPublishDate != null) {
               data.tests2[data.tests2.length] = {
                 date: c.date,
                 day: rowDay,
@@ -584,7 +698,7 @@ export default class Data {
                 lines: []
               }
             }
-            if (c.newPillarThreeTestsByPublishDate) {
+            if (c.newPillarThreeTestsByPublishDate != null) {
               data.tests3[data.tests3.length] = {
                 date: c.date,
                 day: rowDay,
@@ -592,7 +706,7 @@ export default class Data {
                 lines: []
               }
             }
-            if (c.newPillarFourTestsByPublishDate) {
+            if (c.newPillarFourTestsByPublishDate != null) {
               data.tests4[data.tests4.length] = {
                 date: c.date,
                 day: rowDay,
@@ -613,7 +727,7 @@ export default class Data {
               lines: []
             }
 
-            if (c.hospitalCases) {
+            if (c.hospitalCases != null) {
               data.patients[data.patients.length] = {
                 date: c.date,
                 day: rowDay,
@@ -621,7 +735,7 @@ export default class Data {
                 lines: [this.get7DayAverage(apiData, i, "hospitalCases")]
               }
             }
-            if (c.newAdmissions) {
+            if (c.newAdmissions != null) {
               data.admissions[data.admissions.length] = {
                 date: c.date,
                 day: rowDay,
@@ -629,7 +743,7 @@ export default class Data {
                 lines: [this.get7DayAverage(apiData, i, "newAdmissions")]
               }
             }
-            if (c.covidOccupiedMVBeds) {
+            if (c.covidOccupiedMVBeds != null) {
               data.intensiveCare[data.intensiveCare.length] = {
                 date: c.date,
                 day: rowDay,
@@ -637,51 +751,27 @@ export default class Data {
                 lines: [this.get7DayAverage(apiData, i, "covidOccupiedMVBeds")]
               }
             }
-            if (c.cumAdmissionsByAge) {
-              const admByAge = [0, 0, 0, 0, 0]
+
+            const admAgeRanges = ["0_to_5", "6_to_17", "18_to_64", "65_to_84", "85+"]
+            const admByAge = [0, 0, 0, 0, 0]
+            const admByAgePrev = [0, 0, 0, 0, 0]
+
+            if (c.cumAdmissionsByAge != null) {
               c.cumAdmissionsByAge.forEach((age) => {
-                switch (age.age) {
-                  case "0_to_5":
-                    admByAge[0] = age.value
-                    break
-                  case "6_to_17":
-                    admByAge[1] = age.value
-                    break
-                  case "18_to_64":
-                    admByAge[2] = age.value
-                    break
-                  case "65_to_84":
-                    admByAge[3] = age.value
-                    break
-                  case "85+":
-                    admByAge[4] = age.value
-                    break
-                  default:
+                const loc = admAgeRanges.indexOf(age.age)
+                if (loc !== -1) {
+                  admByAge[loc] = age.value
                 }
               })
-              const admByAgePrev = [0, 0, 0, 0, 0]
-              if (d && d.cumAdmissionsByAge) {
+              if (d && d.cumAdmissionsByAge != null) {
                 d.cumAdmissionsByAge.forEach((age) => {
-                  switch (age.age) {
-                    case "0_to_5":
-                      admByAgePrev[0] = age.value
-                      break
-                    case "6_to_17":
-                      admByAgePrev[1] = age.value
-                      break
-                    case "18_to_64":
-                      admByAgePrev[2] = age.value
-                      break
-                    case "65_to_84":
-                      admByAgePrev[3] = age.value
-                      break
-                    case "85+":
-                      admByAgePrev[4] = age.value
-                      break
-                    default:
+                  const loc = admAgeRanges.indexOf(age.age)
+                  if (loc !== -1) {
+                    admByAgePrev[loc] = age.value
                   }
                 })
               }
+
               data.admissionsByAge[data.admissionsByAge.length] = {
                 date: c.date,
                 day: rowDay,

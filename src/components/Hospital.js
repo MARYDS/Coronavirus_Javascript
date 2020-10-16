@@ -2,7 +2,7 @@ import React from 'react'
 import Graph from '../utilities/Graph'
 import Chart from '../utilities/Chart'
 import TableData from '../utilities/TableData'
-import { compare, ukRegions } from '../utilities/Utils'
+import { compare, ukRegionsNhs } from '../utilities/Utils'
 
 export default function Hospital({ date, latest, average, patients, regions } = this.props) {
   if (patients === undefined) patients = []
@@ -15,13 +15,13 @@ export default function Hospital({ date, latest, average, patients, regions } = 
       <div className="card mb-5 h-100">
 
         <div className="card-header text-center">
-          Patients in Hospital
+          <h5>Patients in Hospital</h5>
           <ul className="nav nav-tabs" id="patients-list" role="tablist">
             <li className="nav-item">
               <a className="nav-link active" id="patients-tab" data-toggle="tab" href="#patients" role="tab" aria-controls="patients" aria-selected="true">Patients</a>
             </li>
             <li className="nav-item">
-              <a className="nav-link" id="patients-data-tab" data-toggle="tab" href="#patientsdata" role="tab" aria-controls="patientsdata" aria-selected="false">Data</a>
+              <a className="nav-link" id="patients-data-tab" data-toggle="tab" href="#patientsdata" role="tab" aria-controls="patientsdata" aria-selected="false">#</a>
             </li>
             <li className="nav-item">
               <a className="nav-link" id="regions-data-tab" data-toggle="tab" href="#regionsdata" role="tab" aria-controls="regionsdata" aria-selected="false">Regions</a>
@@ -34,11 +34,16 @@ export default function Hospital({ date, latest, average, patients, regions } = 
             <div className="tab-pane fade show active" id="patients" role="tabpanel"
               aria-labelledby="patients-tab">
               <div className="row">
+                <span className="col-12 text-center">
+                  <h6>Patients in Hospital</h6>
+                </span>
+              </div>
+              <div className="row">
                 <span className="col-sm-6 text-left">
-                  {date}
+                  <h6>{date}</h6>
                 </span>
                 <span className="col-sm-6 text-right">
-                  {latest}
+                  <h6>{latest}</h6>
                 </span>
               </div>
               <div className="row">
@@ -55,13 +60,23 @@ export default function Hospital({ date, latest, average, patients, regions } = 
             </div>
 
             <div className="tab-pane fade" id="patientsdata" role="tabpanel" aria-labelledby="patients-data-tab">
+              <div className="row">
+                <span className="col-12 text-center">
+                  <h6>Patients in Hospital</h6>
+                </span>
+              </div>
               <TableData data={patients} cols={['Date', 'Day', 'Patients']} id="hospitaltable" />
             </div>
 
             <div className="tab-pane fade" id="regionsdata" role="tabpanel"
               aria-labelledby="regions-data-tab">
               <div className="row">
-                <Graph data={regionsSorted} desc={ukRegions} />
+                <span className="col-12 text-center">
+                  <h6>All Regions Patients in Hospital</h6>
+                </span>
+              </div>
+              <div className="row">
+                <Graph data={regionsSorted} desc={ukRegionsNhs} />
               </div>
             </div>
 

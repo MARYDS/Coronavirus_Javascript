@@ -1,24 +1,29 @@
 import React from 'react'
 import Chart from '../utilities/Chart'
+import Graph from '../utilities/Graph'
 import TableData from '../utilities/TableData'
-import { compare } from '../utilities/Utils'
+import { compare, ukRegions } from '../utilities/Utils'
 
 export default function Deaths(
   { areaType, datePub, newPub, cumPub, ratePub, averPub, deathsPub,
-    dateAct, newAct, cumAct, rateAct, averAct, deathsAct, deathsLoc }
+    dateAct, newAct, cumAct, rateAct, averAct, deathsAct, deathsLoc,
+    regions }
     = this.props) {
 
   if (deathsPub === undefined) deathsPub = []
   if (deathsAct === undefined) deathsAct = []
+  if (regions === undefined) regions = []
   const deathsPubSorted = [...deathsPub].sort(compare())
   const deathsActSorted = [...deathsAct].sort(compare())
+  const regionsSorted = [...regions].sort(compare())
 
   return (
     <div className="col-md-4 col-sm-6 mb-3">
       <div className="card h-100">
 
         <div className="card-header text-center">
-          Deaths
+          <h5>Deaths</h5>
+
           <ul className="nav nav-tabs" id="deaths-list" role="tablist">
             <li className="nav-item">
               <a className="nav-link active" id="published-tab" data-toggle="tab" href="#published" role="tab" aria-controls="published" aria-selected="true">Published</a>
@@ -30,27 +35,36 @@ export default function Deaths(
               </li>
               : null}
             <li className="nav-item">
-              <a className="nav-link" id="published-data-tab" data-toggle="tab" href="#publisheddata" role="tab" aria-controls="publisheddata" aria-selected="false">Data</a>
+              <a className="nav-link" id="published-data-tab" data-toggle="tab" href="#publisheddata" role="tab" aria-controls="publisheddata" aria-selected="false">#</a>
             </li>
             <li className="nav-item">
               <a className="nav-link" id="actual-tab" data-toggle="tab" href="#actual" role="tab" aria-controls="actual" aria-selected="false">Actual</a>
             </li>
             <li className="nav-item">
-              <a className="nav-link" id="actual-data-tab" data-toggle="tab" href="#actualdata" role="tab" aria-controls="actualdata" aria-selected="false">Data</a>
+              <a className="nav-link" id="actual-data-tab" data-toggle="tab" href="#actualdata" role="tab" aria-controls="actualdata" aria-selected="false">#</a>
+            </li>
+            <li className="nav-item">
+              <a className="nav-link" id="death-regions-data-tab" data-toggle="tab" href="#deathregionsdata" role="tab" aria-controls="deathregionsdata" aria-selected="false">Regions</a>
             </li>
           </ul>
         </div>
 
         <div className="card-body">
           <div className="tab-content" id="deaths-content">
+
             <div className="tab-pane fade show active" id="published" role="tabpanel"
               aria-labelledby="published-tab">
               <div className="row">
+                <span className="col-12 text-center">
+                  <h6>Deaths by Published Date</h6>
+                </span>
+              </div>
+              <div className="row">
                 <span className="col-sm-6 text-left">
-                  {datePub}
+                  <h6>{datePub}</h6>
                 </span>
                 <span className="col-sm-6 text-right">
-                  {newPub}
+                  <h6>{newPub}</h6>
                 </span>
               </div>
               <div className="row">
@@ -83,23 +97,38 @@ export default function Deaths(
             </div>
 
             <div className="tab-pane fade" id="publisheddata" role="tabpanel" aria-labelledby="published-data-tab">
+              <div className="row">
+                <span className="col-12 text-center">
+                  <h6>Deaths by Published Date</h6>
+                </span>
+              </div>
               <TableData data={deathsPub} cols={['Date', 'Day', 'Deaths', 'Cum.Rate']} id="deathspubtable" />
             </div>
 
             {(areaType === 'overview' || areaType === 'nation')
               ?
               <div className="tab-pane fade" id="areadeaths" role="tabpanel" aria-labelledby="area-deaths-tab">
+                <div className="row">
+                  <span className="col-12 text-center">
+                    <h6>Deaths by Location by Published Date</h6>
+                  </span>
+                </div>
                 <TableData data={deathsLoc} cols={['Date', 'Location', 'Deaths']} id="casesareatable" />
               </div>
               : null}
 
             <div className="tab-pane fade" id="actual" role="tabpanel" aria-labelledby="actual-tab">
               <div className="row">
+                <span className="col-12 text-center">
+                  <h6>Deaths by Date of Death</h6>
+                </span>
+              </div>
+              <div className="row">
                 <span className="col-sm-6 text-left">
-                  {dateAct}
+                  <h6>{dateAct}</h6>
                 </span>
                 <span className="col-sm-6 text-right">
-                  {newAct}
+                  <h6>{newAct}</h6>
                 </span>
               </div>
               <div className="row">
@@ -132,7 +161,23 @@ export default function Deaths(
             </div>
 
             <div className="tab-pane fade" id="actualdata" role="tabpanel" aria-labelledby="actual-data-tab">
+              <div className="row">
+                <span className="col-12 text-center">
+                  <h6>Deaths by Date of Death</h6>
+                </span>
+              </div>
               <TableData data={deathsAct} cols={['Date', 'Day', 'Deaths', 'Cum.Rate']} id="casesacttable" />
+            </div>
+
+            <div className="tab-pane fade" id="deathregionsdata" role="tabpanel" aria-labelledby="death-regions-data-tab">
+              <div className="row">
+                <span className="col-12 text-center">
+                  <h6>All Regions Deaths by Region</h6>
+                </span>
+              </div>
+              <div className="row">
+                <Graph data={regionsSorted} desc={ukRegions} />
+              </div>
             </div>
 
           </div>

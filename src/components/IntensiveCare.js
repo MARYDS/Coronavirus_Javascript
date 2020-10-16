@@ -2,7 +2,7 @@ import React from 'react'
 import Graph from '../utilities/Graph'
 import Chart from '../utilities/Chart'
 import TableData from '../utilities/TableData'
-import { compare, ukRegions } from '../utilities/Utils'
+import { compare, ukRegionsNhs } from '../utilities/Utils'
 
 export default function IntensiveCare({ date, latest, average, intensiveCare, regions } = this.props) {
   if (intensiveCare === undefined) intensiveCare = []
@@ -15,7 +15,7 @@ export default function IntensiveCare({ date, latest, average, intensiveCare, re
       <div className="card mb-5 h-100">
 
         <div className="card-header text-center">
-          Intensive Care Beds Occupied
+          <h5>Intensive Care Beds Occupied</h5>
           <ul className="nav nav-tabs" id="intensivecare-list" role="tablist">
             <li className="nav-item">
               <a className="nav-link active" id="intensivecare-tab" data-toggle="tab" href="#intensivecare" role="tab" aria-controls="intensivecare" aria-selected="true">Intensive Care</a>
@@ -34,11 +34,16 @@ export default function IntensiveCare({ date, latest, average, intensiveCare, re
             <div className="tab-pane fade show active" id="intensivecare" role="tabpanel"
               aria-labelledby="intensivecare-tab">
               <div className="row">
+                <span className="col-12 text-center">
+                  <h6>Patients in Intensive Care</h6>
+                </span>
+              </div>
+              <div className="row">
                 <span className="col-sm-6 text-left">
-                  {date}
+                  <h6>{date}</h6>
                 </span>
                 <span className="col-sm-6 text-right">
-                  {latest}
+                  <h6>{latest}</h6>
                 </span>
               </div>
               <div className="row">
@@ -55,13 +60,23 @@ export default function IntensiveCare({ date, latest, average, intensiveCare, re
             </div>
 
             <div className="tab-pane fade" id="intensivecaredata" role="tabpanel" aria-labelledby="intensivecare-data-tab">
+              <div className="row">
+                <span className="col-12 text-center">
+                  <h6>Patients in Intensive Care</h6>
+                </span>
+              </div>
               <TableData data={intensiveCare} cols={['Date', 'Day', 'Beds']} id="intensivecaretable" />
             </div>
 
             <div className="tab-pane fade" id="regionsintensivecaredata" role="tabpanel"
               aria-labelledby="regions-intensivecare-data-tab">
               <div className="row">
-                <Graph data={regionsSorted} desc={ukRegions} />
+                <span className="col-12 text-center">
+                  <h6>All Regions Patients in Intensive Care</h6>
+                </span>
+              </div>
+              <div className="row">
+                <Graph data={regionsSorted} desc={ukRegionsNhs} />
               </div>
             </div>
 

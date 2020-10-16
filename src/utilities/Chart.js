@@ -60,11 +60,11 @@ export default function Chart({ data, desc, linesDesc } = this.props) {
 
           <YAxis tick={{ fontSize: '0.8rem' }} />
           <XAxis interval={30} tickFormatter={formatXAxis}
-            tick={{ fontSize: '0.8rem' }} dataKey="date" height={80} />
+            tick={{ fontSize: '0.8rem' }} dataKey="date" height={50} />
           <CartesianGrid stroke="#ccc" vertical={false} />
           <Tooltip content={<CustomTooltip />} />
           <Legend verticalAlign="bottom" height={5}
-            wrapperStyle={{ paddingtop: "20px" }} />
+            wrapperStyle={{ paddingtop: "5px" }} />
 
           {(data.length > 0) ?
             [0, 1, 2, 3, 4, 5, 6, 7, 8, 9].map((i) => {

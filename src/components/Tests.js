@@ -29,7 +29,7 @@ export default function Tests(
       <div className="card h-100">
 
         <div className="card-header text-center">
-          Tests
+          <h5>Tests</h5>
           <ul className="nav nav-tabs" id="tests-list" role="tablist">
             <li className="nav-item">
               <a className="nav-link active" id="tests-tab" data-toggle="tab" href="#tests" role="tab" aria-controls="tests" aria-selected="true">Tests</a>
@@ -57,12 +57,19 @@ export default function Tests(
             <div className="tab-pane fade show active" id="tests" role="tabpanel"
               aria-labelledby="tests-tab">
               <div className="row">
+                <span className="col-12 text-center">
+                  <h6>Tests by Published Date</h6>
+                </span>
+              </div>
+              <div className="row">
                 <span className="col-sm-4 text-left">
-                  {date}
+                  <h6>{date}</h6>
                 </span>
                 <span className="col-sm-4 text-right">
+                  <h6>{newTotal}</h6>
                 </span>
                 <span className="col-sm-4 text-right">
+                  <h6>{cumTotal}</h6>
                 </span>
               </div>
               <div className="row">
@@ -109,39 +116,55 @@ export default function Tests(
                   {cumP4}
                 </span>
               </div>
-              <div className="row">
-                <span className="col-sm-4 text-left">
-                  Total
-                </span>
-                <span className="col-sm-4 text-right">
-                  {newTotal}
-                </span>
-                <span className="col-sm-4 text-right">
-                  {cumTotal}
-                </span>
-              </div>
+
               <div className="row">
                 <Chart data={testsTotSorted} desc={['Pillar 1', 'Pillar 2', 'Pillar 3', 'Pillar 4']} />
               </div>
             </div>
 
             <div className="tab-pane fade" id="p1data" role="tabpanel" aria-labelledby="p1-data-tab">
+              <div className="row">
+                <span className="col-12 text-center">
+                  <h6>Pillar 1 Tests</h6>
+                </span>
+              </div>
               <TableData data={tests1} cols={['Date', 'Day', 'Tests']} id="testsp1table" />
             </div>
 
-            <div className="tab-pane fade" id="p2data" role="tabpanel" aria-labelledby="p2-data-tab">
+            <div className="tab-pane fade" id="p2data" role="tabpanel"
+              aria-labelledby="p2-data-tab">
+              <div className="row">
+                <span className="col-12 text-center">
+                  <h6>Pillar 2 Tests</h6>
+                </span>
+              </div>
               <TableData data={tests2} cols={['Date', 'Day', 'Tests']} id="testsp2table" />
             </div>
 
             <div className="tab-pane fade" id="p3data" role="tabpanel" aria-labelledby="p3-data-tab">
+              <div className="row">
+                <span className="col-12 text-center">
+                  <h6>Pillar 3 Tests</h6>
+                </span>
+              </div>
               <TableData data={tests3} cols={['Date', 'Day', 'Tests']} id="testsp3table" />
             </div>
 
             <div className="tab-pane fade" id="p4data" role="tabpanel" aria-labelledby="p4-data-tab">
+              <div className="row">
+                <span className="col-12 text-center">
+                  <h6>Pillar 4 Tests</h6>
+                </span>
+              </div>
               <TableData data={tests4} cols={['Date', 'Day', 'Tests']} id="testsp4table" />
             </div>
 
             <div className="tab-pane fade" id="testsdata" role="tabpanel" aria-labelledby="tests-data-tab">
+              <div className="row">
+                <span className="col-12 text-center">
+                  <h6>Total Tests</h6>
+                </span>
+              </div>
               <TableData data={testsTot} cols={['Date', 'Day', 'Tests']} id="teststottable" />
             </div>
 

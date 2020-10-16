@@ -57,3 +57,11 @@ export const structureHospital = {
   "intensiveCare": "covidOccupiedMVBeds",
   "patients": "hospitalCases"
 }
+
+export const structureRegion = {
+  "locn": "areaName",
+  "code": "areaCode",
+  "date": "date",
+  "deaths": "newDeaths28DaysByPublishDate",
+  "cases": "newCasesByPublishDate",
+}
