@@ -1,7 +1,6 @@
 body {
   font-family: Arial, Helvetica, sans-serif;
   font-size: 0.8rem;
-  background-color: #eee;
 }
 .custom-scrollbar {
   position: relative;
@@ -12,7 +11,7 @@ body {
 .table-wrapper-scroll-y {
   display: block;
 }
-.card {
+.card-main {
   box-shadow: 2px 2px 3px 0px rgb(204, 204, 204); 
   min-height: 580px; 
 }

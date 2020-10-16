@@ -56,67 +56,73 @@ export default function Tests(
           <div className="tab-content" id="tests-content">
             <div className="tab-pane fade show active" id="tests" role="tabpanel"
               aria-labelledby="tests-tab">
+
+              <div className="card mb-3">
+                <div className="card-header pt-2 pb-1 bg-info">
+                  <div className="row text-white p-0 m-0 rounded">
+                    <span className="col-sm-4 text-left">
+                      <h6 className="font-weight-bold">{date}</h6>
+                    </span>
+                    <span className="col-sm-4 text-right">
+                      <h6 className="font-weight-bold">{newTotal}</h6>
+                    </span>
+                    <span className="col-sm-4 text-right">
+                      <h6 className="font-weight-bold">{cumTotal}</h6>
+                    </span>
+                  </div>
+                </div>
+                <div className="card-body p-2 mx-4">
+                  <div className="row">
+                    <span className="col-sm-4 text-left">
+                      Pillar 1
+                </span>
+                    <span className="col-sm-4 text-right">
+                      {newP1}
+                    </span>
+                    <span className="col-sm-4 text-right">
+                      {cumP1}
+                    </span>
+                  </div>
+                  <div className="row">
+                    <span className="col-sm-4 text-left">
+                      Pillar 2
+                </span>
+                    <span className="col-sm-4 text-right">
+                      {newP2}
+                    </span>
+                    <span className="col-sm-4 text-right">
+                      {cumP2}
+                    </span>
+                  </div>
+                  <div className="row">
+                    <span className="col-sm-4 text-left">
+                      Pillar 3
+                </span>
+                    <span className="col-sm-4 text-right">
+                      {newP3}
+                    </span>
+                    <span className="col-sm-4 text-right">
+                      {cumP3}
+                    </span>
+                  </div>
+                  <div className="row">
+                    <span className="col-sm-4 text-left">
+                      Pillar 4
+                </span>
+                    <span className="col-sm-4 text-right">
+                      {newP4}
+                    </span>
+                    <span className="col-sm-4 text-right">
+                      {cumP4}
+                    </span>
+                  </div>
+                </div>
+              </div>
               <div className="row">
                 <span className="col-12 text-center">
                   <h6>Tests by Published Date</h6>
                 </span>
               </div>
-              <div className="row bg-info text-white pt-2 mb-1 rounded">
-                <span className="col-sm-4 text-left">
-                  <h6 className="font-weight-bold">{date}</h6>
-                </span>
-                <span className="col-sm-4 text-right">
-                  <h6 className="font-weight-bold">{newTotal}</h6>
-                </span>
-                <span className="col-sm-4 text-right">
-                  <h6 className="font-weight-bold">{cumTotal}</h6>
-                </span>
-              </div>
-              <div className="row">
-                <span className="col-sm-4 text-left">
-                  Pillar 1
-                </span>
-                <span className="col-sm-4 text-right">
-                  {newP1}
-                </span>
-                <span className="col-sm-4 text-right">
-                  {cumP1}
-                </span>
-              </div>
-              <div className="row">
-                <span className="col-sm-4 text-left">
-                  Pillar 2
-                </span>
-                <span className="col-sm-4 text-right">
-                  {newP2}
-                </span>
-                <span className="col-sm-4 text-right">
-                  {cumP2}
-                </span>
-              </div>
-              <div className="row">
-                <span className="col-sm-4 text-left">
-                  Pillar 3
-                </span>
-                <span className="col-sm-4 text-right">
-                  {newP3}
-                </span>
-                <span className="col-sm-4 text-right">
-                  {cumP3}
-                </span>
-              </div>
-              <div className="row">
-                <span className="col-sm-4 text-left">
-                  Pillar 4
-                </span>
-                <span className="col-sm-4 text-right">
-                  {newP4}
-                </span>
-                <span className="col-sm-4 text-right">
-                  {cumP4}
-                </span>
-              </div>
-
               <div className="row">
                 <Chart data={testsTotSorted} desc={['Pillar 1', 'Pillar 2', 'Pillar 3', 'Pillar 4']} />
               </div>

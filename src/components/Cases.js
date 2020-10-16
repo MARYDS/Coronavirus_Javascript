@@ -51,39 +51,51 @@ export default function Cases(
 
             <div className="tab-pane fade show active" id="publishedcases" role="tabpanel"
               aria-labelledby="published-cases-tab">
-              <h6 className="text-center">Cases by Published Date</h6>
-              <div className="row bg-info text-white pt-2 mb-1 rounded">
-                <span className="col-sm-6 text-left">
-                  <h6 className="font-weight-bold">{datePub}</h6>
+
+              <div className="card mb-3">
+                <div className="card-header pt-2 pb-1 bg-info">
+                  <div className="row text-white p-0 m-0 rounded">
+                    <span className="col-sm-6 text-left">
+                      <h6 className="font-weight-bold">{datePub}</h6>
+                    </span>
+                    <span className="col-sm-6 text-right">
+                      <h6 className="font-weight-bold">{newPub}</h6>
+                    </span>
+                  </div>
+                </div>
+                <div className="card-body p-2 mx-4">
+                  <div className="row">
+                    <span className="col-sm-6 text-left">
+                      7 Day Average
                 </span>
-                <span className="col-sm-6 text-right">
-                  <h6 className="font-weight-bold">{newPub}</h6>
+                    <span className="col-sm-6 text-right">
+                      {averPub}
+                    </span>
+                  </div>
+                  <div className="row">
+                    <span className="col-sm-6 text-left">
+                      Cumulative
                 </span>
+                    <span className="col-sm-6 text-right">
+                      {cumPub}
+                    </span>
+                  </div>
+                  <div className="row">
+                    <span className="col-sm-6 text-left">
+                      Rate
+                </span>
+                    <span className="col-sm-6 text-right">
+                      {ratePub}
+                    </span>
+                  </div>
+                </div>
               </div>
               <div className="row">
-                <span className="col-sm-6 text-left">
-                  7 Day Average
-                </span>
-                <span className="col-sm-6 text-right">
-                  {averPub}
+                <span className="col-12 text-center">
+                  <h6>Cases by Published Date</h6>
                 </span>
               </div>
-              <div className="row">
-                <span className="col-sm-6 text-left">
-                  Cumulative
-            </span>
-                <span className="col-sm-6 text-right">
-                  {cumPub}
-                </span>
-              </div>
-              <div className="row">
-                <span className="col-sm-6 text-left">
-                  Rate
-            </span>
-                <span className="col-sm-6 text-right">
-                  {ratePub}
-                </span>
-              </div>
+
               <div className="row">
                 <Chart data={casesPubSorted} desc={['Cases by Published Date']} linesDesc={['7 Day Average']} />
               </div>
@@ -107,39 +119,51 @@ export default function Cases(
             </div>
 
             <div className="tab-pane fade" id="actualcases" role="tabpanel" aria-labelledby="actual-cases-tab">
-              <h6 className="text-center">Cases by Specimen Date</h6>
-              <div className="row bg-info text-white pt-2 mb-1 rounded">
-                <span className="col-sm-6 text-left">
-                  <h6 className="font-weight-bold">{dateAct}</h6>
+
+              <div className="card mb-3">
+                <div className="card-header pt-2 pb-1 bg-info">
+                  <div className="row text-white p-0 m-0 rounded">
+                    <span className="col-sm-6 text-left">
+                      <h6 className="font-weight-bold">{dateAct}</h6>
+                    </span>
+                    <span className="col-sm-6 text-right">
+                      <h6 className="font-weight-bold">{newAct}</h6>
+                    </span>
+                  </div>
+                </div>
+                <div className="card-body p-2 mx-4">
+                  <div className="row">
+                    <span className="col-sm-6 text-left">
+                      7 Day Average
                 </span>
-                <span className="col-sm-6 text-right">
-                  <h6 className="font-weight-bold">{newAct}</h6>
+                    <span className="col-sm-6 text-right">
+                      {averAct}
+                    </span>
+                  </div>
+                  <div className="row">
+                    <span className="col-sm-6 text-left">
+                      Cumulative
                 </span>
+                    <span className="col-sm-6 text-right">
+                      {cumAct}
+                    </span>
+                  </div>
+                  <div className="row">
+                    <span className="col-sm-6 text-left">
+                      Rate
+                </span>
+                    <span className="col-sm-6 text-right">
+                      {rateAct}
+                    </span>
+                  </div>
+                </div>
               </div>
               <div className="row">
-                <span className="col-sm-6 text-left">
-                  7 Day Average
-                </span>
-                <span className="col-sm-6 text-right">
-                  {averAct}
+                <span className="col-12 text-center">
+                  <h6>Cases by Specimen Date</h6>
                 </span>
               </div>
-              <div className="row">
-                <span className="col-sm-6 text-left">
-                  Cumulative
-                </span>
-                <span className="col-sm-6 text-right">
-                  {cumAct}
-                </span>
-              </div>
-              <div className="row">
-                <span className="col-sm-6 text-left">
-                  Rate
-                </span>
-                <span className="col-sm-6 text-right">
-                  {rateAct}
-                </span>
-              </div>
+
               <div className="row">
                 <Chart data={casesActSorted} desc={['Cases by Specimen Date']} linesDesc={['7 Day Average']} />
               </div>

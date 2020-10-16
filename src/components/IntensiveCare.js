@@ -33,25 +33,32 @@ export default function IntensiveCare({ date, latest, average, intensiveCare, re
           <div className="tab-content" id="intensivecare-content">
             <div className="tab-pane fade show active" id="intensivecare" role="tabpanel"
               aria-labelledby="intensivecare-tab">
+
+              <div className="card mb-3">
+                <div className="card-header pt-2 pb-1 bg-info">
+                  <div className="row text-white p-0 m-0 rounded">
+                    <span className="col-sm-6 text-left">
+                      <h6 className="font-weight-bold">{date}</h6>
+                    </span>
+                    <span className="col-sm-6 text-right">
+                      <h6 className="font-weight-bold">{latest}</h6>
+                    </span>
+                  </div>
+                </div>
+                <div className="card-body p-2 mx-4">
+                  <div className="row">
+                    <span className="col-sm-6 text-left">
+                      7 Day Average
+                </span>
+                    <span className="col-sm-6 text-right">
+                      {average}
+                    </span>
+                  </div>
+                </div>
+              </div>
               <div className="row">
                 <span className="col-12 text-center">
                   <h6>Patients in Intensive Care</h6>
-                </span>
-              </div>
-              <div className="row bg-info text-white pt-2 mb-1 rounded">
-                <span className="col-sm-6 text-left">
-                  <h6 className="font-weight-bold">{date}</h6>
-                </span>
-                <span className="col-sm-6 text-right">
-                  <h6 className="font-weight-bold">{latest}</h6>
-                </span>
-              </div>
-              <div className="row">
-                <span className="col-sm-6 text-left">
-                  7 Day Average
-                </span>
-                <span className="col-sm-6 text-right">
-                  {average}
                 </span>
               </div>
               <div className="row">

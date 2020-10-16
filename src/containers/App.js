@@ -90,7 +90,7 @@ function App() {
   }
 
   return (
-    <div className="App">
+    <div className="App bg-light">
       <h1 className="display-md-4 display-xs-2 text-center">Coronavirus {areaName === '' ? 'UK' : areaName}</h1>
       {(noData)
         ?
@@ -171,7 +171,7 @@ function App() {
           (areaType === 'region' || areaType === 'ltla' || areaType === "utla")
             ? null
             :
-            <div className="row">
+            <div className="row mb-3">
               <Hospital
                 date={apiData.hospitalDate}
                 latest={apiData.hospitalNew}
