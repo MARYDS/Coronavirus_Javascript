@@ -17,7 +17,7 @@ export default function Admissions(
 
   return (
     <div className="col-md-4 col-sm-6">
-      <div className="card mb-5 h-100">
+      <div className="card card-main mb-5 h-100">
 
         <div className="card-header text-center">
           <h5 className="card-title font-weight-bold">Hospital Admissions</h5>
