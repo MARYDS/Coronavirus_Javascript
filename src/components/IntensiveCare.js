@@ -11,11 +11,11 @@ export default function IntensiveCare({ date, latest, average, intensiveCare, re
   const regionsSorted = [...regions].sort(compare())
 
   return (
-    <div className="col-md-4 col-sm-6 mb-3">
+    <div className="col-md-4 col-sm-6">
       <div className="card mb-5 h-100">
 
         <div className="card-header text-center">
-          <h5>Intensive Care Beds Occupied</h5>
+          <h5 className="card-title font-weight-bold">Intensive Care Beds Occupied</h5>
           <ul className="nav nav-tabs" id="intensivecare-list" role="tablist">
             <li className="nav-item">
               <a className="nav-link active" id="intensivecare-tab" data-toggle="tab" href="#intensivecare" role="tab" aria-controls="intensivecare" aria-selected="true">Intensive Care</a>
@@ -38,12 +38,12 @@ export default function IntensiveCare({ date, latest, average, intensiveCare, re
                   <h6>Patients in Intensive Care</h6>
                 </span>
               </div>
-              <div className="row">
+              <div className="row bg-info text-white pt-2 mb-1 rounded">
                 <span className="col-sm-6 text-left">
-                  <h6>{date}</h6>
+                  <h6 className="font-weight-bold">{date}</h6>
                 </span>
                 <span className="col-sm-6 text-right">
-                  <h6>{latest}</h6>
+                  <h6 className="font-weight-bold">{latest}</h6>
                 </span>
               </div>
               <div className="row">

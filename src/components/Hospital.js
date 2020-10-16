@@ -11,11 +11,11 @@ export default function Hospital({ date, latest, average, patients, regions } = 
   const regionsSorted = [...regions].sort(compare())
 
   return (
-    <div className="col-md-4 col-sm-6 mb-3">
+    <div className="col-md-4 col-sm-6">
       <div className="card mb-5 h-100">
 
         <div className="card-header text-center">
-          <h5>Patients in Hospital</h5>
+          <h5 className="card-title font-weight-bold">Hospital Patients</h5>
           <ul className="nav nav-tabs" id="patients-list" role="tablist">
             <li className="nav-item">
               <a className="nav-link active" id="patients-tab" data-toggle="tab" href="#patients" role="tab" aria-controls="patients" aria-selected="true">Patients</a>
@@ -38,12 +38,12 @@ export default function Hospital({ date, latest, average, patients, regions } = 
                   <h6>Patients in Hospital</h6>
                 </span>
               </div>
-              <div className="row">
+              <div className="row bg-info text-white pt-2 mb-1 rounded">
                 <span className="col-sm-6 text-left">
-                  <h6>{date}</h6>
+                  <h6 className="font-weight-bold">{date}</h6>
                 </span>
                 <span className="col-sm-6 text-right">
-                  <h6>{latest}</h6>
+                  <h6 className="font-weight-bold">{latest}</h6>
                 </span>
               </div>
               <div className="row">

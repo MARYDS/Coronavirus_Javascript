@@ -29,7 +29,7 @@ export default function Tests(
       <div className="card h-100">
 
         <div className="card-header text-center">
-          <h5>Tests</h5>
+          <h5 className="card-title font-weight-bold">Tests</h5>
           <ul className="nav nav-tabs" id="tests-list" role="tablist">
             <li className="nav-item">
               <a className="nav-link active" id="tests-tab" data-toggle="tab" href="#tests" role="tab" aria-controls="tests" aria-selected="true">Tests</a>
@@ -61,15 +61,15 @@ export default function Tests(
                   <h6>Tests by Published Date</h6>
                 </span>
               </div>
-              <div className="row">
+              <div className="row bg-info text-white pt-2 mb-1 rounded">
                 <span className="col-sm-4 text-left">
-                  <h6>{date}</h6>
+                  <h6 className="font-weight-bold">{date}</h6>
                 </span>
                 <span className="col-sm-4 text-right">
-                  <h6>{newTotal}</h6>
+                  <h6 className="font-weight-bold">{newTotal}</h6>
                 </span>
                 <span className="col-sm-4 text-right">
-                  <h6>{cumTotal}</h6>
+                  <h6 className="font-weight-bold">{cumTotal}</h6>
                 </span>
               </div>
               <div className="row">

@@ -22,7 +22,7 @@ export default function Cases(
       <div className="card h-100">
 
         <div className="card-header text-center">
-          <h5>Cases</h5>
+          <h5 className="card-title font-weight-bold">Cases</h5>
 
           <ul className="nav nav-tabs" id="cases-list" role="tablist">
             <li className="nav-item">
@@ -52,12 +52,12 @@ export default function Cases(
             <div className="tab-pane fade show active" id="publishedcases" role="tabpanel"
               aria-labelledby="published-cases-tab">
               <h6 className="text-center">Cases by Published Date</h6>
-              <div className="row">
+              <div className="row bg-info text-white pt-2 mb-1 rounded">
                 <span className="col-sm-6 text-left">
-                  <h6>{datePub}</h6>
+                  <h6 className="font-weight-bold">{datePub}</h6>
                 </span>
                 <span className="col-sm-6 text-right">
-                  <h6>{newPub}</h6>
+                  <h6 className="font-weight-bold">{newPub}</h6>
                 </span>
               </div>
               <div className="row">
@@ -108,12 +108,12 @@ export default function Cases(
 
             <div className="tab-pane fade" id="actualcases" role="tabpanel" aria-labelledby="actual-cases-tab">
               <h6 className="text-center">Cases by Specimen Date</h6>
-              <div className="row">
+              <div className="row bg-info text-white pt-2 mb-1 rounded">
                 <span className="col-sm-6 text-left">
-                  <h6>{dateAct}</h6>
+                  <h6 className="font-weight-bold">{dateAct}</h6>
                 </span>
                 <span className="col-sm-6 text-right">
-                  <h6>{newAct}</h6>
+                  <h6 className="font-weight-bold">{newAct}</h6>
                 </span>
               </div>
               <div className="row">

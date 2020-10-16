@@ -22,7 +22,7 @@ export default function Deaths(
       <div className="card h-100">
 
         <div className="card-header text-center">
-          <h5>Deaths</h5>
+          <h5 className="card-title font-weight-bold">Deaths</h5>
 
           <ul className="nav nav-tabs" id="deaths-list" role="tablist">
             <li className="nav-item">
@@ -50,27 +50,30 @@ export default function Deaths(
         </div>
 
         <div className="card-body">
+
           <div className="tab-content" id="deaths-content">
 
             <div className="tab-pane fade show active" id="published" role="tabpanel"
               aria-labelledby="published-tab">
+
               <div className="row">
                 <span className="col-12 text-center">
                   <h6>Deaths by Published Date</h6>
                 </span>
               </div>
-              <div className="row">
+
+              <div className="row bg-info text-white pt-2 mb-1 rounded">
                 <span className="col-sm-6 text-left">
-                  <h6>{datePub}</h6>
+                  <h6 className="font-weight-bold">{datePub}</h6>
                 </span>
                 <span className="col-sm-6 text-right">
-                  <h6>{newPub}</h6>
+                  <h6 className="font-weight-bold">{newPub}</h6>
                 </span>
               </div>
               <div className="row">
                 <span className="col-sm-6 text-left">
                   7 Day Average
-                </span>
+                    </span>
                 <span className="col-sm-6 text-right">
                   {averPub}
                 </span>
@@ -78,7 +81,7 @@ export default function Deaths(
               <div className="row">
                 <span className="col-sm-6 text-left">
                   Cumulative
-                </span>
+                    </span>
                 <span className="col-sm-6 text-right">
                   {cumPub}
                 </span>
@@ -86,11 +89,12 @@ export default function Deaths(
               <div className="row">
                 <span className="col-sm-6 text-left">
                   Rate
-                </span>
+                    </span>
                 <span className="col-sm-6 text-right">
                   {ratePub}
                 </span>
               </div>
+
               <div className="row">
                 <Chart data={deathsPubSorted} desc={['Deaths by Published Date']} linesDesc={['7 Day Average']} />
               </div>
@@ -123,18 +127,20 @@ export default function Deaths(
                   <h6>Deaths by Date of Death</h6>
                 </span>
               </div>
-              <div className="row">
+
+              <div className="row bg-info text-white pt-2 mb-1 rounded">
                 <span className="col-sm-6 text-left">
-                  <h6>{dateAct}</h6>
+                  <h6 className="font-weight-bold">{dateAct}</h6>
                 </span>
                 <span className="col-sm-6 text-right">
-                  <h6>{newAct}</h6>
+                  <h6 className="font-weight-bold">{newAct}</h6>
                 </span>
               </div>
+
               <div className="row">
                 <span className="col-sm-6 text-left">
                   7 Day Average
-                </span>
+                     </span>
                 <span className="col-sm-6 text-right">
                   {averAct}
                 </span>
@@ -142,7 +148,7 @@ export default function Deaths(
               <div className="row">
                 <span className="col-sm-6 text-left">
                   Cumulative
-                </span>
+                     </span>
                 <span className="col-sm-6 text-right">
                   {cumAct}
                 </span>
@@ -150,11 +156,12 @@ export default function Deaths(
               <div className="row">
                 <span className="col-sm-6 text-left">
                   Rate
-                </span>
+                     </span>
                 <span className="col-sm-6 text-right">
                   {rateAct}
                 </span>
               </div>
+
               <div className="row">
                 <Chart data={deathsActSorted} desc={['Deaths by Date of Death']} linesDesc={['7 Day Average']} />
               </div>
@@ -185,5 +192,6 @@ export default function Deaths(
       </div>
 
     </div >
+
   )
 }
