@@ -102,7 +102,7 @@ function App() {
 
       <div className="container-fluid">
 
-        <div className="row w-100 mb-3">
+        <div className="row">
           <Input areaType={areaType}
             areaName={areaName}
             updateAreaTypeAndName={updateAreaTypeAndName} />
