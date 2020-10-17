@@ -8,7 +8,8 @@ export const compare = () => {
 
 export const getChartSize = (sizes) => {
   let w = 0
-  if (sizes.width >= 770) {
+  console.log(sizes)
+  if (sizes.width >= 992) {
     w = Math.floor(400 * sizes.width / 1440)
   } else if (sizes.width >= 576) {
     w = Math.floor(400 * sizes.width / 1440) * (3 / 2)

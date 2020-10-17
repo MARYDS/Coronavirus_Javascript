@@ -24,12 +24,16 @@ export default function Tests(
     ].sort(compare())
 
   return (
+    <div className="col-sm-6 col-lg-4 mb-3">
 
-    <div className="col-md-4 col-sm-6 mb-3">
+      {/* Card */}
       <div className="card card-main h-100">
 
+        {/* Card Header and Navigation */}
         <div className="card-header text-center">
           <h5 className="card-title font-weight-bold">Tests</h5>
+
+          {/* Navigation */}
           <ul className="nav nav-tabs" id="tests-list" role="tablist">
             <li className="nav-item">
               <a className="nav-link active" id="tests-tab" data-toggle="tab" href="#tests" role="tab" aria-controls="tests" aria-selected="true">Tests</a>
@@ -52,125 +56,116 @@ export default function Tests(
           </ul>
         </div>
 
+        {/* Card Body */}
         <div className="card-body">
+
+          {/* Tabs Content */}
           <div className="tab-content" id="tests-content">
+
+            {/* First Tab - Tests with Chart */}
             <div className="tab-pane fade show active" id="tests" role="tabpanel"
               aria-labelledby="tests-tab">
 
+              {/* Card with summary details */}
               <div className="card mb-3">
+                {/* Headline Result */}
                 <div className="card-header pt-2 pb-1 bg-info">
-                  <div className="row text-white p-0 m-0 rounded">
-                    <span className="col-sm-4 text-left">
+                  <div className="d-flex flex-row justify-content-between text-white rounded">
+                    <span className="text-left">
                       <h6 className="font-weight-bold">{date}</h6>
                     </span>
-                    <span className="col-sm-4 text-right">
+                    <span className="text-right">
                       <h6 className="font-weight-bold">{newTotal}</h6>
                     </span>
-                    <span className="col-sm-4 text-right">
+                    <span className="text-right">
                       <h6 className="font-weight-bold">{cumTotal}</h6>
                     </span>
                   </div>
                 </div>
-                <div className="card-body p-2 mx-4">
-                  <div className="row">
-                    <span className="col-sm-4 text-left">
+                {/* Other Stats */}
+                <div className="card-body py-1">
+                  <div className="d-flex flex-row justify-content-between">
+                    <span className="text-left">
                       Pillar 1
-                </span>
-                    <span className="col-sm-4 text-right">
+                    </span>
+                    <span className="text-right">
                       {newP1}
                     </span>
-                    <span className="col-sm-4 text-right">
+                    <span className="text-right">
                       {cumP1}
                     </span>
                   </div>
-                  <div className="row">
-                    <span className="col-sm-4 text-left">
+                  <div className="d-flex flex-row justify-content-between">
+                    <span className="text-left">
                       Pillar 2
-                </span>
-                    <span className="col-sm-4 text-right">
+                    </span>
+                    <span className="text-right">
                       {newP2}
                     </span>
-                    <span className="col-sm-4 text-right">
+                    <span className="text-right">
                       {cumP2}
                     </span>
                   </div>
-                  <div className="row">
-                    <span className="col-sm-4 text-left">
+                  <div className="d-flex flex-row justify-content-between">
+                    <span className="text-left">
                       Pillar 3
-                </span>
-                    <span className="col-sm-4 text-right">
+                    </span>
+                    <span className="text-right">
                       {newP3}
                     </span>
-                    <span className="col-sm-4 text-right">
+                    <span className="text-right">
                       {cumP3}
                     </span>
                   </div>
-                  <div className="row">
-                    <span className="col-sm-4 text-left">
+                  <div className="d-flex flex-row justify-content-between">
+                    <span className="text-left">
                       Pillar 4
-                </span>
-                    <span className="col-sm-4 text-right">
+                   </span>
+                    <span className="text-right">
                       {newP4}
                     </span>
-                    <span className="col-sm-4 text-right">
+                    <span className="text-right">
                       {cumP4}
                     </span>
                   </div>
                 </div>
               </div>
-              <div className="row">
-                <span className="col-12 text-center">
-                  <h6>Tests by Published Date</h6>
-                </span>
-              </div>
-              <div className="row">
+
+              {/* Graph with results */}
+              <div>
+                <h6 className="text-center">Tests by Published Date</h6>
                 <Chart data={testsTotSorted} desc={['Pillar 1', 'Pillar 2', 'Pillar 3', 'Pillar 4']} />
               </div>
             </div>
 
+            {/* Second Tab - Pillar 1 Table */}
             <div className="tab-pane fade" id="p1data" role="tabpanel" aria-labelledby="p1-data-tab">
-              <div className="row">
-                <span className="col-12 text-center">
-                  <h6>Pillar 1 (NHS/PHE) Tests</h6>
-                </span>
-              </div>
+              <h6 className="text-center">Pillar 1 (NHS/PHE) Tests</h6>
               <TableData data={tests1} cols={['Date', 'Day', 'Tests']} id="testsp1table" />
             </div>
 
+            {/* Third Tab - Pillar 2 Table */}
             <div className="tab-pane fade" id="p2data" role="tabpanel"
               aria-labelledby="p2-data-tab">
-              <div className="row">
-                <span className="col-12 text-center">
-                  <h6>Pillar 2 (Non-NHS) Tests</h6>
-                </span>
-              </div>
+              <h6 className="text-center">Pillar 2 (Non-NHS) Tests</h6>
               <TableData data={tests2} cols={['Date', 'Day', 'Tests']} id="testsp2table" />
             </div>
 
+            {/* Forth Tab - Pillar 3 Table */}
             <div className="tab-pane fade" id="p3data" role="tabpanel" aria-labelledby="p3-data-tab">
-              <div className="row">
-                <span className="col-12 text-center">
-                  <h6>Pillar 3 (Antibody) Tests</h6>
-                </span>
-              </div>
+              <h6 className="text-center">Pillar 3 (Antibody) Tests</h6>
               <TableData data={tests3} cols={['Date', 'Day', 'Tests']} id="testsp3table" />
             </div>
 
+            {/* Fifth Tab - Pillar 4 Table */}
             <div className="tab-pane fade" id="p4data" role="tabpanel" aria-labelledby="p4-data-tab">
-              <div className="row">
-                <span className="col-12 text-center">
-                  <h6>Pillar 4 (Surveillance) Tests</h6>
-                </span>
-              </div>
+              <h6 className="text-center">Pillar 4 (Surveillance) Tests</h6>
               <TableData data={tests4} cols={['Date', 'Day', 'Tests']} id="testsp4table" />
             </div>
 
+            {/* Sixth Tab - Totals Table */}
             <div className="tab-pane fade" id="testsdata" role="tabpanel" aria-labelledby="tests-data-tab">
-              <div className="row">
-                <span className="col-12 text-center">
-                  <h6>Total Tests</h6>
-                </span>
-              </div>
+              <h6 className="text-center">Total Tests</h6>
               <TableData data={testsTot} cols={['Date', 'Day', 'Tests']} id="teststottable" />
             </div>
 

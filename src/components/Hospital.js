@@ -11,11 +11,16 @@ export default function Hospital({ date, latest, average, patients, regions } = 
   const regionsSorted = [...regions].sort(compare())
 
   return (
-    <div className="col-md-4 col-sm-6">
-      <div className="card card-main mb-5 h-100">
+    <div className="col-sm-6 col-lg-4 mb-3">
 
+      {/* Card */}
+      <div className="card card-main h-100">
+
+        {/* Card Header and Navigation */}
         <div className="card-header text-center">
           <h5 className="card-title font-weight-bold">Hospital Patients</h5>
+
+          {/* Navigation */}
           <ul className="nav nav-tabs" id="patients-list" role="tablist">
             <li className="nav-item">
               <a className="nav-link active" id="patients-tab" data-toggle="tab" href="#patients" role="tab" aria-controls="patients" aria-selected="true">Patients</a>
@@ -29,64 +34,59 @@ export default function Hospital({ date, latest, average, patients, regions } = 
           </ul>
         </div>
 
+        {/* Card Body */}
         <div className="card-body">
-          <div className="tab-content" id="patients-content">
-            <div className="tab-pane fade show active" id="patients" role="tabpanel"
-              aria-labelledby="patients-tab">
 
+          {/* Tabs Content */}
+          <div className="tab-content" id="patients-content">
+
+            {/* First Tab - Hospital Patients with Chart */}
+            <div className="tab-pane fade show active" id="patients" role="tabpanel" aria-labelledby="patients-tab">
+
+              {/* Card with summary details */}
               <div className="card mb-3">
+                {/* Headline Result */}
                 <div className="card-header pt-2 pb-1 bg-info">
-                  <div className="row text-white p-0 m-0 rounded">
-                    <span className="col-sm-6 text-left">
+                  <div className="d-flex flex-row justify-content-between text-white rounded">
+                    <span className="text-left">
                       <h6 className="font-weight-bold">{date}</h6>
                     </span>
-                    <span className="col-sm-6 text-right">
+                    <span className="text-right">
                       <h6 className="font-weight-bold">{latest}</h6>
                     </span>
                   </div>
                 </div>
-                <div className="card-body p-2 mx-4">
-                  <div className="row">
-                    <span className="col-sm-6 text-left">
+                {/* Other Stats */}
+                <div className="card-body py-1">
+                  <div className="d-flex flex-row justify-content-between">
+                    <span className="text-left">
                       7 Day Average
-                </span>
-                    <span className="col-sm-6 text-right">
+                    </span>
+                    <span className="text-right">
                       {average}
                     </span>
                   </div>
                 </div>
               </div>
 
-              <div className="row">
-                <span className="col-12 text-center">
-                  <h6>Patients in Hospital</h6>
-                </span>
-              </div>
-
-              <div className="row">
+              {/* Graph with results */}
+              <div>
+                <h6 className="text-center">Patients in Hospital</h6>
                 <Chart data={patientsSorted} desc={['Patients']} linesDesc={['7 Day Average']} />
               </div>
             </div>
 
+            {/* Second Tab - Patients data table*/}
             <div className="tab-pane fade" id="patientsdata" role="tabpanel" aria-labelledby="patients-data-tab">
-              <div className="row">
-                <span className="col-12 text-center">
-                  <h6>Patients in Hospital</h6>
-                </span>
-              </div>
+              <h6 className="text-center">Patients in Hospital</h6>
               <TableData data={patients} cols={['Date', 'Day', 'Patients']} id="hospitaltable" />
             </div>
 
+            {/* Third Tab - Patients by Region */}
             <div className="tab-pane fade" id="regionsdata" role="tabpanel"
               aria-labelledby="regions-data-tab">
-              <div className="row">
-                <span className="col-12 text-center">
-                  <h6>All Regions Patients in Hospital</h6>
-                </span>
-              </div>
-              <div className="row">
-                <Graph data={regionsSorted} desc={ukRegionsNhs} />
-              </div>
+              <h6 className="text-center">All Regions Patients in Hospital</h6>
+              <Graph data={regionsSorted} desc={ukRegionsNhs} />
             </div>
 
           </div>

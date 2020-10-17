@@ -11,9 +11,12 @@ export default function IntensiveCare({ date, latest, average, intensiveCare, re
   const regionsSorted = [...regions].sort(compare())
 
   return (
-    <div className="col-md-4 col-sm-6">
-      <div className="card card-main mb-5 h-100">
+    <div className="col-sm-6 col-lg-4 mb-3">
 
+      {/* Card */}
+      <div className="card card-main h-100">
+
+        {/* Card Header and Navigation */}
         <div className="card-header text-center">
           <h5 className="card-title font-weight-bold">Ventilator Beds Occupied</h5>
           <ul className="nav nav-tabs" id="intensivecare-list" role="tablist">
@@ -29,62 +32,58 @@ export default function IntensiveCare({ date, latest, average, intensiveCare, re
           </ul>
         </div>
 
+        {/* Card Body */}
         <div className="card-body">
-          <div className="tab-content" id="intensivecare-content">
-            <div className="tab-pane fade show active" id="intensivecare" role="tabpanel"
-              aria-labelledby="intensivecare-tab">
 
+          {/* Tabs Content */}
+          <div className="tab-content" id="intensivecare-content">
+
+            {/* First Tab - Patients in Intensive Care with Chart */}
+            <div className="tab-pane fade show active" id="intensivecare" role="tabpanel" aria-labelledby="intensivecare-tab">
+
+              {/* Card with summary details */}
               <div className="card mb-3">
+                {/* Headline Result */}
                 <div className="card-header pt-2 pb-1 bg-info">
-                  <div className="row text-white p-0 m-0 rounded">
-                    <span className="col-sm-6 text-left">
+                  <div className="d-flex flex-row justify-content-between text-white rounded">
+                    <span className="text-left">
                       <h6 className="font-weight-bold">{date}</h6>
                     </span>
-                    <span className="col-sm-6 text-right">
+                    <span className="text-right">
                       <h6 className="font-weight-bold">{latest}</h6>
                     </span>
                   </div>
                 </div>
-                <div className="card-body p-2 mx-4">
-                  <div className="row">
-                    <span className="col-sm-6 text-left">
+                {/* Other Stats */}
+                <div className="card-body py-1">
+                  <div className="d-flex flex-row justify-content-between">
+                    <span className="text-left">
                       7 Day Average
-                </span>
-                    <span className="col-sm-6 text-right">
+                    </span>
+                    <span className="text-right">
                       {average}
                     </span>
                   </div>
                 </div>
               </div>
-              <div className="row">
-                <span className="col-12 text-center">
-                  <h6>Patients in Ventilator Beds</h6>
-                </span>
-              </div>
-              <div className="row">
+
+              {/* Graph with results */}
+              <div>
+                <h6 className="text-center">Patients in Ventilator Beds</h6>
                 <Chart data={intensiveCareSorted} desc={['Ventilator Beds']} linesDesc={['7 Day Average']} />
               </div>
             </div>
 
+            {/* Second Tab - Intensive Care Data Table */}
             <div className="tab-pane fade" id="intensivecaredata" role="tabpanel" aria-labelledby="intensivecare-data-tab">
-              <div className="row">
-                <span className="col-12 text-center">
-                  <h6>Patients in Ventilator Beds</h6>
-                </span>
-              </div>
+              <h6 className="text-center">Patients in Ventilator Beds</h6>
               <TableData data={intensiveCare} cols={['Date', 'Day', 'Beds']} id="intensivecaretable" />
             </div>
 
-            <div className="tab-pane fade" id="regionsintensivecaredata" role="tabpanel"
-              aria-labelledby="regions-intensivecare-data-tab">
-              <div className="row">
-                <span className="col-12 text-center">
-                  <h6>All Regions Patients in Ventilator Beds</h6>
-                </span>
-              </div>
-              <div className="row">
-                <Graph data={regionsSorted} desc={ukRegionsNhs} />
-              </div>
+            {/* Third Tab - Intensive Care beds by Region */}
+            <div className="tab-pane fade" id="regionsintensivecaredata" role="tabpanel" aria-labelledby="regions-intensivecare-data-tab">
+              <h6 className="text-center">All Regions Patients in Ventilator Beds</h6>
+              <Graph data={regionsSorted} desc={ukRegionsNhs} />
             </div>
 
           </div>
