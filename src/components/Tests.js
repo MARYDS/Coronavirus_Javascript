@@ -70,61 +70,61 @@ export default function Tests(
               <div className="card mb-3">
                 {/* Headline Result */}
                 <div className="card-header pt-2 pb-1 bg-info">
-                  <div className="d-flex flex-row justify-content-between text-white rounded">
-                    <span className="text-left">
+                  <div className="row text-white rounded">
+                    <span className="col-sm-4 text-left">
                       <h6 className="font-weight-bold">{date}</h6>
                     </span>
-                    <span className="text-right">
+                    <span className="col-sm-4 text-right">
                       <h6 className="font-weight-bold">{newTotal}</h6>
                     </span>
-                    <span className="text-right">
+                    <span className="col-sm-4 text-right">
                       <h6 className="font-weight-bold">{cumTotal}</h6>
                     </span>
                   </div>
                 </div>
                 {/* Other Stats */}
                 <div className="card-body py-1">
-                  <div className="d-flex flex-row justify-content-between">
-                    <span className="text-left">
+                  <div className="row">
+                    <span className="col-sm-4 text-left">
                       Pillar 1
                     </span>
-                    <span className="text-right">
+                    <span className="col-sm-4 text-right">
                       {newP1}
                     </span>
-                    <span className="text-right">
+                    <span className="col-sm-4 text-right">
                       {cumP1}
                     </span>
                   </div>
-                  <div className="d-flex flex-row justify-content-between">
-                    <span className="text-left">
+                  <div className="row">
+                    <span className="col-sm-4 text-left">
                       Pillar 2
                     </span>
-                    <span className="text-right">
+                    <span className="col-sm-4 text-right">
                       {newP2}
                     </span>
-                    <span className="text-right">
+                    <span className="col-sm-4 text-right">
                       {cumP2}
                     </span>
                   </div>
-                  <div className="d-flex flex-row justify-content-between">
-                    <span className="text-left">
+                  <div className="row">
+                    <span className="col-sm-4 text-left">
                       Pillar 3
                     </span>
-                    <span className="text-right">
+                    <span className="col-sm-4 text-right">
                       {newP3}
                     </span>
-                    <span className="text-right">
+                    <span className="col-sm-4 text-right">
                       {cumP3}
                     </span>
                   </div>
-                  <div className="d-flex flex-row justify-content-between">
-                    <span className="text-left">
+                  <div className="row">
+                    <span className="col-sm-4 text-left">
                       Pillar 4
                    </span>
-                    <span className="text-right">
+                    <span className="col-sm-4 text-right">
                       {newP4}
                     </span>
-                    <span className="text-right">
+                    <span className="col-sm-4 text-right">
                       {cumP4}
                     </span>
                   </div>
