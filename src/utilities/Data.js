@@ -195,110 +195,26 @@ export default class Data {
           if (!(c.date in hosp)) {
             hosp[c.date] = {
               'day': rowDay,
-              'patientsEastOfEngland': null,
-              'patientsLondon': null,
-              'patientsMidlands': null,
-              'patientsNorthEastAndYorkshire': null,
-              'patientsNorthWest': null,
-              'patientsSouthEast': null,
-              'patientsSouthWest': null,
-              'patientsScotland': null,
-              'patientsWales': null,
-              'patientsNorthernIreland': null,
-              'admissionsEastOfEngland': null,
-              'admissionsLondon': null,
-              'admissionsMidlands': null,
-              'admissionsNorthEastAndYorkshire': null,
-              'admissionsNorthWest': null,
-              'admissionsSouthEast': null,
-              'admissionsSouthWest': null,
-              'admissionsScotland': null,
-              'admissionsWales': null,
-              'admissionsNorthernIreland': null,
-              'intensiveCareEastOfEngland': null,
-              'intensiveCareLondon': null,
-              'intensiveCareMidlands': null,
-              'intensiveCareNorthEastAndYorkshire': null,
-              'intensiveCareNorthWest': null,
-              'intensiveCareSouthEast': null,
-              'intensiveCareSouthWest': null,
-              'intensiveCareScotland': null,
-              'intensiveCareWales': null,
-              'intensiveCareNorthernIreland': null,
+              'patients': [null, null, null, null, null, null, null, null, null, null],
+              'admissions': [null, null, null, null, null, null, null, null, null, null],
+              'intensiveCare': [null, null, null, null, null, null, null, null, null, null]
             }
           }
 
-          // Add current region's data to appropriate slots
-          switch (region) {
-            case 'East of England': {
-              hosp[c.date]['patientsEastOfEngland'] = c.patients
-              hosp[c.date]['admissionsEastOfEngland'] = c.admissions
-              hosp[c.date]['intensiveCareEastOfEngland'] = c.intensiveCare
-              break
-            }
-            case 'London': {
-              hosp[c.date]['patientsLondon'] = c.patients
-              hosp[c.date]['admissionsLondon'] = c.admissions
-              hosp[c.date]['intensiveCareLondon'] = c.intensiveCare
-              break
-            }
-            case 'Midlands': {
-              hosp[c.date]['patientsMidlands'] = c.patients
-              hosp[c.date]['admissionsMidlands'] = c.admissions
-              hosp[c.date]['intensiveCareMidlands'] = c.intensiveCare
-              break
-            }
-            case 'North East and Yorkshire': {
-              hosp[c.date]['patientsNorthEastAndYorkshire'] = c.patients
-              hosp[c.date]['admissionsNorthEastAndYorkshire'] = c.admissions
-              hosp[c.date]['intensiveCareNorthEastAndYorkshire'] = c.intensiveCare
-              break
-            }
-            case 'North West': {
-              hosp[c.date]['patientsNorthWest'] = c.patients
-              hosp[c.date]['admissionsNorthWest'] = c.admissions
-              hosp[c.date]['intensiveCareNorthWest'] = c.intensiveCare
-              break
-            }
-            case 'South East': {
-              hosp[c.date]['patientsSouthEast'] = c.patients
-              hosp[c.date]['admissionsSouthEast'] = c.admissions
-              hosp[c.date]['intensiveCareSouthEast'] = c.intensiveCare
-              break
-            }
-            case 'South West': {
-              hosp[c.date]['patientsSouthWest'] = c.patients
-              hosp[c.date]['admissionsSouthWest'] = c.admissions
-              hosp[c.date]['intensiveCareSouthWest'] = c.intensiveCare
-              break
-            }
-            case 'Scotland': {
-              hosp[c.date]['patientsScotland'] = c.patients
-              hosp[c.date]['admissionsScotland'] = c.admissions
-              hosp[c.date]['intensiveCareScotland'] = c.intensiveCare
-              break
-            }
-            case 'Wales': {
-              hosp[c.date]['patientsWales'] = c.patients
-              hosp[c.date]['admissionsWales'] = c.admissions
-              hosp[c.date]['intensiveCareWales'] = c.intensiveCare
-              break
-            }
-            case 'Northern Ireland': {
-              hosp[c.date]['patientsNorthernIreland'] = c.patients
-              hosp[c.date]['admissionsNorthernIreland'] = c.admissions
-              hosp[c.date]['intensiveNorthernIreland'] = c.intensiveCare
-              break
-            }
-            default: {
-
-            }
+          if (c.patients != null) {
+            hosp[c.date]['patients'][k] = c.patients
+          }
+          if (c.admissions != null) {
+            hosp[c.date]['admissions'][k] = c.admissions
+          }
+          if (c.intensiveCare != null) {
+            hosp[c.date]['intensiveCare'][k] = c.intensiveCare
           }
         }
       }
     }
 
-    // Split out patients, admissions, intensiveCare
+    // Split out deaths and cases
     let hospital = {
       patients: [],
       admissions: [],
@@ -306,76 +222,40 @@ export default class Data {
     }
 
     for (const [key, value] of Object.entries(hosp)) {
-      if (
-        value.patientsEastOfEngland != null || value.patientsLondon != null ||
-        value.patientsMidlands != null || value.patientsNorthEastAndYorkshire != null ||
-        value.patientsNorthWest != null || value.patientsSouthEast != null ||
-        value.patientsSouthWest != null || value.patientsScotland != null ||
-        value.patientsWales != null || value.patientsNorthernIreland != null
-      ) {
+
+      let tot = value.patients.reduce((tot, val) => {
+        return ((val == null) ? tot : tot + val)
+      }, 0)
+      if (tot !== 0) {
         hospital.patients[hospital.patients.length] = {
           'date': key,
           'day': value.day,
-          'counts': [
-            value.patientsEastOfEngland,
-            value.patientsLondon,
-            value.patientsMidlands,
-            value.patientsNorthEastAndYorkshire,
-            value.patientsNorthWest,
-            value.patientsSouthEast,
-            value.patientsSouthWest,
-            value.patientsScotland,
-            value.patientsWales,
-            value.patientsNorthernIreland
-          ]
+          'counts': value.patients
         }
       }
-      if (
-        value.admissionsEastOfEngland != null || value.admissionsLondon != null ||
-        value.admissionsMidlands != null || value.admissionsNorthEastAndYorkshire != null || value.admissionsNorthWest != null || value.admissionsSouthEast != null ||
-        value.admissionsSouthWest != null || value.admissionsScotland != null ||
-        value.admissionsWales != null || value.admissionsNorthernIreland != null
-      ) {
+
+      tot = value.admissions.reduce((tot, val) => {
+        return ((val == null) ? tot : tot + val)
+      }, 0)
+      if (tot !== 0) {
         hospital.admissions[hospital.admissions.length] = {
           'date': key,
           'day': value.day,
-          'counts': [
-            value.admissionsEastOfEngland,
-            value.admissionsLondon,
-            value.admissionsMidlands,
-            value.admissionsNorthEastAndYorkshire,
-            value.admissionsNorthWest,
-            value.admissionsSouthEast,
-            value.admissionsSouthWest,
-            value.admissionsScotland,
-            value.admissionsWales,
-            value.admissionsNorthernIreland
-          ]
+          'counts': value.admissions
         }
       }
-      if (
-        value.intensiveCareEastOfEngland != null || value.intensiveCareLondon != null ||
-        value.intensiveCareMidlands != null || value.intensiveCareNorthEastAndYorkshire != null || value.intensiveCareNorthWest != null || value.intensiveCareSouthEast != null || value.intensiveCareSouthWest != null || value.intensiveCareScotland != null || value.intensiveCareWales != null || value.intensiveCareNorthernIreland != null
-      ) {
+
+      tot = value.intensiveCare.reduce((tot, val) => {
+        return ((val == null) ? tot : tot + val)
+      }, 0)
+      if (tot !== 0) {
         hospital.intensiveCare[hospital.intensiveCare.length] = {
           'date': key,
           'day': value.day,
-          'counts': [
-            value.intensiveCareEastOfEngland,
-            value.intensiveCareLondon,
-            value.intensiveCareMidlands,
-            value.intensiveCareNorthEastAndYorkshire,
-            value.intensiveCareNorthWest,
-            value.intensiveCareSouthEast,
-            value.intensiveCareSouthWest,
-            value.intensiveCareScotland,
-            value.intensiveCareWales,
-            value.intensiveCareNorthernIreland
-          ]
+          'counts': value.intensiveCare
         }
       }
     }
-
     return hospital;
   }
 

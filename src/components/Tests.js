@@ -131,7 +131,7 @@ export default function Tests(
             <div className="tab-pane fade" id="p1data" role="tabpanel" aria-labelledby="p1-data-tab">
               <div className="row">
                 <span className="col-12 text-center">
-                  <h6>Pillar 1 Tests</h6>
+                  <h6>Pillar 1 (NHS/PHE) Tests</h6>
                 </span>
               </div>
               <TableData data={tests1} cols={['Date', 'Day', 'Tests']} id="testsp1table" />
@@ -141,7 +141,7 @@ export default function Tests(
               aria-labelledby="p2-data-tab">
               <div className="row">
                 <span className="col-12 text-center">
-                  <h6>Pillar 2 Tests</h6>
+                  <h6>Pillar 2 (Non-NHS) Tests</h6>
                 </span>
               </div>
               <TableData data={tests2} cols={['Date', 'Day', 'Tests']} id="testsp2table" />
@@ -150,7 +150,7 @@ export default function Tests(
             <div className="tab-pane fade" id="p3data" role="tabpanel" aria-labelledby="p3-data-tab">
               <div className="row">
                 <span className="col-12 text-center">
-                  <h6>Pillar 3 Tests</h6>
+                  <h6>Pillar 3 (Antibody) Tests</h6>
                 </span>
               </div>
               <TableData data={tests3} cols={['Date', 'Day', 'Tests']} id="testsp3table" />
@@ -159,7 +159,7 @@ export default function Tests(
             <div className="tab-pane fade" id="p4data" role="tabpanel" aria-labelledby="p4-data-tab">
               <div className="row">
                 <span className="col-12 text-center">
-                  <h6>Pillar 4 Tests</h6>
+                  <h6>Pillar 4 (Surveillance) Tests</h6>
                 </span>
               </div>
               <TableData data={tests4} cols={['Date', 'Day', 'Tests']} id="testsp4table" />

@@ -15,10 +15,10 @@ export default function IntensiveCare({ date, latest, average, intensiveCare, re
       <div className="card card-main mb-5 h-100">
 
         <div className="card-header text-center">
-          <h5 className="card-title font-weight-bold">Intensive Care Beds Occupied</h5>
+          <h5 className="card-title font-weight-bold">Ventilator Beds Occupied</h5>
           <ul className="nav nav-tabs" id="intensivecare-list" role="tablist">
             <li className="nav-item">
-              <a className="nav-link active" id="intensivecare-tab" data-toggle="tab" href="#intensivecare" role="tab" aria-controls="intensivecare" aria-selected="true">Intensive Care</a>
+              <a className="nav-link active" id="intensivecare-tab" data-toggle="tab" href="#intensivecare" role="tab" aria-controls="intensivecare" aria-selected="true">Ventilator Beds</a>
             </li>
             <li className="nav-item">
               <a className="nav-link" id="intensivecare-data-tab" data-toggle="tab" href="#intensivecaredata" role="tab" aria-controls="intensivecaredata" aria-selected="false">Data</a>
@@ -58,18 +58,18 @@ export default function IntensiveCare({ date, latest, average, intensiveCare, re
               </div>
               <div className="row">
                 <span className="col-12 text-center">
-                  <h6>Patients in Intensive Care</h6>
+                  <h6>Patients in Ventilator Beds</h6>
                 </span>
               </div>
               <div className="row">
-                <Chart data={intensiveCareSorted} desc={['Intensive Care']} linesDesc={['7 Day Average']} />
+                <Chart data={intensiveCareSorted} desc={['Ventilator Beds']} linesDesc={['7 Day Average']} />
               </div>
             </div>
 
             <div className="tab-pane fade" id="intensivecaredata" role="tabpanel" aria-labelledby="intensivecare-data-tab">
               <div className="row">
                 <span className="col-12 text-center">
-                  <h6>Patients in Intensive Care</h6>
+                  <h6>Patients in Ventilator Beds</h6>
                 </span>
               </div>
               <TableData data={intensiveCare} cols={['Date', 'Day', 'Beds']} id="intensivecaretable" />
@@ -79,7 +79,7 @@ export default function IntensiveCare({ date, latest, average, intensiveCare, re
               aria-labelledby="regions-intensivecare-data-tab">
               <div className="row">
                 <span className="col-12 text-center">
-                  <h6>All Regions Patients in Intensive Care</h6>
+                  <h6>All Regions Patients in Ventilator Beds</h6>
                 </span>
               </div>
               <div className="row">

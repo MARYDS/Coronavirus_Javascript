@@ -63,7 +63,7 @@ export default function Graph({ data, desc } = this.props) {
               return null
             } else {
               return (
-                <Line key={i} name={(desc[i] !== undefined) ? desc[i] : 'data'} type="monotone" dataKey={"counts[" + i + "]"} stroke={strokeColours[i]} dot={false} />
+                <Line key={"l" + i} name={(desc[i] !== undefined) ? desc[i] : 'data'} type="monotone" dataKey={"counts[" + i + "]"} stroke={strokeColours[i]} dot={false} />
               )
             }
           })}
