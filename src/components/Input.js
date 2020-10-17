@@ -35,8 +35,10 @@ export default function Input({ areaType, areaName, updateAreaTypeAndName } = th
       <form className="form-inline">
 
         <div className="form-group col-md-4">
-          <label htmlFor="areaType" className="mr-2">Area Type</label>
-          <select className="form-control w-75 mr-2" id="areaType" defaultValue={areaType} onChange={onAreaTypeChange}>
+          <div class="input-group-prepend">
+            <span class="input-group-text">Area Type</span>
+          </div>
+          <select className="form-control mr-2 w-75 custom-select" id="areaType" defaultValue={areaType} onChange={onAreaTypeChange}>
             <option value='overview'>UK</option>
             <option value='nation'>Nation</option>
             <option value='region'>Region</option>
@@ -47,15 +49,17 @@ export default function Input({ areaType, areaName, updateAreaTypeAndName } = th
         </div>
 
         <div className="form-group col-md-4">
-          <label htmlFor="areaName" className="mr-2">Area Name</label>
-          <select className="form-control w-75" id="areaName" defaultValue={areaName}>
+          <div class="input-group-prepend">
+            <span class="input-group-text">Area Name</span>
+          </div>
+          <select className="form-control w-75 custom-select" id="areaName" defaultValue={areaName}>
             {areaNames.map((name) => (
               <option value={name} key={name}>{name}</option>
             ))}
           </select>
         </div>
 
-        <input className="btn btn-info ml-4" type="button" value="Get Data" onClick={onSubmitClick} />
+        <button className="btn btn-info ml-4" type="button" onClick={onSubmitClick}>Get Data</button>
       </form >
     </div>
   )
