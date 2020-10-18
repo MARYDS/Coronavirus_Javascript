@@ -73,7 +73,7 @@ export default function Chart({ data, desc, linesDesc, xaxis } = this.props) {
           <CartesianGrid stroke="#ccc" vertical={false} />
           <Tooltip content={<CustomTooltip xaxis={xaxis} />} />
           <Legend verticalAlign="bottom" height={5}
-            wrapperStyle={{ paddingtop: "5px" }} />
+            wrapperStyle={{ paddingtop: "20px" }} />
 
           {(data.length > 0) ?
             [0, 1, 2, 3, 4, 5, 6, 7, 8, 9].map((i) => {

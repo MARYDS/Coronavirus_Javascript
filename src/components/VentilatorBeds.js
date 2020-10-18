@@ -4,10 +4,10 @@ import Chart from '../utilities/Chart'
 import TableData from '../utilities/TableData'
 import { compare, ukRegionsNhs } from '../utilities/Utils'
 
-export default function VentilatorBeds({ date, latest, average, intensiveCare, regions } = this.props) {
-  if (intensiveCare === undefined) intensiveCare = []
+export default function VentilatorBeds({ date, latest, average, ventilatorBeds, regions } = this.props) {
+  if (ventilatorBeds === undefined) ventilatorBeds = []
   if (regions === undefined) regions = []
-  const intensiveCareSorted = [...intensiveCare].sort(compare())
+  const ventilatorBedsSorted = [...ventilatorBeds].sort(compare())
   const regionsSorted = [...regions].sort(compare())
 
   return (
@@ -70,14 +70,14 @@ export default function VentilatorBeds({ date, latest, average, intensiveCare, r
               {/* Graph with results */}
               <div>
                 <h6 className="text-center">Patients in Ventilator Beds</h6>
-                <Chart data={intensiveCareSorted} desc={['Ventilator Beds']} linesDesc={['7 Day Average']} />
+                <Chart data={ventilatorBedsSorted} desc={['Ventilator Beds']} linesDesc={['7 Day Average']} />
               </div>
             </div>
 
             {/* Second Tab - Intensive Care Data Table */}
             <div className="tab-pane fade" id="intensivecaredata" role="tabpanel" aria-labelledby="intensivecare-data-tab">
               <h6 className="text-center">Patients in Ventilator Beds</h6>
-              <TableData data={intensiveCare} cols={['Date', 'Day', 'Beds']} id="intensivecaretable" />
+              <TableData data={ventilatorBeds} cols={['Date', 'Day', 'Beds']} id="intensivecaretable" />
             </div>
 
             {/* Third Tab - Intensive Care beds by Region */}

@@ -56,7 +56,7 @@ export default function Graph({ data, desc } = this.props) {
             tick={{ fontSize: '0.8rem' }} dataKey="date" height={50} />
           <Tooltip content={<CustomTooltip />} />
           <Legend verticalAlign="bottom" height={5}
-            wrapperStyle={{ paddingtop: "10px" }} />
+            wrapperStyle={{ paddingtop: "20px" }} />
 
           {[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11].map((i) => {
             if (data[0].counts[i] === undefined) {

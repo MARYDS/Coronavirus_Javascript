@@ -62,12 +62,12 @@ export default function Barchart({ data, desc, xaxis } = this.props) {
               tick={{ fontSize: '0.8rem' }} dataKey="date" height={50} />
             :
             <XAxis interval={1}
-              tick={<CustomizedAxisTick xaxis={xaxis} />} dataKey={xaxis} height={50} />
+              tick={<CustomizedAxisTick xaxis={xaxis} />} dataKey={xaxis} height={80} />
           }
           <CartesianGrid stroke="#ccc" vertical={false} />
           <Tooltip content={<CustomTooltip xaxis={xaxis} />} />
-          <Legend verticalAlign="bottom" height={5}
-            wrapperStyle={{ paddingtop: "5px" }} />
+          <Legend verticalAlign="bottom"
+            wrapperStyle={{ paddingtop: "20px" }} />
 
           {(data.length > 0) ?
             [0, 1].map((i) => {

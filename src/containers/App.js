@@ -92,7 +92,7 @@ function App() {
   return (
     <div className="App bg-dark">
 
-      <h1 className="display-md-2 text-center text-white">Coronavirus {areaName === '' ? 'UK' : areaName}</h1>
+      <h1 className="display-md-1 text-center text-light p-2">Coronavirus {areaName === '' ? 'UK' : areaName}</h1>
       {(noData)
         ?
         <p className="display-md-3 display-xs-2 text-center text-danger">

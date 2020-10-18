@@ -228,6 +228,7 @@ export default function Cases(
               {/* Chart with results */}
               <div>
                 <h6 className="text-center">Cumulative Cases by Age and Gender</h6>
+                <p className="text-muted text-center">Available for England and English Regions</p>
                 <Barchart data={casesByGender} desc={["Male", "Female"]} xaxis="age" />
               </div>
             </div>

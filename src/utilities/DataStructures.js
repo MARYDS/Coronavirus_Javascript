@@ -54,7 +54,7 @@ export const structureHospital = {
   "code": "areaCode",
   "date": "date",
   "admissions": "newAdmissions",
-  "intensiveCare": "covidOccupiedMVBeds",
+  "ventilatorBeds": "covidOccupiedMVBeds",
   "patients": "hospitalCases"
 }
 
