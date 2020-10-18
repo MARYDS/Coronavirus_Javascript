@@ -52,7 +52,7 @@ export default function Chart({ data, desc, linesDesc, xaxis } = this.props) {
       "#8B2500", "#551A8B", "#ff0000", "#EEC900", "#F08080"]
 
   return (
-    <div className="line-chart-wrapper pb-5">
+    <div className="line-chart-wrapper">
       {(data.length === 0)
         ?
         <div className="text-info font-weight-bold mt-5 ml-3">
@@ -65,10 +65,10 @@ export default function Chart({ data, desc, linesDesc, xaxis } = this.props) {
           <YAxis width={40} tick={{ fontSize: '0.8rem' }} />
           {(xaxis === "date") ?
             <XAxis interval={30} tickFormatter={formatXAxis}
-              tick={{ fontSize: '0.8rem' }} dataKey="date" height={60} />
+              tick={{ fontSize: '0.8rem' }} dataKey="date" height={50} />
             :
             <XAxis interval={1}
-              tick={<CustomizedAxisTick xaxis={xaxis} />} dataKey={xaxis} height={60} />
+              tick={<CustomizedAxisTick xaxis={xaxis} />} dataKey={xaxis} height={50} />
           }
           <CartesianGrid stroke="#ccc" vertical={false} />
           <Tooltip content={<CustomTooltip xaxis={xaxis} />} />
