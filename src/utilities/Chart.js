@@ -52,7 +52,7 @@ export default function Chart({ data, desc, linesDesc, xaxis } = this.props) {
       "#8B2500", "#551A8B", "#ff0000", "#EEC900", "#F08080"]
 
   return (
-    <div className="line-chart-wrapper">
+    <div className="line-chart-wrapper pb-5">
       {(data.length === 0)
         ?
         <div className="text-info font-weight-bold mt-5 ml-3">
