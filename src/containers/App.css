@@ -6,7 +6,7 @@ body {
 }
 .custom-scrollbar {
   position: relative;
-  height: 400px;
+  height: 450px;
   overflow: auto;
 }
 
@@ -14,8 +14,8 @@ body {
   display: block;
 }
 .card-main {
-  box-shadow: 2px 2px 3px 0px rgb(204, 204, 204); 
-  min-height: 580px; 
+  /* box-shadow: 2px 2px 3px 0px rgb(204, 204, 204);  */
+  min-height: 630px; 
 }
 
 .custom-tooltip {

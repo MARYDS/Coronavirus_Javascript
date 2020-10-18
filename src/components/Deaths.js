@@ -21,7 +21,7 @@ export default function Deaths(
     <div className="col-sm-6 col-lg-4 mb-3">
 
       {/* Card */}
-      <div className="card shadow h-100">
+      <div className="card card-main shadow h-100">
 
         {/* Card Header and Navigation */}
         <div className="card-header text-center">
@@ -97,6 +97,12 @@ export default function Deaths(
                     </span>
                     <span className="text-right">
                       {ratePub}
+                    </span>
+                  </div>
+                  <div className="d-flex flex-row justify-content-between">
+                    <span className="text-left">
+                    </span>
+                    <span className="text-right">
                     </span>
                   </div>
                 </div>
