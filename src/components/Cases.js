@@ -51,7 +51,7 @@ export default function Cases(
               <a className="nav-link" id="case-ages-tab" data-toggle="tab" href="#caseages" role="tab" aria-controls="caseages" aria-selected="false">Age</a>
             </li>
             <li className="nav-item">
-              <a className="nav-link" id="case-regions-data-tab" data-toggle="tab" href="#caseregionsdata" role="tab" aria-controls="caseregionsdata" aria-selected="false">Region</a>
+              <a className="nav-link" id="case-regions-data-tab" data-toggle="tab" href="#caseregionsdata" role="tab" aria-controls="caseregionsdata" aria-selected="false">Reg</a>
             </li>
           </ul>
         </div>
