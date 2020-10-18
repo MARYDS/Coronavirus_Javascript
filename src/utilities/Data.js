@@ -301,8 +301,8 @@ export default class Data {
             if (!(c.date in reg)) {
               reg[c.date] = {
                 'day': rowDay,
-                'deaths': [],
-                'cases': []
+                'deaths': [null, null, null, null, null, null, null, null, null, null, null, null],
+                'cases': [null, null, null, null, null, null, null, null, null, null, null, null]
               }
             }
 
@@ -379,7 +379,7 @@ export default class Data {
   extractRequiredFields(apiData) {
 
     const data = {
-      dateLatest: null, deathsDate: null, deathsDateYMD: null, deathsNew: null, deathsCum: null, deathsRate: null, deathsAverage: null, deathsDateAct: null, deathsNewAct: null, deathsCumAct: null, deathsRateAct: null, deathsAverageAct: null, casesDate: null, casesDateYMD: null, casesNew: null, casesCum: null, casesRate: null, casesAverage: null, casesDateAct: null, casesNewAct: null, casesCumAct: null, casesRateAct: null, casesAverageAct: null, hospitalDate: null, hospitalNew: null, hospitalAverage: null, admissionsDate: null, admissionsNew: null, admissionsCum: null, admissionsAverage: null, intensiveCareDate: null, intensiveCareNew: null, intensiveCareAverage: null, testsDate: null, newP1: null, newP2: null, newP3: null, newP4: null, newTests: null, cumP1: null, cumP2: null, cumP3: null, cumP4: null, cumTests: null, deathsPub: [], deathsAct: [], casesPub: [], casesAct: [], casesByGender: [], tests1: [], tests2: [], tests3: [], tests4: [], testsTot: [], patients: [], admissions: [], admissionsByAge: [], intensiveCare: []
+      dateLatest: null, deathsDate: null, deathsDateYMD: null, deathsNew: null, deathsCum: null, deathsRate: null, deathsAverage: null, deathsDateAct: null, deathsNewAct: null, deathsCumAct: null, deathsRateAct: null, deathsAverageAct: null, casesDate: null, casesDateYMD: null, casesNew: null, casesCum: null, casesRate: null, casesAverage: null, casesDateAct: null, casesNewAct: null, casesCumAct: null, casesRateAct: null, casesAverageAct: null, hospitalDate: null, hospitalNew: null, hospitalAverage: null, admissionsDate: null, admissionsNew: null, admissionsCum: null, admissionsAverage: null, intensiveCareDate: null, intensiveCareNew: null, intensiveCareAverage: null, testsDate: null, newP1: null, newP2: null, newP3: null, newP4: null, newTests: null, cumP1: null, cumP2: null, cumP3: null, cumP4: null, cumTests: null, maleCases: null, femaleCases: null, totalGenderCases: null, genderDate: null, deathsPub: [], deathsAct: [], casesPub: [], casesAct: [], casesByGender: [], tests1: [], tests2: [], tests3: [], tests4: [], testsTot: [], patients: [], admissions: [], admissionsByAge: [], intensiveCare: []
     }
 
     // Got data
@@ -471,11 +471,24 @@ export default class Data {
               })
             }
 
+            const maleCases = maleCasesByAgeNow.reduce((tot, val) => {
+              return ((val == null) ? tot : tot + val)
+            }, 0)
+
+            const femaleCases = femaleCasesByAgeNow.reduce((tot, val) => {
+              return ((val == null) ? tot : tot + val)
+            }, 0)
+
+            data.totalGenderCases = (maleCases + femaleCases).toLocaleString()
+            data.maleCases = maleCases.toLocaleString()
+            data.femaleCases = femaleCases.toLocaleString()
+            data.genderDate = rowDate
+
             for (let g = 0; g < 19; g++) {
               data.casesByGender[data.casesByGender.length] = {
                 age: caseAgeRanges[g],
                 counts: [maleCasesByAgeNow[g], femaleCasesByAgeNow[g]],
-                lines: []
+                lines: [],
               }
             }
           }

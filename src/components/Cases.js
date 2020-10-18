@@ -1,18 +1,21 @@
 import React from 'react'
 import Chart from '../utilities/Chart'
 import Graph from '../utilities/Graph'
+import Barchart from '../utilities/Barchart'
 import TableData from '../utilities/TableData'
 import { compare, ukRegions } from '../utilities/Utils'
 
 export default function Cases(
   { areaType, datePub, newPub, cumPub, ratePub, averPub, casesPub,
     dateAct, newAct, cumAct, rateAct, averAct, casesAct, casesLoc,
-    regions }
+    regions, casesByGender, maleCases, femaleCases, totalGenderCases, genderDate, caseAgeRanges }
     = this.props) {
 
   if (casesPub === undefined) casesPub = []
   if (casesAct === undefined) casesAct = []
   if (regions === undefined) regions = []
+  if (casesByGender === undefined) casesByGender = []
+  if (caseAgeRanges === undefined) caseAgeRanges = []
   const casesPubSorted = [...casesPub].sort(compare())
   const casesActSorted = [...casesAct].sort(compare())
   const regionsSorted = [...regions].sort(compare())
@@ -21,7 +24,7 @@ export default function Cases(
     <div className="col-sm-6 col-lg-4 mb-3">
 
       {/* Card */}
-      <div className="card card-main h-100">
+      <div className="card shadow h-100">
 
         {/* Card Header and Navigation */}
         <div className="card-header text-center">
@@ -30,22 +33,25 @@ export default function Cases(
           {/* Navigation */}
           <ul className="nav nav-tabs" id="cases-list" role="tablist">
             <li className="nav-item">
-              <a className="nav-link active" id="published-cases-tab" data-toggle="tab" href="#publishedcases" role="tab" aria-controls="publishedcases" aria-selected="true">Published</a>
-            </li>
-            <li className="nav-item">
-              <a className="nav-link" id="area-cases-tab" data-toggle="tab" href="#areacases" role="tab" aria-controls="areacases" aria-selected="false">Areas</a>
+              <a className="nav-link active" id="published-cases-tab" data-toggle="tab" href="#publishedcases" role="tab" aria-controls="publishedcases" aria-selected="true">Latest</a>
             </li>
             <li className="nav-item">
               <a className="nav-link" id="published-cases-data-tab" data-toggle="tab" href="#publishedcasesdata" role="tab" aria-controls="publishedcasesdata" aria-selected="false">#</a>
             </li>
             <li className="nav-item">
-              <a className="nav-link" id="actual-cases-tab" data-toggle="tab" href="#actualcases" role="tab" aria-controls="actualcases" aria-selected="false">Actual</a>
+              <a className="nav-link" id="area-cases-tab" data-toggle="tab" href="#areacases" role="tab" aria-controls="areacases" aria-selected="false">Area</a>
+            </li>
+            <li className="nav-item">
+              <a className="nav-link" id="actual-cases-tab" data-toggle="tab" href="#actualcases" role="tab" aria-controls="actualcases" aria-selected="false">Date</a>
             </li>
             <li className="nav-item">
               <a className="nav-link" id="actual-cases-data-tab" data-toggle="tab" href="#actualcasesdata" role="tab" aria-controls="actualcasesdata" aria-selected="false">#</a>
             </li>
             <li className="nav-item">
-              <a className="nav-link" id="case-regions-data-tab" data-toggle="tab" href="#caseregionsdata" role="tab" aria-controls="caseregionsdata" aria-selected="false">Regions</a>
+              <a className="nav-link" id="case-ages-tab" data-toggle="tab" href="#caseages" role="tab" aria-controls="caseages" aria-selected="false">Age</a>
+            </li>
+            <li className="nav-item">
+              <a className="nav-link" id="case-regions-data-tab" data-toggle="tab" href="#caseregionsdata" role="tab" aria-controls="caseregionsdata" aria-selected="false">Region</a>
             </li>
           </ul>
         </div>
@@ -107,7 +113,13 @@ export default function Cases(
               </div>
             </div>
 
-            {/* Second Tab - Cases by Area Table */}
+            {/* Second Tab - Published Cases Table */}
+            <div className="tab-pane fade" id="publishedcasesdata" role="tabpanel" aria-labelledby="published-cases-data-tab">
+              <h6 className="text-center">Cases by Published Date</h6>
+              <TableData data={casesPub} cols={['Date', 'Day', 'Cases', 'Cum.Rate']} id="casespubtable" />
+            </div>
+
+            {/* Third Tab - Cases by Area Table */}
             <div className="tab-pane fade" id="areacases" role="tabpanel" aria-labelledby="area-cases-tab">
               <h6 className="text-center">Cases by Location by Published Date</h6>
               {(areaType === 'overview' || areaType === 'nation')
@@ -117,12 +129,6 @@ export default function Cases(
                 <div className="text-info font-weight-bold mt-5 ml-3">
                   No Data Available for this level
                 </div>}
-            </div>
-
-            {/* Third Tab - Published Cases Table */}
-            <div className="tab-pane fade" id="publishedcasesdata" role="tabpanel" aria-labelledby="published-cases-data-tab">
-              <h6 className="text-center">Cases by Published Date</h6>
-              <TableData data={casesPub} cols={['Date', 'Day', 'Cases', 'Cum.Rate']} id="casespubtable" />
             </div>
 
             {/* Forth Tab - Cases by specimen date */}
@@ -184,7 +190,49 @@ export default function Cases(
               <TableData data={casesAct} cols={['Date', 'Day', 'Cases', 'Cum.Rate']} id="casesacttable" />
             </div>
 
-            {/* Sixth Tab - Cases by Region Graph */}
+            {/* Sixth Tab - Cases by Ages Graph */}
+            <div className="tab-pane fade" id="caseages" role="tabpanel" aria-labelledby="case-ages-tab">
+              {/* Card with summary details */}
+              <div className="card mb-3">
+                {/* Headline Result */}
+                <div className="card-header pt-2 pb-1 bg-info">
+                  <div className="d-flex flex-row justify-content-between text-white p-0 m-0 rounded">
+                    <span className="text-left">
+                      <h6 className="font-weight-bold">{genderDate}</h6>
+                    </span>
+                    <span className="text-left">
+                      <h6 className="font-weight-bold">{totalGenderCases}</h6>
+                    </span>
+                  </div>
+                </div>
+                {/* Other Stats */}
+                <div className="card-body py-1">
+                  <div className="d-flex flex-row justify-content-between">
+                    <span className="text-left">
+                      Male Cases
+                    </span>
+                    <span className="text-right">
+                      {maleCases}
+                    </span>
+                  </div>
+                  <div className="d-flex flex-row justify-content-between">
+                    <span className="text-right">
+                      Female Cases
+                    </span>
+                    <span className="text-right">
+                      {femaleCases}
+                    </span>
+                  </div>
+                </div>
+              </div>
+              {/* Chart with results */}
+              <div>
+                <h6 className="text-center">Cumulative Cases by Age and Gender</h6>
+                <Barchart data={casesByGender} desc={["Male", "Female"]} xaxis="age" />
+              </div>
+            </div>
+
+            {/* Seventh Tab - Cases by Region Graph */}
             <div className="tab-pane fade" id="caseregionsdata" role="tabpanel" aria-labelledby="case-regions-data-tab">
               <h6 className="text-center">All Regions Cases by Region</h6>
               <Graph data={regionsSorted} desc={ukRegions} />

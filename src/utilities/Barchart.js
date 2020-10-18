@@ -1,17 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import {
-  ComposedChart, Area, XAxis, YAxis, Line,
+  BarChart, Bar, XAxis, YAxis,
   Tooltip, Legend, CartesianGrid
 } from 'recharts';
 import CustomTooltip from './CustomTooltip'
 import CustomizedAxisTick from './CustomizedAxisTick'
 import { getChartSize } from './Utils';
 
-export default function Chart({ data, desc, linesDesc, xaxis } = this.props) {
+export default function Barchart({ data, desc, xaxis } = this.props) {
 
   if (data === undefined) data = []
   if (desc === undefined) desc = []
-  if (linesDesc === undefined) linesDesc = []
   if (xaxis === undefined) {
     xaxis = "date"
   }
@@ -41,17 +40,13 @@ export default function Chart({ data, desc, linesDesc, xaxis } = this.props) {
   };
 
   const { w, h } = getChartSize(sizes)
-  const strokeColours =
-    ["#7e8a97", "#28abb9", "#ffe05d", "#b8de6f", "#01cfc4",
-      "#ff9a76", "#ffeadb", "#637373", "#ffcbcb", "#e97171"]
+
   const fillColours =
     ["#a9b1ba", "#28abb9", "#ffe05d", "#b8de6f", "#01cfc4",
       "#ff9a76", "#ffeadb", "#637373", "#ffcbcb", "#e97171"]
-  const lineStrokeColours =
-    ["#ff7300", "#003EFF", "#008000", "#00C5CD", "#1A1A1A",
-      "#8B2500", "#551A8B", "#ff0000", "#EEC900", "#F08080"]
 
   return (
+
     <div className="line-chart-wrapper">
       {(data.length === 0)
         ?
@@ -59,9 +54,8 @@ export default function Chart({ data, desc, linesDesc, xaxis } = this.props) {
           No Data Available for this level
         </div>
         :
-        <ComposedChart width={w} height={h} data={data}
+        <BarChart width={w} height={h} data={data}
           margin={{ top: 30, right: 10, left: 10, bottom: 10 }}>
-
           <YAxis width={40} tick={{ fontSize: '0.8rem' }} />
           {(xaxis === "date") ?
             <XAxis interval={30} tickFormatter={formatXAxis}
@@ -76,33 +70,22 @@ export default function Chart({ data, desc, linesDesc, xaxis } = this.props) {
             wrapperStyle={{ paddingtop: "5px" }} />
 
           {(data.length > 0) ?
-            [0, 1, 2, 3, 4, 5, 6, 7, 8, 9].map((i) => {
+            [0, 1].map((i) => {
               if (data[0].counts[i] === undefined) {
                 return null
               } else {
                 return (
-                  <Area key={"a" + i} type="monotone" name={(desc !== undefined) ? desc[i] : 'data'} dataKey={"counts[" + i + "]"}
-                    stroke={strokeColours[i]} stackId="1" fillOpacity={0.8} fill={fillColours[i]} />
+                  <Bar key={"b" + i} type="monotone" name={(desc !== undefined) ? desc[i] : 'data'} dataKey={"counts[" + i + "]"}
+                    fill={fillColours[i]} fillOpacity={0.8} />
                 )
               }
             })
             : null
           }
-          {(data.length > 0 && data[0].lines && data[0].lines.length > 0) ?
-            [0, 1, 2, 3, 4, 5, 6, 7, 8, 9].map((i) => {
-              if (data[0].lines.length < i + 1 || data[0].lines[i] === undefined) {
-                return null
-              } else {
-                return (
-                  <Line key={"l" + i} type="monotone" name={(linesDesc[i] !== undefined) ? linesDesc[i] : 'data'} dataKey={"lines[" + i + "]"} stroke={lineStrokeColours[i]} dot={false} hide={false} />
-                )
-              }
-            })
-            : null
-          }
-        </ComposedChart>
+
+        </BarChart>
       }
-    </div>
+    </div >
   );
 }
 

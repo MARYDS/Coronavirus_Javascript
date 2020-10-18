@@ -145,6 +145,12 @@ function App() {
               casesAct={apiData.casesAct}
               casesLoc={apiCaseData}
               regions={apiRegionData.cases}
+              casesByGender={apiData.casesByGender}
+              maleCases={apiData.maleCases}
+              femaleCases={apiData.femaleCases}
+              totalGenderCases={apiData.totalGenderCases}
+              genderDate={apiData.genderDate}
+              caseAgeRanges={apiData.caseAgeRanges}
             />
             {
               (areaType === 'region' || areaType === 'ltla' || areaType === "utla")

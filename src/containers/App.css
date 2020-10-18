@@ -34,3 +34,16 @@ body {
   font-size: 0.8rem;
   font-weight: bold;
 }
+
+.tests {
+  flex-grow: 1;
+  flex-basis: 0;
+}
+
+.nav-tabs > li.active > a {
+  color: #3c5a78;
+  font-size: 16px;
+}
+.nav-tabs > li > a {
+  color: #575757;
+}

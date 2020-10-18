@@ -36,8 +36,8 @@ export default function Input({ areaType, areaName, updateAreaTypeAndName } = th
         <form className="form-inline w-100">
 
           <div className="form-group col-sm-6 col-lg-4">
-            <div class="input-group-prepend w-25 mr-0">
-              <span class="input-group-text">Area Type</span>
+            <div className="input-group-prepend w-25 mr-0">
+              <span className="input-group-text">Area Type</span>
             </div>
             <select className="form-control custom-select w-75 ml-0" id="areaType" defaultValue={areaType} onChange={onAreaTypeChange}>
               <option value='overview'>UK</option>
@@ -50,8 +50,8 @@ export default function Input({ areaType, areaName, updateAreaTypeAndName } = th
           </div>
 
           <div className="form-group col-sm-6 col-lg-4">
-            <div class="input-group-prepend w-25 mr-0">
-              <span class="input-group-text">Area Name</span>
+            <div className="input-group-prepend w-25 mr-0">
+              <span className="input-group-text">Area Name</span>
             </div>
             <select className="form-control custom-select ml-0 w-75" id="areaName" defaultValue={areaName}>
               {areaNames.map((name) => (

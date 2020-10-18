@@ -21,7 +21,7 @@ export default function Deaths(
     <div className="col-sm-6 col-lg-4 mb-3">
 
       {/* Card */}
-      <div className="card card-main h-100">
+      <div className="card shadow h-100">
 
         {/* Card Header and Navigation */}
         <div className="card-header text-center">
@@ -30,25 +30,22 @@ export default function Deaths(
           {/* Navigation */}
           <ul className="nav nav-tabs" id="deaths-list" role="tablist">
             <li className="nav-item">
-              <a className="nav-link active" id="published-tab" data-toggle="tab" href="#published" role="tab" aria-controls="published" aria-selected="true">Published</a>
+              <a className="nav-link active" id="published-tab" data-toggle="tab" href="#published" role="tab" aria-controls="published" aria-selected="true">Latest</a>
             </li>
-            {(areaType === 'overview' || areaType === 'nation')
-              ?
-              <li className="nav-item">
-                <a className="nav-link" id="area-deaths-tab" data-toggle="tab" href="#areadeaths" role="tab" aria-controls="areadeaths" aria-selected="false">Areas</a>
-              </li>
-              : null}
             <li className="nav-item">
               <a className="nav-link" id="published-data-tab" data-toggle="tab" href="#publisheddata" role="tab" aria-controls="publisheddata" aria-selected="false">#</a>
             </li>
             <li className="nav-item">
-              <a className="nav-link" id="actual-tab" data-toggle="tab" href="#actual" role="tab" aria-controls="actual" aria-selected="false">Actual</a>
+              <a className="nav-link" id="actual-tab" data-toggle="tab" href="#actual" role="tab" aria-controls="actual" aria-selected="false">Date</a>
             </li>
             <li className="nav-item">
               <a className="nav-link" id="actual-data-tab" data-toggle="tab" href="#actualdata" role="tab" aria-controls="actualdata" aria-selected="false">#</a>
             </li>
             <li className="nav-item">
-              <a className="nav-link" id="death-regions-data-tab" data-toggle="tab" href="#deathregionsdata" role="tab" aria-controls="deathregionsdata" aria-selected="false">Regions</a>
+              <a className="nav-link" id="area-deaths-tab" data-toggle="tab" href="#areadeaths" role="tab" aria-controls="areadeaths" aria-selected="false">Area</a>
+            </li>
+            <li className="nav-item">
+              <a className="nav-link" id="death-regions-data-tab" data-toggle="tab" href="#deathregionsdata" role="tab" aria-controls="deathregionsdata" aria-selected="false">Region</a>
             </li>
           </ul>
         </div>

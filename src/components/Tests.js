@@ -27,7 +27,7 @@ export default function Tests(
     <div className="col-sm-6 col-lg-4 mb-3">
 
       {/* Card */}
-      <div className="card card-main h-100">
+      <div className="card h-100">
 
         {/* Card Header and Navigation */}
         <div className="card-header text-center">
@@ -70,61 +70,61 @@ export default function Tests(
               <div className="card mb-3">
                 {/* Headline Result */}
                 <div className="card-header pt-2 pb-1 bg-info">
-                  <div className="row text-white rounded">
-                    <span className="col-sm-4 text-left">
+                  <div className="d-flex flex-row justify-content-between text-white rounded">
+                    <span className="text-left tests">
                       <h6 className="font-weight-bold">{date}</h6>
                     </span>
-                    <span className="col-sm-4 text-right">
+                    <span className="text-right tests">
                       <h6 className="font-weight-bold">{newTotal}</h6>
                     </span>
-                    <span className="col-sm-4 text-right">
+                    <span className="text-right tests">
                       <h6 className="font-weight-bold">{cumTotal}</h6>
                     </span>
                   </div>
                 </div>
                 {/* Other Stats */}
                 <div className="card-body py-1">
-                  <div className="row">
-                    <span className="col-sm-4 text-left">
+                  <div className="d-flex flex-row justify-content-between">
+                    <span className="text-left tests">
                       Pillar 1
                     </span>
-                    <span className="col-sm-4 text-right">
+                    <span className="text-right tests">
                       {newP1}
                     </span>
-                    <span className="col-sm-4 text-right">
+                    <span className="text-right tests">
                       {cumP1}
                     </span>
                   </div>
-                  <div className="row">
-                    <span className="col-sm-4 text-left">
+                  <div className="d-flex flex-row justify-content-between">
+                    <span className="text-left tests">
                       Pillar 2
                     </span>
-                    <span className="col-sm-4 text-right">
+                    <span className="text-right tests">
                       {newP2}
                     </span>
-                    <span className="col-sm-4 text-right">
+                    <span className="text-right tests">
                       {cumP2}
                     </span>
                   </div>
-                  <div className="row">
-                    <span className="col-sm-4 text-left">
+                  <div className="d-flex flex-row justify-content-between">
+                    <span className="text-left tests">
                       Pillar 3
                     </span>
-                    <span className="col-sm-4 text-right">
+                    <span className="text-right tests">
                       {newP3}
                     </span>
-                    <span className="col-sm-4 text-right">
+                    <span className="text-right tests">
                       {cumP3}
                     </span>
                   </div>
-                  <div className="row">
-                    <span className="col-sm-4 text-left">
+                  <div className="d-flex flex-row justify-content-between">
+                    <span className="text-left tests">
                       Pillar 4
                    </span>
-                    <span className="col-sm-4 text-right">
+                    <span className="text-right tests">
                       {newP4}
                     </span>
-                    <span className="col-sm-4 text-right">
+                    <span className="text-right tests">
                       {cumP4}
                     </span>
                   </div>
