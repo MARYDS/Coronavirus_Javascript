@@ -4,7 +4,7 @@ import Chart from '../utilities/Chart'
 import TableData from '../utilities/TableData'
 import { compare, ukRegionsNhs } from '../utilities/Utils'
 
-export default function IntensiveCare({ date, latest, average, intensiveCare, regions } = this.props) {
+export default function VentilatorBeds({ date, latest, average, intensiveCare, regions } = this.props) {
   if (intensiveCare === undefined) intensiveCare = []
   if (regions === undefined) regions = []
   const intensiveCareSorted = [...intensiveCare].sort(compare())

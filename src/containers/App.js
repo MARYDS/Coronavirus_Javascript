@@ -5,7 +5,7 @@ import Cases from '../components/Cases'
 import Tests from '../components/Tests'
 import Hospital from '../components/Hospital'
 import Admissions from '../components/Admissions'
-import IntensiveCare from '../components/IntensiveCare'
+import VentilatorBeds from '../components/VentilatorBeds'
 import Footer from '../components/Footer'
 import Input from '../components/Input'
 import './App.css'
@@ -198,12 +198,12 @@ function App() {
               admissionsByAge={apiData.admissionsByAge}
               regions={apiHospitalData.admissions}
             />
-            <IntensiveCare
-              date={apiData.intensiveCareDate}
-              latest={apiData.intensiveCareNew}
-              average={apiData.intensiveCareAverage}
-              intensiveCare={apiData.intensiveCare}
-              regions={apiHospitalData.intensiveCare}
+            <VentilatorBeds
+              date={apiData.ventilatorBedsDate}
+              latest={apiData.ventilatorBedsNew}
+              average={apiData.ventilatorBedsAverage}
+              ventilatorBeds={apiData.ventilatorBeds}
+              regions={apiHospitalData.ventilatorBeds}
             />
           </div>
         }

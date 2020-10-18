@@ -43,8 +43,11 @@ body {
 
 .nav-tabs > li.active > a {
   color: #3c5a78;
-  font-size: 16px;
 }
 .nav-tabs > li > a {
   color: #575757;
+}
+
+.prefix {
+ min-width: 8rem;
 }

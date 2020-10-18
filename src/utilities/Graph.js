@@ -51,7 +51,7 @@ export default function Graph({ data, desc } = this.props) {
           margin={{ top: 30, right: 10, bottom: 10, left: 10 }}
         >
           <CartesianGrid stroke="#ccc" vertical={false} />
-          <YAxis tick={{ fontSize: '0.8rem' }} />
+          <YAxis width={40} tick={{ fontSize: '0.8rem' }} />
           <XAxis interval={30} tickFormatter={formatXAxis}
             tick={{ fontSize: '0.8rem' }} dataKey="date" height={50} />
           <Tooltip content={<CustomTooltip />} />
