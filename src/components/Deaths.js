@@ -30,7 +30,7 @@ export default function Deaths(
           {/* Navigation */}
           <ul className="nav nav-tabs" id="deaths-list" role="tablist">
             <li className="nav-item">
-              <a className="nav-link active" id="published-tab" data-toggle="tab" href="#published" role="tab" aria-controls="published" aria-selected="true">Latest</a>
+              <a className="nav-link active" id="published-tab" data-toggle="tab" href="#published" role="tab" aria-controls="published" aria-selected="true">Daily</a>
             </li>
             <li className="nav-item">
               <a className="nav-link" id="published-data-tab" data-toggle="tab" href="#publisheddata" role="tab" aria-controls="publisheddata" aria-selected="false">#</a>

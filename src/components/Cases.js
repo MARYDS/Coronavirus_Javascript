@@ -33,7 +33,7 @@ export default function Cases(
           {/* Navigation */}
           <ul className="nav nav-tabs" id="cases-list" role="tablist">
             <li className="nav-item">
-              <a className="nav-link active" id="published-cases-tab" data-toggle="tab" href="#publishedcases" role="tab" aria-controls="publishedcases" aria-selected="true">Latest</a>
+              <a className="nav-link active" id="published-cases-tab" data-toggle="tab" href="#publishedcases" role="tab" aria-controls="publishedcases" aria-selected="true">Daily</a>
             </li>
             <li className="nav-item">
               <a className="nav-link" id="published-cases-data-tab" data-toggle="tab" href="#publishedcasesdata" role="tab" aria-controls="publishedcasesdata" aria-selected="false">#</a>
