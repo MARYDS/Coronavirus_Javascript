@@ -42,7 +42,7 @@ export default function Deaths(
               <a className="nav-link" id="actual-data-tab" data-toggle="tab" href="#actualdata" role="tab" aria-controls="actualdata" aria-selected="false">#</a>
             </li>
             <li className="nav-item">
-              <a className="nav-link" id="area-deaths-tab" data-toggle="tab" href="#areadeaths" role="tab" aria-controls="areadeaths" aria-selected="false">Area</a>
+              <a className="nav-link" id="area-deaths-tab" data-toggle="tab" href="#areadeaths" role="tab" aria-controls="areadeaths" aria-selected="false">Loc</a>
             </li>
             <li className="nav-item">
               <a className="nav-link" id="death-regions-data-tab" data-toggle="tab" href="#deathregionsdata" role="tab" aria-controls="deathregionsdata" aria-selected="false">Region</a>
