@@ -31,7 +31,9 @@ export default function TableData({ data, cols, id } = this.props) {
                     {(elem.day !== undefined)
                       ? <td>{elem.day}</td>
                       : null}
-                    <td>{elem.counts[0].toLocaleString()}</td>
+                    {(elem.counts[0] !== undefined && elem.counts[0] != null)
+                      ? <td>{elem.counts[0].toLocaleString()}</td>
+                      : null}
                     {(elem.rate !== undefined)
                       ? <td>{elem.rate}</td>
                       : null}

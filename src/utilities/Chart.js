@@ -48,8 +48,8 @@ export default function Chart({ data, desc, linesDesc, xaxis } = this.props) {
     ["#a9b1ba", "#28abb9", "#ffe05d", "#b8de6f", "#01cfc4",
       "#ff9a76", "#ffeadb", "#637373", "#ffcbcb", "#e97171"]
   const lineStrokeColours =
-    ["#ff7300", "#003EFF", "#008000", "#00C5CD", "#1A1A1A",
-      "#8B2500", "#551A8B", "#ff0000", "#EEC900", "#F08080"]
+    ["#ff7300", "#003EFF", "#63c47c", "#61D8F5", "#1A1A1A",
+      "#8B2500", "#551A8B", "#ff0000", "#debe3a", "#F08080"]
 
   return (
     <div className="line-chart-wrapper">

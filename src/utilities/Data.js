@@ -1,5 +1,5 @@
-import { structureAll, structureDeaths, structureCases, structureHospital, structureRegion } from './DataStructures'
-import { apiUrl, weekdays, ukRegionsNhs, ukRegions } from './Utils'
+import { structureAll, structureDeaths, structureCases, structureHospital, structureRegion, structureNation } from './DataStructures'
+import { apiUrl, weekdays, ukRegionsNhs, ukRegions, ukNations } from './Utils'
 
 export default class Data {
 
@@ -375,6 +375,82 @@ export default class Data {
     return Math.floor(tot / 7)
   }
 
+  // Fetch todays or most recent nation data from API and accumulate into UK total
+  async getAPINationData() {
+
+    let nat = {}
+    let nation = ''
+
+    // Retrieve data for each region and merge results
+    for (let k = 0; k < ukNations.length; k++) {
+      nation = ukNations[k]
+
+      let filters = "areaType=nation"
+      filters += `;areaName=${nation}`
+      const request = `
+        ${apiUrl}?filters=${filters}&structure=${JSON.stringify(structureNation)}
+        `
+      let response = await fetch(request);
+      let results = await response.json();
+
+      // No data available
+      if (results.status >= 400) continue
+      if (results.data === undefined) continue
+
+      // Got data
+      if (results.data != null) {
+
+        // Merge with other nations data by date
+        for (let i = 0; i < results.data.length; i++) {
+          const c = results.data[i]
+
+          // Arrays of date / values after region data is available
+          if (c.date >= '2020-03-01') {
+            const rowDay = weekdays[(new Date(c.date)).getDay()]
+
+            // Got some data for this date
+            if (c.deathsAct != null || c.casesAct != null) {
+              // New date, create empty object
+              if (!(c.date in nat)) {
+                nat[c.date] = {
+                  'day': rowDay,
+                  'deathsAct': [null, null, null, null, null],
+                  'casesAct': [null, null, null, null, null]
+                }
+              }
+
+              nat[c.date]['deathsAct'][k + 1] = c.deathsAct
+              nat[c.date]['casesAct'][k + 1] = c.casesAct
+              nat[c.date]['deathsAct'][0] = nat[c.date]['deathsAct'][0] + c.deathsAct
+              nat[c.date]['casesAct'][0] = nat[c.date]['casesAct'][0] + c.casesAct
+            }
+          }
+        }
+      }
+    }
+
+    // Split out deaths and cases
+    let nations = {
+      deathsAct: [],
+      casesAct: [],
+    }
+
+    for (const [key, value] of Object.entries(nat)) {
+      nations.deathsAct[nations.deathsAct.length] = {
+        'date': key,
+        'day': value.day,
+        'counts': value.deathsAct
+      }
+      nations.casesAct[nations.casesAct.length] = {
+        'date': key,
+        'day': value.day,
+        'counts': value.casesAct
+      }
+    }
+
+    return nations;
+  }
+
   // Get required fields from the main extract and reformat
   extractRequiredFields(apiData) {
 
@@ -503,12 +579,20 @@ export default class Data {
             data.newP2 = (c.newPillarTwoTestsByPublishDate || '0').toLocaleString()
             data.newP3 = (c.newPillarThreeTestsByPublishDate || '0').toLocaleString()
             data.newP4 = (c.newPillarFourTestsByPublishDate || '0').toLocaleString()
-            data.newTests = c.newTests.toLocaleString()
+            data.newTests = (
+              (c.newPillarOneTestsByPublishDate || 0) +
+              (c.newPillarTwoTestsByPublishDate || 0) +
+              (c.newPillarThreeTestsByPublishDate || 0) +
+              (c.newPillarFourTestsByPublishDate || 0)).toLocaleString()
             data.cumP1 = (c.cumPillarOneTestsByPublishDate || '0').toLocaleString()
             data.cumP2 = (c.cumPillarTwoTestsByPublishDate || '0').toLocaleString()
             data.cumP3 = (c.cumPillarThreeTestsByPublishDate || '0').toLocaleString()
             data.cumP4 = (c.cumPillarFourTestsByPublishDate || '0').toLocaleString()
-            data.cumTests = c.cumTests.toLocaleString()
+            data.cumTests = (
+              (c.cumPillarOneTestsByPublishDate || 0) +
+              (c.cumPillarTwoTestsByPublishDate || 0) +
+              (c.cumPillarThreeTestsByPublishDate || 0) +
+              (c.cumPillarFourTestsByPublishDate || 0)).toLocaleString()
             data.testsDate = rowDate
           }
 

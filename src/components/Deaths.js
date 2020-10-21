@@ -2,20 +2,52 @@ import React from 'react'
 import Chart from '../utilities/Chart'
 import Graph from '../utilities/Graph'
 import TableData from '../utilities/TableData'
-import { compare, ukRegions } from '../utilities/Utils'
+import { compare, ukNations, ukRegions } from '../utilities/Utils'
 
 export default function Deaths(
   { areaType, datePub, newPub, cumPub, ratePub, averPub, deathsPub,
     dateAct, newAct, cumAct, rateAct, averAct, deathsAct, deathsLoc,
-    regions }
+    regions, nations, nationsAct }
     = this.props) {
 
   if (deathsPub === undefined) deathsPub = []
   if (deathsAct === undefined) deathsAct = []
   if (regions === undefined) regions = []
+  if (nations === undefined) nations = []
+  if (nationsAct === undefined) nationsAct = []
   const deathsPubSorted = [...deathsPub].sort(compare())
-  const deathsActSorted = [...deathsAct].sort(compare())
+  let deathsActSorted = [...deathsAct].sort(compare())
   const regionsSorted = [...regions].sort(compare())
+  let descAct = ['Deaths by Date of Death']
+
+  // UK overall numbers from API are incorrect - replace with sum of nations
+  if (areaType === "overview") {
+    descAct = ukNations
+    const nationsActSorted = [...nationsAct].sort(compare())
+    deathsAct = [...nationsAct]
+    cumAct = deathsAct.reduce((tot, val) => tot + val.counts[0], 0)
+    cumAct = cumAct.toLocaleString()
+
+    if (nationsAct.length > 0) {
+      dateAct = (new Date(nationsAct[0].date)).toLocaleDateString()
+      newAct = nationsAct[0].counts[0].toLocaleString()
+      let totAct = 0
+      for (let i = 0; i < 7; i++) {
+        totAct = totAct + nationsAct[i].counts[0]
+      }
+      averAct = Math.floor(totAct / 7).toLocaleString()
+    }
+
+    deathsActSorted = nationsActSorted.map((nat) => {
+      return (
+        {
+          date: nat.date,
+          day: nat.day,
+          counts: nat.counts.slice(1)
+        }
+      )
+    })
+  }
 
   return (
     <div className="col-sm-6 col-lg-4 mb-3">
@@ -115,16 +147,7 @@ export default function Deaths(
               </div>
             </div>
 
-            {/* Second Tab - Deaths by Area Table */}
-            {(areaType === 'overview' || areaType === 'nation')
-              ?
-              <div className="tab-pane fade" id="areadeaths" role="tabpanel" aria-labelledby="area-deaths-tab">
-                <h6 className="text-center">Deaths by Location by Published Date</h6>
-                <TableData data={deathsLoc} cols={['Date', 'Location', 'Deaths']} id="casesareatable" />
-              </div>
-              : null}
-
-            {/* Third Tab - Published Deaths Table */}
+            {/* Second Tab - Published Deaths Table */}
             <div className="tab-pane fade" id="publisheddata" role="tabpanel" aria-labelledby="published-data-tab">
               <h6 className="text-center">Deaths by Published Date</h6>
               <div>
@@ -132,6 +155,14 @@ export default function Deaths(
               </div>
             </div>
 
+            {/* Third Tab - Deaths by Area Table */}
+            {(areaType === 'overview' || areaType === 'nation')
+              ?
+              <div className="tab-pane fade" id="areadeaths" role="tabpanel" aria-labelledby="area-deaths-tab">
+                <h6 className="text-center">Deaths by Location by Published Date</h6>
+                <TableData data={deathsLoc} cols={['Date', 'Location', 'Deaths']} id="casesareatable" />
+              </div>
+              : null}
 
             {/* Forth Tab - Deaths by Date of Death */}
             <div className="tab-pane fade" id="actual" role="tabpanel" aria-labelledby="actual-tab">
@@ -181,14 +212,14 @@ export default function Deaths(
               {/* Graph with results */}
               <div>
                 <h6 className="text-center">Deaths by Date of Death</h6>
-                <Chart data={deathsActSorted} desc={['Deaths by Date of Death']} linesDesc={['7 Day Average']} />
+                <Chart data={deathsActSorted} desc={descAct} linesDesc={['7 Day Average']} />
               </div>
             </div>
 
             {/* Fifth Tab - Date of Death Table */}
             <div className="tab-pane fade" id="actualdata" role="tabpanel" aria-labelledby="actual-data-tab">
               <h6 className="text-center">Deaths by Date of Death</h6>
-              <TableData data={deathsAct} cols={['Date', 'Day', 'Deaths', 'Cum.Rate']} id="casesacttable" />
+              <TableData data={deathsAct} cols={['Date', 'Day', 'Deaths']} id="casesacttable" />
             </div>
 
             {/* Sixth Tab - Deaths by Region Graph */}

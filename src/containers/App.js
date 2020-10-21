@@ -19,6 +19,7 @@ function App() {
   const [apiDeathData, setAPIDeathData] = useState([])
   const [apiHospitalData, setAPIHospitalData] = useState({})
   const [apiRegionData, setAPIRegionData] = useState({})
+  const [apiNationData, setAPINationData] = useState({})
   const [noData, setNoData] = useState(false)
 
   useEffect(() => {
@@ -33,7 +34,9 @@ function App() {
         console.log(err)
         setNoData(true)
       })
-    data = null
+      .then(() => {
+        data = null
+      })
   }, [areaType, areaName]);
 
   useEffect(() => {
@@ -47,6 +50,9 @@ function App() {
         .catch((err) => {
           console.log(err)
         })
+        .then(() => {
+          data = null
+        })
     }
     if (apiData !== undefined && apiData.deathsDateYMD != null) {
       data
@@ -56,6 +62,9 @@ function App() {
         })
         .catch((err) => {
           console.log(err)
+        })
+        .then(() => {
+          data = null
         })
     }
   }, [apiData.deathsDate, apiData.casesDate, areaType, areaName]);
@@ -70,6 +79,9 @@ function App() {
       .catch((err) => {
         console.log(err)
       })
+      .then(() => {
+        data = null
+      })
   }, []);
 
   useEffect(() => {
@@ -81,6 +93,24 @@ function App() {
       })
       .catch((err) => {
         console.log(err)
+      })
+      .then(() => {
+        data = null
+      })
+  }, []);
+
+  useEffect(() => {
+    let data = new Data()
+    data
+      .getAPINationData()
+      .then((response) => {
+        setAPINationData(response)
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+      .then(() => {
+        data = null
       })
   }, []);
 
@@ -128,6 +158,8 @@ function App() {
               deathsAct={apiData.deathsAct}
               deathsLoc={apiDeathData}
               regions={apiRegionData.deaths}
+              nations={apiNationData.deaths}
+              nationsAct={apiNationData.deathsAct}
             />
             <Cases
               areaType={areaType}
@@ -145,6 +177,8 @@ function App() {
               casesAct={apiData.casesAct}
               casesLoc={apiCaseData}
               regions={apiRegionData.cases}
+              nations={apiNationData.cases}
+              nationsAct={apiNationData.casesAct}
               casesByGender={apiData.casesByGender}
               maleCases={apiData.maleCases}
               femaleCases={apiData.femaleCases}

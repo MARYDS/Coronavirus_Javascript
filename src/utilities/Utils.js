@@ -32,3 +32,5 @@ export const ukRegionsNhs = ['East of England', 'London', 'Midlands',
 export const ukRegions = ['East Midlands', 'East of England', 'London', 'North East',
   'North West', 'South East', 'South West', 'West Midlands',
   'Yorkshire and The Humber', 'Scotland', 'Wales', 'Northern Ireland']
+
+export const ukNations = ['England', 'Scotland', 'Wales', 'Northern Ireland']

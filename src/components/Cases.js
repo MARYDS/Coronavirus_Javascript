@@ -3,22 +3,55 @@ import Chart from '../utilities/Chart'
 import Graph from '../utilities/Graph'
 import Barchart from '../utilities/Barchart'
 import TableData from '../utilities/TableData'
-import { compare, ukRegions } from '../utilities/Utils'
+import { compare, ukNations, ukRegions } from '../utilities/Utils'
 
 export default function Cases(
   { areaType, datePub, newPub, cumPub, ratePub, averPub, casesPub,
     dateAct, newAct, cumAct, rateAct, averAct, casesAct, casesLoc,
-    regions, casesByGender, maleCases, femaleCases, totalGenderCases, genderDate, caseAgeRanges }
+    regions, nations, nationsAct, casesByGender, maleCases, femaleCases,
+    totalGenderCases, genderDate, caseAgeRanges }
     = this.props) {
 
   if (casesPub === undefined) casesPub = []
   if (casesAct === undefined) casesAct = []
   if (regions === undefined) regions = []
+  if (nations === undefined) nations = []
+  if (nationsAct === undefined) nationsAct = []
   if (casesByGender === undefined) casesByGender = []
   if (caseAgeRanges === undefined) caseAgeRanges = []
   const casesPubSorted = [...casesPub].sort(compare())
-  const casesActSorted = [...casesAct].sort(compare())
+  let casesActSorted = [...casesAct].sort(compare())
   const regionsSorted = [...regions].sort(compare())
+  let descAct = ['Cases by Specimen Date']
+
+  // UK overall numbers from API are incorrect - replace with sum of nations
+  if (areaType === "overview") {
+    descAct = ukNations
+    const nationsActSorted = [...nationsAct].sort(compare())
+    casesAct = [...nationsAct]
+    cumAct = casesAct.reduce((tot, val) => tot + val.counts[0], 0)
+    cumAct = cumAct.toLocaleString()
+
+    if (nationsAct.length > 0) {
+      dateAct = (new Date(nationsAct[0].date)).toLocaleDateString()
+      newAct = nationsAct[0].counts[0].toLocaleString()
+      let totAct = 0
+      for (let i = 0; i < 7; i++) {
+        totAct = totAct + nationsAct[i].counts[0]
+      }
+      averAct = Math.floor(totAct / 7).toLocaleString()
+    }
+
+    casesActSorted = nationsActSorted.map((nat) => {
+      return (
+        {
+          date: nat.date,
+          day: nat.day,
+          counts: nat.counts.slice(1)
+        }
+      )
+    })
+  }
 
   return (
     <div className="col-sm-6 col-lg-4 mb-3">
@@ -179,7 +212,7 @@ export default function Cases(
               {/* Chart with results */}
               <div>
                 <h6 className="text-center">Cases by Specimen Date</h6>
-                <Chart data={casesActSorted} desc={['Cases by Specimen Date']} linesDesc={['7 Day Average']} />
+                <Chart data={casesActSorted} desc={descAct} linesDesc={['7 Day Average']} />
               </div>
             </div>
 
@@ -187,7 +220,7 @@ export default function Cases(
             <div className="tab-pane fade" id="actualcasesdata" role="tabpanel"
               aria-labelledby="actual-cases-data-tab">
               <h6 className="text-center">Cases by Specimen Date</h6>
-              <TableData data={casesAct} cols={['Date', 'Day', 'Cases', 'Cum.Rate']} id="casesacttable" />
+              <TableData data={casesAct} cols={['Date', 'Day', 'Cases']} id="casesacttable" />
             </div>
 
             {/* Sixth Tab - Cases by Ages Graph */}

@@ -65,3 +65,12 @@ export const structureRegion = {
   "deaths": "newDeaths28DaysByPublishDate",
   "cases": "newCasesByPublishDate",
 }
+export const structureNation = {
+  "locn": "areaName",
+  "code": "areaCode",
+  "date": "date",
+  "deaths": "newDeaths28DaysByPublishDate",
+  "cases": "newCasesByPublishDate",
+  "deathsAct": "newDeaths28DaysByDeathDate",
+  "casesAct": "newCasesBySpecimenDate",
+}
