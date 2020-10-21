@@ -4,7 +4,7 @@ import TableData from '../utilities/TableData'
 import { compare } from '../utilities/Utils'
 
 export default function Tests(
-  { date, newP1, newP2, newP3, newP4, newTotal,
+  { areaName, date, newP1, newP2, newP3, newP4, newTotal,
     cumP1, cumP2, cumP3, cumP4, cumTotal,
     tests1, tests2, tests3, tests4, testsTot } = this.props) {
   if (tests1 === undefined) tests1 = []
@@ -12,6 +12,7 @@ export default function Tests(
   if (tests3 === undefined) tests3 = []
   if (tests4 === undefined) tests4 = []
   if (testsTot === undefined) testsTot = []
+  if (areaName === '') areaName = 'UK'
   const testsTotSorted =
     [...testsTot.map(
       (day) => {
@@ -133,39 +134,39 @@ export default function Tests(
 
               {/* Graph with results */}
               <div>
-                <h6 className="text-center">Tests by Published Date</h6>
+                <h6 className="text-center">Tests by Published Date - {areaName}</h6>
                 <Chart data={testsTotSorted} desc={['Pillar 1', 'Pillar 2', 'Pillar 3', 'Pillar 4']} />
               </div>
             </div>
 
             {/* Second Tab - Pillar 1 Table */}
             <div className="tab-pane fade" id="p1data" role="tabpanel" aria-labelledby="p1-data-tab">
-              <h6 className="text-center">Pillar 1 (NHS/PHE) Tests</h6>
+              <h6 className="text-center">Pillar 1 (NHS/PHE) Tests - {areaName}</h6>
               <TableData data={tests1} cols={['Date', 'Day', 'Tests']} id="testsp1table" />
             </div>
 
             {/* Third Tab - Pillar 2 Table */}
             <div className="tab-pane fade" id="p2data" role="tabpanel"
               aria-labelledby="p2-data-tab">
-              <h6 className="text-center">Pillar 2 (Non-NHS) Tests</h6>
+              <h6 className="text-center">Pillar 2 (Non-NHS) Tests - {areaName}</h6>
               <TableData data={tests2} cols={['Date', 'Day', 'Tests']} id="testsp2table" />
             </div>
 
             {/* Forth Tab - Pillar 3 Table */}
             <div className="tab-pane fade" id="p3data" role="tabpanel" aria-labelledby="p3-data-tab">
-              <h6 className="text-center">Pillar 3 (Antibody) Tests</h6>
+              <h6 className="text-center">Pillar 3 (Antibody) Tests - {areaName}</h6>
               <TableData data={tests3} cols={['Date', 'Day', 'Tests']} id="testsp3table" />
             </div>
 
             {/* Fifth Tab - Pillar 4 Table */}
             <div className="tab-pane fade" id="p4data" role="tabpanel" aria-labelledby="p4-data-tab">
-              <h6 className="text-center">Pillar 4 (Surveillance) Tests</h6>
+              <h6 className="text-center">Pillar 4 (Surveillance) Tests - {areaName}</h6>
               <TableData data={tests4} cols={['Date', 'Day', 'Tests']} id="testsp4table" />
             </div>
 
             {/* Sixth Tab - Totals Table */}
             <div className="tab-pane fade" id="testsdata" role="tabpanel" aria-labelledby="tests-data-tab">
-              <h6 className="text-center">Total Tests</h6>
+              <h6 className="text-center">Total Tests - {areaName}</h6>
               <TableData data={testsTot} cols={['Date', 'Day', 'Tests']} id="teststottable" />
             </div>
 

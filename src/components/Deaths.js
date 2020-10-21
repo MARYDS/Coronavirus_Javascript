@@ -5,7 +5,7 @@ import TableData from '../utilities/TableData'
 import { compare, ukNations, ukRegions } from '../utilities/Utils'
 
 export default function Deaths(
-  { areaType, datePub, newPub, cumPub, ratePub, averPub, deathsPub,
+  { areaType, areaName, datePub, newPub, cumPub, ratePub, averPub, deathsPub,
     dateAct, newAct, cumAct, rateAct, averAct, deathsAct, deathsLoc,
     regions, nations, nationsAct }
     = this.props) {
@@ -15,6 +15,7 @@ export default function Deaths(
   if (regions === undefined) regions = []
   if (nations === undefined) nations = []
   if (nationsAct === undefined) nationsAct = []
+  if (areaName === '') areaName = 'UK'
   const deathsPubSorted = [...deathsPub].sort(compare())
   let deathsActSorted = [...deathsAct].sort(compare())
   const regionsSorted = [...regions].sort(compare())
@@ -142,14 +143,14 @@ export default function Deaths(
 
               {/* Graph with results */}
               <div>
-                <h6 className="text-center">Deaths by Published Date</h6>
+                <h6 className="text-center">Deaths by Published Date - {areaName}</h6>
                 <Chart data={deathsPubSorted} desc={['Deaths by Published Date']} linesDesc={['7 Day Average']} />
               </div>
             </div>
 
             {/* Second Tab - Published Deaths Table */}
             <div className="tab-pane fade" id="publisheddata" role="tabpanel" aria-labelledby="published-data-tab">
-              <h6 className="text-center">Deaths by Published Date</h6>
+              <h6 className="text-center">Deaths by Published Date - {areaName}</h6>
               <div>
                 <TableData data={deathsPub} cols={['Date', 'Day', 'Deaths', 'Cum.Rate']} id="deathspubtable" />
               </div>
@@ -159,7 +160,7 @@ export default function Deaths(
             {(areaType === 'overview' || areaType === 'nation')
               ?
               <div className="tab-pane fade" id="areadeaths" role="tabpanel" aria-labelledby="area-deaths-tab">
-                <h6 className="text-center">Deaths by Location by Published Date</h6>
+                <h6 className="text-center">Deaths by Location by Published Date - {areaName}</h6>
                 <TableData data={deathsLoc} cols={['Date', 'Location', 'Deaths']} id="casesareatable" />
               </div>
               : null}
@@ -211,14 +212,14 @@ export default function Deaths(
 
               {/* Graph with results */}
               <div>
-                <h6 className="text-center">Deaths by Date of Death</h6>
+                <h6 className="text-center">Deaths by Date of Death - {areaName}</h6>
                 <Chart data={deathsActSorted} desc={descAct} linesDesc={['7 Day Average']} />
               </div>
             </div>
 
             {/* Fifth Tab - Date of Death Table */}
             <div className="tab-pane fade" id="actualdata" role="tabpanel" aria-labelledby="actual-data-tab">
-              <h6 className="text-center">Deaths by Date of Death</h6>
+              <h6 className="text-center">Deaths by Date of Death - {areaName}</h6>
               <TableData data={deathsAct} cols={['Date', 'Day', 'Deaths']} id="casesacttable" />
             </div>
 

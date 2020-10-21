@@ -4,9 +4,10 @@ import Chart from '../utilities/Chart'
 import TableData from '../utilities/TableData'
 import { compare, ukRegionsNhs } from '../utilities/Utils'
 
-export default function Hospital({ date, latest, average, patients, regions } = this.props) {
+export default function Hospital({ areaName, date, latest, average, patients, regions } = this.props) {
   if (patients === undefined) patients = []
   if (regions === undefined) regions = []
+  if (areaName === '') areaName = 'UK'
   const patientsSorted = [...patients].sort(compare())
   const regionsSorted = [...regions].sort(compare())
 
@@ -71,14 +72,14 @@ export default function Hospital({ date, latest, average, patients, regions } = 
 
               {/* Graph with results */}
               <div>
-                <h6 className="text-center">Patients in Hospital</h6>
+                <h6 className="text-center">Patients in Hospital - {areaName}</h6>
                 <Chart data={patientsSorted} desc={['Patients']} linesDesc={['7 Day Average']} />
               </div>
             </div>
 
             {/* Second Tab - Patients data table*/}
             <div className="tab-pane fade" id="patientsdata" role="tabpanel" aria-labelledby="patients-data-tab">
-              <h6 className="text-center">Patients in Hospital</h6>
+              <h6 className="text-center">Patients in Hospital - {areaName}</h6>
               <TableData data={patients} cols={['Date', 'Day', 'Patients']} id="hospitaltable" />
             </div>
 

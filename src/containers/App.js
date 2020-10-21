@@ -144,6 +144,7 @@ function App() {
           <div className="row">
             <Deaths
               areaType={areaType}
+              areaName={areaName}
               datePub={apiData.deathsDate}
               newPub={apiData.deathsNew}
               cumPub={apiData.deathsCum}
@@ -163,6 +164,7 @@ function App() {
             />
             <Cases
               areaType={areaType}
+              areaName={areaName}
               datePub={apiData.casesDate}
               newPub={apiData.casesNew}
               cumPub={apiData.casesCum}
@@ -191,6 +193,7 @@ function App() {
                 ? null
                 :
                 <Tests
+                  areaName={areaName}
                   date={apiData.testsDate}
                   newP1={apiData.newP1}
                   newP2={apiData.newP2}
@@ -217,6 +220,7 @@ function App() {
           :
           <div className="row mb-3">
             <Hospital
+              areaName={areaName}
               date={apiData.hospitalDate}
               latest={apiData.hospitalNew}
               average={apiData.hospitalAverage}
@@ -224,6 +228,7 @@ function App() {
               regions={apiHospitalData.patients}
             />
             <Admissions
+              areaName={areaName}
               date={apiData.admissionsDate}
               latest={apiData.admissionsNew}
               average={apiData.admissionsAverage}
@@ -233,6 +238,7 @@ function App() {
               regions={apiHospitalData.admissions}
             />
             <VentilatorBeds
+              areaName={areaName}
               date={apiData.ventilatorBedsDate}
               latest={apiData.ventilatorBedsNew}
               average={apiData.ventilatorBedsAverage}

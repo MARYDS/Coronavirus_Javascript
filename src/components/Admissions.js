@@ -5,12 +5,13 @@ import TableData from '../utilities/TableData'
 import { compare, ukRegionsNhs } from '../utilities/Utils'
 
 export default function Admissions(
-  { date, latest, average, cumulative, admissions, admissionsByAge, regions }
+  { areaName, date, latest, average, cumulative, admissions, admissionsByAge, regions }
     = this.props) {
 
   if (admissions === undefined || admissions === null) admissions = []
   if (admissionsByAge === undefined || admissionsByAge === null) admissionsByAge = []
   if (regions === undefined || regions === null) regions = []
+  if (areaName === '') areaName = 'UK'
   const admissionsSorted = [...admissions].sort(compare())
   const admissionsByAgeSorted = [...admissionsByAge].sort(compare())
   const regionsSorted = [...regions].sort(compare())
@@ -77,14 +78,14 @@ export default function Admissions(
 
               {/* Chart with results */}
               <div>
-                <h6 className="text-center">New Admissions to Hospital</h6>
+                <h6 className="text-center">New Admissions to Hospital - {areaName}</h6>
                 <Chart data={admissionsSorted} desc={['Admissions']} linesDesc={['7 Day Average']} />
               </div>
             </div>
 
             {/* Second Tab - Admissions Data Table */}
             <div className="tab-pane fade" id="admissionsdata" role="tabpanel" aria-labelledby="admissions-data-tab">
-              <h6 className="text-center">New Admissions to Hospital</h6>
+              <h6 className="text-center">New Admissions to Hospital - {areaName}</h6>
               <TableData data={admissions} cols={['Date', 'Day', 'Admissions']} id='admissionstable' />
             </div>
 
@@ -119,7 +120,7 @@ export default function Admissions(
 
               {/* Graph with results */}
               <div>
-                <h6 className="text-center">New Admissions to Hospital by Age</h6>
+                <h6 className="text-center">New Admissions to Hospital by Age - {areaName}</h6>
                 <Chart data={admissionsByAgeSorted} desc={['0-5', '6-17', '18-64', '65-84', '85+']} linesDesc={['7 Day Average']} />
               </div>
             </div>

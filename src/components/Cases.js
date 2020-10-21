@@ -6,7 +6,7 @@ import TableData from '../utilities/TableData'
 import { compare, ukNations, ukRegions } from '../utilities/Utils'
 
 export default function Cases(
-  { areaType, datePub, newPub, cumPub, ratePub, averPub, casesPub,
+  { areaType, areaName, datePub, newPub, cumPub, ratePub, averPub, casesPub,
     dateAct, newAct, cumAct, rateAct, averAct, casesAct, casesLoc,
     regions, nations, nationsAct, casesByGender, maleCases, femaleCases,
     totalGenderCases, genderDate, caseAgeRanges }
@@ -19,6 +19,7 @@ export default function Cases(
   if (nationsAct === undefined) nationsAct = []
   if (casesByGender === undefined) casesByGender = []
   if (caseAgeRanges === undefined) caseAgeRanges = []
+  if (areaName === '') areaName = 'UK'
   const casesPubSorted = [...casesPub].sort(compare())
   let casesActSorted = [...casesAct].sort(compare())
   const regionsSorted = [...regions].sort(compare())
@@ -141,20 +142,20 @@ export default function Cases(
               </div>
               {/* Graph with results */}
               <div>
-                <h6 className="text-center">Cases by Published Date</h6>
+                <h6 className="text-center">Cases by Published Date - {areaName}</h6>
                 <Chart data={casesPubSorted} desc={['Cases by Published Date']} linesDesc={['7 Day Average']} />
               </div>
             </div>
 
             {/* Second Tab - Published Cases Table */}
             <div className="tab-pane fade" id="publishedcasesdata" role="tabpanel" aria-labelledby="published-cases-data-tab">
-              <h6 className="text-center">Cases by Published Date</h6>
+              <h6 className="text-center">Cases by Published Date - {areaName}</h6>
               <TableData data={casesPub} cols={['Date', 'Day', 'Cases', 'Cum.Rate']} id="casespubtable" />
             </div>
 
             {/* Third Tab - Cases by Area Table */}
             <div className="tab-pane fade" id="areacases" role="tabpanel" aria-labelledby="area-cases-tab">
-              <h6 className="text-center">Cases by Location by Published Date</h6>
+              <h6 className="text-center">Cases by Location by Published Date - {areaName}</h6>
               {(areaType === 'overview' || areaType === 'nation')
                 ?
                 <TableData data={casesLoc} cols={['Date', 'Location', 'Cases']} id="casesareatable" />
@@ -211,7 +212,7 @@ export default function Cases(
 
               {/* Chart with results */}
               <div>
-                <h6 className="text-center">Cases by Specimen Date</h6>
+                <h6 className="text-center">Cases by Specimen Date - {areaName}</h6>
                 <Chart data={casesActSorted} desc={descAct} linesDesc={['7 Day Average']} />
               </div>
             </div>
@@ -219,7 +220,7 @@ export default function Cases(
             {/* Fifth Tab - Cases by Specimen Date Table */}
             <div className="tab-pane fade" id="actualcasesdata" role="tabpanel"
               aria-labelledby="actual-cases-data-tab">
-              <h6 className="text-center">Cases by Specimen Date</h6>
+              <h6 className="text-center">Cases by Specimen Date {areaName}</h6>
               <TableData data={casesAct} cols={['Date', 'Day', 'Cases']} id="casesacttable" />
             </div>
 
@@ -260,7 +261,7 @@ export default function Cases(
               </div>
               {/* Chart with results */}
               <div>
-                <h6 className="text-center">Cumulative Cases by Age and Gender</h6>
+                <h6 className="text-center">Cumulative Cases by Age and Gender - {areaName}</h6>
                 <p className="text-muted text-center">Available for England and English Regions</p>
                 <Barchart data={casesByGender} desc={["Male", "Female"]} xaxis="age" />
               </div>

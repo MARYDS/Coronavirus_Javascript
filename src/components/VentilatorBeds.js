@@ -4,9 +4,10 @@ import Chart from '../utilities/Chart'
 import TableData from '../utilities/TableData'
 import { compare, ukRegionsNhs } from '../utilities/Utils'
 
-export default function VentilatorBeds({ date, latest, average, ventilatorBeds, regions } = this.props) {
+export default function VentilatorBeds({ areaName, date, latest, average, ventilatorBeds, regions } = this.props) {
   if (ventilatorBeds === undefined) ventilatorBeds = []
   if (regions === undefined) regions = []
+  if (areaName === '') areaName = 'UK'
   const ventilatorBedsSorted = [...ventilatorBeds].sort(compare())
   const regionsSorted = [...regions].sort(compare())
 
@@ -69,14 +70,14 @@ export default function VentilatorBeds({ date, latest, average, ventilatorBeds, 
 
               {/* Graph with results */}
               <div>
-                <h6 className="text-center">Patients in Ventilator Beds</h6>
+                <h6 className="text-center">Patients in Ventilator Beds - {areaName}</h6>
                 <Chart data={ventilatorBedsSorted} desc={['Ventilator Beds']} linesDesc={['7 Day Average']} />
               </div>
             </div>
 
             {/* Second Tab - Intensive Care Data Table */}
             <div className="tab-pane fade" id="intensivecaredata" role="tabpanel" aria-labelledby="intensivecare-data-tab">
-              <h6 className="text-center">Patients in Ventilator Beds</h6>
+              <h6 className="text-center">Patients in Ventilator Beds - {areaName}</h6>
               <TableData data={ventilatorBeds} cols={['Date', 'Day', 'Beds']} id="intensivecaretable" />
             </div>
 

@@ -56,7 +56,7 @@ export default function Chart({ data, desc, linesDesc, xaxis } = this.props) {
       {(data.length === 0)
         ?
         <div className="text-info font-weight-bold mt-5 ml-3">
-          No Data Available for this level
+          No Data currently available at this level
         </div>
         :
         <ComposedChart width={w} height={h} data={data}
