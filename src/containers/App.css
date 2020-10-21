@@ -43,9 +43,13 @@ body {
 
 .nav-tabs > li.active > a {
   color: #3c5a78;
+  font-size: 0.65rem;
+  margin-right: 0;
 }
 .nav-tabs > li > a {
   color: #575757;
+  font-size: 0.65rem;
+  margin-right: 0;
 }
 
 .prefix {
