@@ -8,21 +8,23 @@ import { compare, ukNations, ukRegions } from '../utilities/Utils'
 export default function Cases(
   { areaType, areaName, datePub, newPub, cumPub, ratePub, averPub, casesPub,
     dateAct, newAct, cumAct, rateAct, averAct, casesAct, casesLoc,
-    regions, nations, nationsAct, casesByGender, maleCases, femaleCases,
+    regions, regionsAct, nations, nationsAct, casesByGender, maleCases, femaleCases,
     totalGenderCases, genderDate, caseAgeRanges }
     = this.props) {
 
   if (casesPub === undefined) casesPub = []
   if (casesAct === undefined) casesAct = []
   if (regions === undefined) regions = []
+  if (regionsAct === undefined) regionsAct = []
   if (nations === undefined) nations = []
   if (nationsAct === undefined) nationsAct = []
   if (casesByGender === undefined) casesByGender = []
   if (caseAgeRanges === undefined) caseAgeRanges = []
-  if (areaName === '') areaName = 'UK'
+  if (areaType === 'overview') areaName = 'UK'
   const casesPubSorted = [...casesPub].sort(compare())
   let casesActSorted = [...casesAct].sort(compare())
   const regionsSorted = [...regions].sort(compare())
+  const regionsActSorted = [...regions].sort(compare())
   let descAct = ['Cases by Specimen Date']
 
   // UK overall numbers from API are incorrect - replace with sum of nations

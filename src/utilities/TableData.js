@@ -11,7 +11,9 @@ export default function TableData({ data, cols, id } = this.props) {
             <tr>
               <th>{cols[0]}</th>
               <th>{cols[1]}</th>
-              <th>{cols[2]}</th>
+              {(cols.length > 2)
+                ? <th>{cols[2]}</th>
+                : null}
               {(cols.length > 3)
                 ? <th>{cols[3]}</th>
                 : null}
@@ -27,6 +29,9 @@ export default function TableData({ data, cols, id } = this.props) {
                       : null}
                     {(elem.location !== undefined)
                       ? <td>{elem.location}</td>
+                      : null}
+                    {(elem.country !== undefined)
+                      ? <td>{elem.country}</td>
                       : null}
                     {(elem.day !== undefined)
                       ? <td>{elem.day}</td>

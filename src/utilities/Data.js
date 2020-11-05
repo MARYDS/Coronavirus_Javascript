@@ -1,5 +1,5 @@
 import { structureAll, structureDeaths, structureCases, structureHospital, structureRegion, structureNation } from './DataStructures'
-import { apiUrl, weekdays, ukRegionsNhs, ukRegions, ukNations } from './Utils'
+import { apiUrl, ecdcUrl, weekdays, ukRegionsNhs, ukRegions, ukNations } from './Utils'
 
 export default class Data {
 
@@ -302,12 +302,16 @@ export default class Data {
               reg[c.date] = {
                 'day': rowDay,
                 'deaths': [null, null, null, null, null, null, null, null, null, null, null, null],
-                'cases': [null, null, null, null, null, null, null, null, null, null, null, null]
+                'cases': [null, null, null, null, null, null, null, null, null, null, null, null],
+                'deathsAct': [null, null, null, null, null, null, null, null, null, null, null, null],
+                'casesAct': [null, null, null, null, null, null, null, null, null, null, null, null]
               }
             }
 
             reg[c.date]['deaths'][k] = c.deaths
             reg[c.date]['cases'][k] = c.cases
+            reg[c.date]['deathsAct'][k] = c.deathsAct
+            reg[c.date]['casesAct'][k] = c.casesAct
           }
         }
       }
@@ -317,6 +321,8 @@ export default class Data {
     let regions = {
       deaths: [],
       cases: [],
+      deathsAct: [],
+      casesAct: [],
     }
 
     for (const [key, value] of Object.entries(reg)) {
@@ -331,6 +337,18 @@ export default class Data {
         'date': key,
         'day': value.day,
         'counts': value.cases
+      }
+
+      regions.deathsAct[regions.deathsAct.length] = {
+        'date': key,
+        'day': value.day,
+        'counts': value.deathsAct
+      }
+
+      regions.casesAct[regions.casesAct.length] = {
+        'date': key,
+        'day': value.day,
+        'counts': value.casesAct
       }
     }
     return regions;
@@ -449,6 +467,62 @@ export default class Data {
     }
 
     return nations;
+  }
+
+
+  // Fetch today's worldwide data from ECDC
+  async getECDCData() {
+
+    let nat = {}
+    let latestDate
+
+    let response = await fetch(ecdcUrl)
+    let results = await response.json()
+
+    // Got data
+    if (results.records !== undefined && results.records != null && results.records.length > 0) {
+      latestDate = results.records[0].dateRep
+
+      for (let i = 0; i < results.records.length; i++) {
+
+        const c = results.records[i]
+        // Got some data for this date
+        if (c.cases != null || c.deaths != null) {
+          // New country, create empty object
+          if (!(c.countriesAndTerritories in nat)) {
+            nat[c.countriesAndTerritories] = {
+              'cases': 0,
+              'deaths': 0,
+            }
+          }
+          // Add into cumulative totals
+          nat[c.countriesAndTerritories]['cases'] =
+            nat[c.countriesAndTerritories]['cases'] + c.cases
+          nat[c.countriesAndTerritories]['deaths'] =
+            nat[c.countriesAndTerritories]['deaths'] + c.deaths
+        }
+      }
+    }
+
+    let cases = []
+    let deaths = []
+    let casesTot = 0
+    let deathsTot = 0
+    for (const [key, value] of Object.entries(nat)) {
+      cases[cases.length] = {
+        'country': (key === "United_States_of_America") ? "USA" : key,
+        'counts': [value.cases]
+      }
+      casesTot += value.cases
+      deaths[deaths.length] = {
+        'country': (key === "United_States_of_America") ? "USA" : key,
+        'counts': [value.deaths]
+      }
+      deathsTot += value.deaths
+    }
+
+    return { latestDate: latestDate, cases: [...cases], casesTot: casesTot, deaths: [...deaths], deathsTot: deathsTot }
+
   }
 
   // Get required fields from the main extract and reformat

@@ -25,6 +25,8 @@ export const weekdays = ['Sun', 'Mon', 'Tues', 'Wed', 'Thur', 'Fri', 'Sat']
 
 export const apiUrl = "https://api.coronavirus.data.gov.uk/v1/data"
 
+export const ecdcUrl = "https://cors-anywhere.herokuapp.com/" + "https://opendata.ecdc.europa.eu/covid19/casedistribution/json/"
+
 export const ukRegionsNhs = ['East of England', 'London', 'Midlands',
   'North East and Yorkshire', 'North West', 'South East',
   'South West', 'Scotland', 'Wales', 'Northern Ireland']

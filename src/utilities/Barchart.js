@@ -42,7 +42,7 @@ export default function Barchart({ data, desc, xaxis } = this.props) {
   const { w, h } = getChartSize(sizes)
 
   const fillColours =
-    ["#a9b1ba", "#28abb9", "#ffe05d", "#b8de6f", "#01cfc4",
+    ["#28abb9", "#a9b1ba", "#ffe05d", "#b8de6f", "#01cfc4",
       "#ff9a76", "#ffeadb", "#637373", "#ffcbcb", "#e97171"]
 
   return (
@@ -56,12 +56,12 @@ export default function Barchart({ data, desc, xaxis } = this.props) {
         :
         <BarChart width={w} height={h} data={data}
           margin={{ top: 30, right: 10, left: 10, bottom: 10 }}>
-          <YAxis width={40} tick={{ fontSize: '0.8rem' }} />
+          <YAxis width={60} tick={{ fontSize: '0.7rem' }} />
           {(xaxis === "date") ?
             <XAxis interval={30} tickFormatter={formatXAxis}
-              tick={{ fontSize: '0.8rem' }} dataKey="date" height={50} />
+              tick={{ fontSize: '0.7rem' }} dataKey="date" height={50} />
             :
-            <XAxis interval={1}
+            <XAxis interval={0}
               tick={<CustomizedAxisTick xaxis={xaxis} />} dataKey={xaxis} height={80} />
           }
           <CartesianGrid stroke="#ccc" vertical={false} />

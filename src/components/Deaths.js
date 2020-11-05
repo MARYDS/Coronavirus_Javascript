@@ -7,18 +7,20 @@ import { compare, ukNations, ukRegions } from '../utilities/Utils'
 export default function Deaths(
   { areaType, areaName, datePub, newPub, cumPub, ratePub, averPub, deathsPub,
     dateAct, newAct, cumAct, rateAct, averAct, deathsAct, deathsLoc,
-    regions, nations, nationsAct }
+    regions, regionsAct, nations, nationsAct }
     = this.props) {
 
   if (deathsPub === undefined) deathsPub = []
   if (deathsAct === undefined) deathsAct = []
   if (regions === undefined) regions = []
+  if (regionsAct === undefined) regionsAct = []
   if (nations === undefined) nations = []
   if (nationsAct === undefined) nationsAct = []
-  if (areaName === '') areaName = 'UK'
+  if (areaType === 'overview') areaName = 'UK'
   const deathsPubSorted = [...deathsPub].sort(compare())
   let deathsActSorted = [...deathsAct].sort(compare())
   const regionsSorted = [...regions].sort(compare())
+  const regionsActSorted = [...regionsAct].sort(compare())
   let descAct = ['Deaths by Date of Death']
 
   // UK overall numbers from API are incorrect - replace with sum of nations

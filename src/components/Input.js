@@ -16,7 +16,8 @@ export default function Input({ areaType, areaName, updateAreaTypeAndName } = th
       'North East and Yorkshire', 'North West', 'South East',
       'South West'],
     utla: getUtla(),
-    ltla: getLtla()
+    ltla: getLtla(),
+    world: ['']
   }
 
   const onAreaTypeChange = (event) => {
@@ -47,6 +48,7 @@ export default function Input({ areaType, areaName, updateAreaTypeAndName } = th
               <option value='nhsRegion'>NHS Region</option>
               <option value='utla'>Upper-tier Local Authority</option>
               <option value='ltla'>Lower-tier Local Authority</option>
+              <option value='world'>World</option>
             </select>
           </div>
 
