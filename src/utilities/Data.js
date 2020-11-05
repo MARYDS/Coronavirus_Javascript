@@ -344,7 +344,7 @@ export default class Data {
     }
 
     for (const [key, value] of Object.entries(reg)) {
-      if (key >= '2020-08-16') {
+      if (key >= '2020-08-01') {
         regions.deaths[regions.deaths.length] = {
           'date': key,
           'day': value.day,
@@ -369,10 +369,12 @@ export default class Data {
         'counts': value.casesAct
       }
 
-      regions.deathsAve[regions.deathsAve.length] = {
-        'date': key,
-        'day': value.day,
-        'counts': value.deathsAve
+      if (key >= '2020-08-01') {
+        regions.deathsAve[regions.deathsAve.length] = {
+          'date': key,
+          'day': value.day,
+          'counts': value.deathsAve
+        }
       }
 
       regions.casesAve[regions.casesAve.length] = {
@@ -390,10 +392,14 @@ export default class Data {
       let val = 0
       switch (field) {
         case "deaths":
-          val = apiData[a].deaths
+          if (apiData[a].date !== '2020-07-01') {
+            val = apiData[a].deaths
+          }
           break
         case "cases":
-          val = apiData[a].cases
+          if (apiData[a].date !== '2020-07-01') {
+            val = apiData[a].cases
+          }
           break
         case "newDeathsPub":
           val = apiData[a].newDeathsPub
