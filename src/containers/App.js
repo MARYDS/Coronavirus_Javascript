@@ -120,7 +120,7 @@ function App() {
   }, []);
 
   useEffect(() => {
-    if (areaType === 'world') {
+    if (areaType === 'world' || ecdcCountryData === {}) {
       let data = new Data()
       data
         .getECDCData()
