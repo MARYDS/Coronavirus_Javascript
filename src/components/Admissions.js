@@ -1,20 +1,25 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Graph from '../utilities/Graph'
 import Chart from '../utilities/Chart'
 import TableData from '../utilities/TableData'
 import { compare, ukRegionsNhs } from '../utilities/Utils'
 
 export default function Admissions(
-  { areaName, date, latest, average, cumulative, admissions, admissionsByAge, regions }
+  { areaName, date, latest, average, cumulative, admissions, admissionsByAge, regions, regionsAve }
     = this.props) {
 
   if (admissions === undefined || admissions === null) admissions = []
   if (admissionsByAge === undefined || admissionsByAge === null) admissionsByAge = []
   if (regions === undefined || regions === null) regions = []
+  if (regionsAve === undefined || regionsAve === null) regionsAve = []
   if (areaName === '') areaName = 'UK'
   const admissionsSorted = [...admissions].sort(compare())
   const admissionsByAgeSorted = [...admissionsByAge].sort(compare())
   const regionsSorted = [...regions].sort(compare())
+  const regionsAveSorted = [...regionsAve].sort(compare())
+
+  const [regAve, setRegAve] = useState(true)
+  const switchMode = () => setRegAve(!regAve)
 
   return (
     <div className="col-sm-6 col-lg-4 mb-3">
@@ -127,8 +132,9 @@ export default function Admissions(
 
             {/* Forth Tab - Admissions by Region */}
             <div className="tab-pane fade" id="regionsadmissionsdata" role="tabpanel" aria-labelledby="regions-admissions-data-tab">
-              <h6 className="text-center">All Regions New Admissions to Hospital</h6>
-              <Graph data={regionsSorted} desc={ukRegionsNhs} />
+              <h6 className="text-center">All Regions Hospital Admissions - {regAve ? "7 Day Average" : "Actual"}</h6>
+              <Graph data={regAve ? regionsAveSorted : regionsSorted} desc={ukRegionsNhs} />
+              <button type="button" className="btn btn-outline-info btn-sm float-right mt-5" onClick={switchMode}>{regAve ? "Actual" : "7 Day Average"}</button>
             </div>
 
           </div>

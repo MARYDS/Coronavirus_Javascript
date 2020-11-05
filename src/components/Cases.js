@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Chart from '../utilities/Chart'
 import Graph from '../utilities/Graph'
 import Barchart from '../utilities/Barchart'
@@ -8,7 +8,7 @@ import { compare, ukNations, ukRegions } from '../utilities/Utils'
 export default function Cases(
   { areaType, areaName, datePub, newPub, cumPub, ratePub, averPub, casesPub,
     dateAct, newAct, cumAct, rateAct, averAct, casesAct, casesLoc,
-    regions, regionsAct, nations, nationsAct, casesByGender, maleCases, femaleCases,
+    regions, regionsAct, regionsAve, nations, nationsAct, casesByGender, maleCases, femaleCases,
     totalGenderCases, genderDate, caseAgeRanges }
     = this.props) {
 
@@ -16,6 +16,7 @@ export default function Cases(
   if (casesAct === undefined) casesAct = []
   if (regions === undefined) regions = []
   if (regionsAct === undefined) regionsAct = []
+  if (regionsAve === undefined) regionsAve = []
   if (nations === undefined) nations = []
   if (nationsAct === undefined) nationsAct = []
   if (casesByGender === undefined) casesByGender = []
@@ -24,8 +25,12 @@ export default function Cases(
   const casesPubSorted = [...casesPub].sort(compare())
   let casesActSorted = [...casesAct].sort(compare())
   const regionsSorted = [...regions].sort(compare())
-  const regionsActSorted = [...regions].sort(compare())
+  const regionsActSorted = [...regionsAct].sort(compare())
+  const regionsAveSorted = [...regionsAve].sort(compare())
   let descAct = ['Cases by Specimen Date']
+
+  const [regAve, setRegAve] = useState(true)
+  const switchMode = () => setRegAve(!regAve)
 
   // UK overall numbers from API are incorrect - replace with sum of nations
   if (areaType === "overview") {
@@ -271,8 +276,9 @@ export default function Cases(
 
             {/* Seventh Tab - Cases by Region Graph */}
             <div className="tab-pane fade" id="caseregionsdata" role="tabpanel" aria-labelledby="case-regions-data-tab">
-              <h6 className="text-center">All Regions Cases by Region</h6>
-              <Graph data={regionsSorted} desc={ukRegions} />
+              <h6 className="text-center">All Regions Cases - {regAve ? "7 Day Average" : "Actual"}</h6>
+              <Graph data={regAve ? regionsAveSorted : regionsSorted} desc={ukRegions} />
+              <button type="button" className="btn btn-outline-info btn-sm float-right mt-5" onClick={switchMode}>{regAve ? "Actual" : "7 Day Average"}</button>
             </div>
 
           </div>

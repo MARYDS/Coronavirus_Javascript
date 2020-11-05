@@ -197,18 +197,24 @@ export default class Data {
               'day': rowDay,
               'patients': [null, null, null, null, null, null, null, null, null, null],
               'admissions': [null, null, null, null, null, null, null, null, null, null],
-              'ventilatorBeds': [null, null, null, null, null, null, null, null, null, null]
+              'ventilatorBeds': [null, null, null, null, null, null, null, null, null, null],
+              'patientsAve': [null, null, null, null, null, null, null, null, null, null],
+              'admissionsAve': [null, null, null, null, null, null, null, null, null, null],
+              'ventilatorBedsAve': [null, null, null, null, null, null, null, null, null, null]
             }
           }
 
           if (c.patients != null) {
             hosp[c.date]['patients'][k] = c.patients
+            hosp[c.date]['patientsAve'][k] = this.get7DayAverage(results.data, i, "patients")
           }
           if (c.admissions != null) {
             hosp[c.date]['admissions'][k] = c.admissions
+            hosp[c.date]['admissionsAve'][k] = this.get7DayAverage(results.data, i, "admissions")
           }
           if (c.ventilatorBeds != null) {
             hosp[c.date]['ventilatorBeds'][k] = c.ventilatorBeds
+            hosp[c.date]['ventilatorBedsAve'][k] = this.get7DayAverage(results.data, i, "ventilatorBeds")
           }
         }
       }
@@ -218,36 +224,48 @@ export default class Data {
     let hospital = {
       patients: [],
       admissions: [],
-      ventilatorBeds: []
+      ventilatorBeds: [],
+      patientsAve: [],
+      admissionsAve: [],
+      ventilatorBedsAve: []
     }
 
     for (const [key, value] of Object.entries(hosp)) {
 
-      let tot = value.patients.reduce((tot, val) => {
-        return ((val == null) ? tot : tot + val)
-      }, 0)
       hospital.patients[hospital.patients.length] = {
         'date': key,
         'day': value.day,
         'counts': value.patients
       }
 
-      tot = value.admissions.reduce((tot, val) => {
-        return ((val == null) ? tot : tot + val)
-      }, 0)
       hospital.admissions[hospital.admissions.length] = {
         'date': key,
         'day': value.day,
         'counts': value.admissions
       }
 
-      tot = value.ventilatorBeds.reduce((tot, val) => {
-        return ((val == null) ? tot : tot + val)
-      }, 0)
       hospital.ventilatorBeds[hospital.ventilatorBeds.length] = {
         'date': key,
         'day': value.day,
         'counts': value.ventilatorBeds
+      }
+
+      hospital.patientsAve[hospital.patientsAve.length] = {
+        'date': key,
+        'day': value.day,
+        'counts': value.patientsAve
+      }
+
+      hospital.admissionsAve[hospital.admissionsAve.length] = {
+        'date': key,
+        'day': value.day,
+        'counts': value.admissionsAve
+      }
+
+      hospital.ventilatorBedsAve[hospital.ventilatorBedsAve.length] = {
+        'date': key,
+        'day': value.day,
+        'counts': value.ventilatorBedsAve
       }
     }
     return hospital;
@@ -298,7 +316,9 @@ export default class Data {
                 'deaths': [null, null, null, null, null, null, null, null, null, null, null, null],
                 'cases': [null, null, null, null, null, null, null, null, null, null, null, null],
                 'deathsAct': [null, null, null, null, null, null, null, null, null, null, null, null],
-                'casesAct': [null, null, null, null, null, null, null, null, null, null, null, null]
+                'casesAct': [null, null, null, null, null, null, null, null, null, null, null, null],
+                'deathsAve': [null, null, null, null, null, null, null, null, null, null, null, null],
+                'casesAve': [null, null, null, null, null, null, null, null, null, null, null, null]
               }
             }
 
@@ -306,6 +326,8 @@ export default class Data {
             reg[c.date]['cases'][k] = c.cases
             reg[c.date]['deathsAct'][k] = c.deathsAct
             reg[c.date]['casesAct'][k] = c.casesAct
+            reg[c.date]['deathsAve'][k] = this.get7DayAverage(results.data, i, 'deaths')
+            reg[c.date]['casesAve'][k] = this.get7DayAverage(results.data, i, 'cases')
           }
         }
       }
@@ -317,6 +339,8 @@ export default class Data {
       cases: [],
       deathsAct: [],
       casesAct: [],
+      deathsAve: [],
+      casesAve: [],
     }
 
     for (const [key, value] of Object.entries(reg)) {
@@ -344,15 +368,33 @@ export default class Data {
         'day': value.day,
         'counts': value.casesAct
       }
+
+      regions.deathsAve[regions.deathsAve.length] = {
+        'date': key,
+        'day': value.day,
+        'counts': value.deathsAve
+      }
+
+      regions.casesAve[regions.casesAve.length] = {
+        'date': key,
+        'day': value.day,
+        'counts': value.casesAve
+      }
     }
     return regions;
   }
 
   get7DayAverage(apiData, i, field) {
     let tot = 0
-    for (let a = i; a < (i + 7); a++) {
+    for (let a = i; a < (i + 7) && a < apiData.length; a++) {
       let val = 0
       switch (field) {
+        case "deaths":
+          val = apiData[a].deaths
+          break
+        case "cases":
+          val = apiData[a].cases
+          break
         case "newDeathsPub":
           val = apiData[a].newDeathsPub
           break
@@ -376,6 +418,15 @@ export default class Data {
           break
         case "covidOccupiedMVBeds":
           val = apiData[a].covidOccupiedMVBeds
+          break
+        case "patients":
+          val = apiData[a].patients
+          break
+        case "admissions":
+          val = apiData[a].admissions
+          break
+        case "ventilatorBeds":
+          val = apiData[a].ventilatorBeds
           break
         default:
           break

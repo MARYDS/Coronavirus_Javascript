@@ -182,6 +182,7 @@ function App() {
               deathsLoc={apiDeathData}
               regions={apiRegionData.deaths}
               regionsAct={apiRegionData.deathsAct}
+              regionsAve={apiRegionData.deathsAve}
               nations={apiNationData.deaths}
               nationsAct={apiNationData.deathsAct}
             />
@@ -203,6 +204,7 @@ function App() {
               casesLoc={apiCaseData}
               regions={apiRegionData.cases}
               regionsAct={apiRegionData.casesAct}
+              regionsAve={apiRegionData.casesAve}
               nations={apiNationData.cases}
               nationsAct={apiNationData.casesAct}
               casesByGender={apiData.casesByGender}
@@ -250,6 +252,7 @@ function App() {
               average={apiData.hospitalAverage}
               patients={apiData.patients}
               regions={apiHospitalData.patients}
+              regionsAve={apiHospitalData.patientsAve}
             />
             <Admissions
               areaName={areaName}
@@ -260,6 +263,7 @@ function App() {
               admissions={apiData.admissions}
               admissionsByAge={apiData.admissionsByAge}
               regions={apiHospitalData.admissions}
+              regionsAve={apiHospitalData.admissionsAve}
             />
             <VentilatorBeds
               areaName={areaName}
@@ -268,6 +272,7 @@ function App() {
               average={apiData.ventilatorBedsAverage}
               ventilatorBeds={apiData.ventilatorBeds}
               regions={apiHospitalData.ventilatorBeds}
+              regionsAve={apiHospitalData.ventilatorBedsAve}
             />
           </div>
         }

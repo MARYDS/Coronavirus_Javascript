@@ -1,15 +1,20 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Graph from '../utilities/Graph'
 import Chart from '../utilities/Chart'
 import TableData from '../utilities/TableData'
 import { compare, ukRegionsNhs } from '../utilities/Utils'
 
-export default function Hospital({ areaName, date, latest, average, patients, regions } = this.props) {
+export default function Hospital({ areaName, date, latest, average, patients, regions, regionsAve } = this.props) {
   if (patients === undefined) patients = []
   if (regions === undefined) regions = []
+  if (regionsAve === undefined) regionsAve = []
   if (areaName === '') areaName = 'UK'
   const patientsSorted = [...patients].sort(compare())
   const regionsSorted = [...regions].sort(compare())
+  const regionsAveSorted = [...regionsAve].sort(compare())
+
+  const [regAve, setRegAve] = useState(true)
+  const switchMode = () => setRegAve(!regAve)
 
   return (
     <div className="col-sm-6 col-lg-4 mb-3">
@@ -86,8 +91,9 @@ export default function Hospital({ areaName, date, latest, average, patients, re
             {/* Third Tab - Patients by Region */}
             <div className="tab-pane fade" id="regionsdata" role="tabpanel"
               aria-labelledby="regions-data-tab">
-              <h6 className="text-center">All Regions Patients in Hospital</h6>
-              <Graph data={regionsSorted} desc={ukRegionsNhs} />
+              <h6 className="text-center">All Regions Hospital Patients - {regAve ? "7 Day Average" : "Actual"}</h6>
+              <Graph data={regAve ? regionsAveSorted : regionsSorted} desc={ukRegionsNhs} />
+              <button type="button" className="btn btn-outline-info btn-sm float-right mt-5" onClick={switchMode}>{regAve ? "Actual" : "7 Day Average"}</button>
             </div>
 
           </div>
