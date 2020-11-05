@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/Coronavirus_Javascript/static/css/main.185bbc69.chunk.css",
-    "main.js": "/Coronavirus_Javascript/static/js/main.5720eaf4.chunk.js",
-    "main.js.map": "/Coronavirus_Javascript/static/js/main.5720eaf4.chunk.js.map",
+    "main.js": "/Coronavirus_Javascript/static/js/main.554d8569.chunk.js",
+    "main.js.map": "/Coronavirus_Javascript/static/js/main.554d8569.chunk.js.map",
     "runtime-main.js": "/Coronavirus_Javascript/static/js/runtime-main.d21cbc28.js",
     "runtime-main.js.map": "/Coronavirus_Javascript/static/js/runtime-main.d21cbc28.js.map",
     "static/js/2.b1bb1936.chunk.js": "/Coronavirus_Javascript/static/js/2.b1bb1936.chunk.js",
     "static/js/2.b1bb1936.chunk.js.map": "/Coronavirus_Javascript/static/js/2.b1bb1936.chunk.js.map",
     "index.html": "/Coronavirus_Javascript/index.html",
-    "precache-manifest.dbe528c907c6cb312d21c6dd4440fc01.js": "/Coronavirus_Javascript/precache-manifest.dbe528c907c6cb312d21c6dd4440fc01.js",
+    "precache-manifest.514a10646cf24d2f5c304399885246e6.js": "/Coronavirus_Javascript/precache-manifest.514a10646cf24d2f5c304399885246e6.js",
     "service-worker.js": "/Coronavirus_Javascript/service-worker.js",
     "static/css/main.185bbc69.chunk.css.map": "/Coronavirus_Javascript/static/css/main.185bbc69.chunk.css.map",
     "static/js/2.b1bb1936.chunk.js.LICENSE.txt": "/Coronavirus_Javascript/static/js/2.b1bb1936.chunk.js.LICENSE.txt"
@@ -17,6 +17,6 @@
     "static/js/runtime-main.d21cbc28.js",
     "static/js/2.b1bb1936.chunk.js",
     "static/css/main.185bbc69.chunk.css",
-    "static/js/main.5720eaf4.chunk.js"
+    "static/js/main.554d8569.chunk.js"
   ]
 }
