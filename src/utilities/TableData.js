@@ -23,7 +23,7 @@ export default function TableData({ data, cols, id } = this.props) {
             {
               data.map((elem) => {
                 return (
-                  <tr key={(elem.location !== undefined) ? elem.location : elem.date}>
+                  <tr key={(elem.location !== undefined) ? elem.location : (elem.country !== undefined) ? elem.country : elem.date}>
                     {(elem.date !== undefined)
                       ? <td>{(new Date(elem.date)).toLocaleDateString()}</td>
                       : null}

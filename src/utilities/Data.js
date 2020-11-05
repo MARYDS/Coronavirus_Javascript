@@ -226,34 +226,28 @@ export default class Data {
       let tot = value.patients.reduce((tot, val) => {
         return ((val == null) ? tot : tot + val)
       }, 0)
-      if (tot !== 0) {
-        hospital.patients[hospital.patients.length] = {
-          'date': key,
-          'day': value.day,
-          'counts': value.patients
-        }
+      hospital.patients[hospital.patients.length] = {
+        'date': key,
+        'day': value.day,
+        'counts': value.patients
       }
 
       tot = value.admissions.reduce((tot, val) => {
         return ((val == null) ? tot : tot + val)
       }, 0)
-      if (tot !== 0) {
-        hospital.admissions[hospital.admissions.length] = {
-          'date': key,
-          'day': value.day,
-          'counts': value.admissions
-        }
+      hospital.admissions[hospital.admissions.length] = {
+        'date': key,
+        'day': value.day,
+        'counts': value.admissions
       }
 
       tot = value.ventilatorBeds.reduce((tot, val) => {
         return ((val == null) ? tot : tot + val)
       }, 0)
-      if (tot !== 0) {
-        hospital.ventilatorBeds[hospital.ventilatorBeds.length] = {
-          'date': key,
-          'day': value.day,
-          'counts': value.ventilatorBeds
-        }
+      hospital.ventilatorBeds[hospital.ventilatorBeds.length] = {
+        'date': key,
+        'day': value.day,
+        'counts': value.ventilatorBeds
       }
     }
     return hospital;
@@ -493,6 +487,7 @@ export default class Data {
             nat[c.countriesAndTerritories] = {
               'cases': 0,
               'deaths': 0,
+              'rate': 0,
             }
           }
           // Add into cumulative totals
@@ -500,6 +495,9 @@ export default class Data {
             nat[c.countriesAndTerritories]['cases'] + c.cases
           nat[c.countriesAndTerritories]['deaths'] =
             nat[c.countriesAndTerritories]['deaths'] + c.deaths
+          if (c.dateRep === latestDate) {
+            nat[c.countriesAndTerritories]['rate'] = c["Cumulative_number_for_14_days_of_COVID-19_cases_per_100000"]
+          }
         }
       }
     }
@@ -511,7 +509,8 @@ export default class Data {
     for (const [key, value] of Object.entries(nat)) {
       cases[cases.length] = {
         'country': (key === "United_States_of_America") ? "USA" : key,
-        'counts': [value.cases]
+        'counts': [value.cases],
+        'rate': Math.round((Number(value.rate) + Number.EPSILON) * 10) / 10
       }
       casesTot += value.cases
       deaths[deaths.length] = {
@@ -778,7 +777,7 @@ export default class Data {
               lines: []
             }
 
-            if (c.hospitalCases != null) {
+            if (c.hospitalCases != null || (c.hospitalCases == null && c.date < '2020-04-01')) {
               data.patients[data.patients.length] = {
                 date: c.date,
                 day: rowDay,
@@ -786,7 +785,7 @@ export default class Data {
                 lines: [this.get7DayAverage(apiData, i, "hospitalCases")]
               }
             }
-            if (c.newAdmissions != null) {
+            if (c.newAdmissions != null || (c.newAdmissions == null && c.date < '2020-04-01')) {
               data.admissions[data.admissions.length] = {
                 date: c.date,
                 day: rowDay,

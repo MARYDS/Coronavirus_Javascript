@@ -242,7 +242,7 @@ function App() {
         {(areaType === 'region' || areaType === 'ltla' || areaType === "utla" || areaType === 'world')
           ? null
           :
-          <div className="row mb-3">
+          <div className="row mb-2">
             <Hospital
               areaName={areaName}
               date={apiData.hospitalDate}

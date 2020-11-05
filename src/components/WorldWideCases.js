@@ -76,7 +76,7 @@ export default function WorldWideCases(
             <div className="tab-pane fade" id="worldcases" role="tabpanel" aria-labelledby="world-cases-tab">
               <h6 className="text-center">Cases by Country</h6>
               <div>
-                <TableData data={casesSorted} cols={['Country', 'Cases']} id="worldcasestable" />
+                <TableData data={casesSorted} cols={['Country', 'Cases', '14 Day Rate']} id="worldcasestable" />
               </div>
             </div>
 

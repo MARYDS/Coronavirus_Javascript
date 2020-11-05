@@ -128,7 +128,7 @@ export default function Deaths(
                   </div>
                   <div className="d-flex flex-row justify-content-between">
                     <span className="text-left">
-                      Rate
+                      Rate per 100K population
                     </span>
                     <span className="text-right">
                       {ratePub}
@@ -203,7 +203,7 @@ export default function Deaths(
                   </div>
                   <div className="d-flex flex-row justify-content-between">
                     <span className="text-left">
-                      Rate
+                      Rate per 100K population
                      </span>
                     <span className="text-right">
                       {rateAct}

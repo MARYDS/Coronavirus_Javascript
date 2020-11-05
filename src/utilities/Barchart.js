@@ -56,7 +56,10 @@ export default function Barchart({ data, desc, xaxis } = this.props) {
         :
         <BarChart width={w} height={h} data={data}
           margin={{ top: 30, right: 10, left: 10, bottom: 10 }}>
-          <YAxis width={60} tick={{ fontSize: '0.7rem' }} />
+          <YAxis width={60} tick={{ fontSize: '0.7rem' }} tickFormatter={tick => {
+            return tick.toLocaleString();
+          }} />
+
           {(xaxis === "date") ?
             <XAxis interval={30} tickFormatter={formatXAxis}
               tick={{ fontSize: '0.7rem' }} dataKey="date" height={50} />

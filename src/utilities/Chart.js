@@ -62,10 +62,12 @@ export default function Chart({ data, desc, linesDesc, xaxis } = this.props) {
         <ComposedChart width={w} height={h} data={data}
           margin={{ top: 30, right: 10, left: 10, bottom: 10 }}>
 
-          <YAxis width={40} tick={{ fontSize: '0.8rem' }} />
+          <YAxis width={40} tick={{ fontSize: '0.7rem' }} tickFormatter={tick => {
+            return tick.toLocaleString();
+          }} />
           {(xaxis === "date") ?
             <XAxis interval={30} tickFormatter={formatXAxis}
-              tick={{ fontSize: '0.8rem' }} dataKey="date" height={50} />
+              tick={{ fontSize: '0.7rem' }} dataKey="date" height={50} />
             :
             <XAxis interval={1}
               tick={<CustomizedAxisTick xaxis={xaxis} />} dataKey={xaxis} height={50} />
