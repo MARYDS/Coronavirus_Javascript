@@ -32,10 +32,10 @@ export default function Admissions(
           <h5 className="card-title font-weight-bold heading">Hospital Admissions</h5>
           <ul className="nav nav-tabs" id="admissions-list" role="tablist">
             <li className="nav-item">
-              <a className="nav-link active" id="regions-admissions-data-tab" data-toggle="tab" href="#regionsadmissionsdata" role="tab" aria-controls="regionsadmissionsdata" aria-selected="false">Regions</a>
+              <a className="nav-link active" id="regions-admissions-data-tab" data-toggle="tab" href="#regionsadmissionsdata" role="tab" aria-controls="regionsadmissionsdata" aria-selected="true">Regions</a>
             </li>
             <li className="nav-item">
-              <a className="nav-link" id="admissions-tab" data-toggle="tab" href="#admissions" role="tab" aria-controls="admissions" aria-selected="true">Admissions</a>
+              <a className="nav-link" id="admissions-tab" data-toggle="tab" href="#admissions" role="tab" aria-controls="admissions" aria-selected="false">Admissions</a>
             </li>
             <li className="nav-item">
               <a className="nav-link" id="admissions-data-tab" data-toggle="tab" href="#admissionsdata" role="tab" aria-controls="admissionsdata" aria-selected="false">#</a>
@@ -52,8 +52,15 @@ export default function Admissions(
           {/* Tabs Content */}
           <div className="tab-content" id="admissions-content">
 
+            {/* Forth Tab - Admissions by Region */}
+            <div className="tab-pane fade show active" id="regionsadmissionsdata" role="tabpanel" aria-labelledby="regions-admissions-data-tab">
+              <h6 className="text-center">All Regions Hospital Admissions - {regAve ? "7 Day Average" : "Actual"}</h6>
+              <Graph data={regAve ? regionsAveSorted : regionsSorted} desc={ukRegionsNhs} />
+              <button type="button" className="btn btn-outline-info btn-sm float-right mt-5" onClick={switchMode}>{regAve ? "Actual" : "7 Day Average"}</button>
+            </div>
+
             {/* First Tab - Published Deaths with Chart */}
-            <div className="tab-pane fade show active" id="admissions" role="tabpanel" aria-labelledby="admissions-tab">
+            <div className="tab-pane fade" id="admissions" role="tabpanel" aria-labelledby="admissions-tab">
 
               {/* Card with summary details */}
               <div className="card mb-3">
@@ -128,13 +135,6 @@ export default function Admissions(
                 <h6 className="text-center">New Admissions to Hospital by Age - {areaName}</h6>
                 <Chart data={admissionsByAgeSorted} desc={['0-5', '6-17', '18-64', '65-84', '85+']} linesDesc={['7 Day Average']} />
               </div>
-            </div>
-
-            {/* Forth Tab - Admissions by Region */}
-            <div className="tab-pane fade" id="regionsadmissionsdata" role="tabpanel" aria-labelledby="regions-admissions-data-tab">
-              <h6 className="text-center">All Regions Hospital Admissions - {regAve ? "7 Day Average" : "Actual"}</h6>
-              <Graph data={regAve ? regionsAveSorted : regionsSorted} desc={ukRegionsNhs} />
-              <button type="button" className="btn btn-outline-info btn-sm float-right mt-5" onClick={switchMode}>{regAve ? "Actual" : "7 Day Average"}</button>
             </div>
 
           </div>

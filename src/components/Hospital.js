@@ -29,10 +29,10 @@ export default function Hospital({ areaName, date, latest, average, patients, re
           {/* Navigation */}
           <ul className="nav nav-tabs" id="patients-list" role="tablist">
             <li className="nav-item">
-              <a className="nav-link active" id="regions-data-tab" data-toggle="tab" href="#regionsdata" role="tab" aria-controls="regionsdata" aria-selected="false">Regions</a>
+              <a className="nav-link active" id="regions-data-tab" data-toggle="tab" href="#regionsdata" role="tab" aria-controls="regionsdata" aria-selected="true">Regions</a>
             </li>
             <li className="nav-item">
-              <a className="nav-link" id="patients-tab" data-toggle="tab" href="#patients" role="tab" aria-controls="patients" aria-selected="true">Patients</a>
+              <a className="nav-link" id="patients-tab" data-toggle="tab" href="#patients" role="tab" aria-controls="patients" aria-selected="false">Patients</a>
             </li>
             <li className="nav-item">
               <a className="nav-link" id="patients-data-tab" data-toggle="tab" href="#patientsdata" role="tab" aria-controls="patientsdata" aria-selected="false">#</a>
@@ -46,8 +46,16 @@ export default function Hospital({ areaName, date, latest, average, patients, re
           {/* Tabs Content */}
           <div className="tab-content" id="patients-content">
 
+            {/* Third Tab - Patients by Region */}
+            <div className="tab-pane fade show active" id="regionsdata" role="tabpanel"
+              aria-labelledby="regions-data-tab">
+              <h6 className="text-center">All Regions Hospital Patients - {regAve ? "7 Day Average" : "Actual"}</h6>
+              <Graph data={regAve ? regionsAveSorted : regionsSorted} desc={ukRegionsNhs} />
+              <button type="button" className="btn btn-outline-info btn-sm float-right mt-5" onClick={switchMode}>{regAve ? "Actual" : "7 Day Average"}</button>
+            </div>
+
             {/* First Tab - Hospital Patients with Chart */}
-            <div className="tab-pane fade show active" id="patients" role="tabpanel" aria-labelledby="patients-tab">
+            <div className="tab-pane fade" id="patients" role="tabpanel" aria-labelledby="patients-tab">
 
               {/* Card with summary details */}
               <div className="card mb-3">
@@ -86,14 +94,6 @@ export default function Hospital({ areaName, date, latest, average, patients, re
             <div className="tab-pane fade" id="patientsdata" role="tabpanel" aria-labelledby="patients-data-tab">
               <h6 className="text-center">Patients in Hospital - {areaName}</h6>
               <TableData data={patients} cols={['Date', 'Day', 'Patients']} id="hospitaltable" />
-            </div>
-
-            {/* Third Tab - Patients by Region */}
-            <div className="tab-pane fade" id="regionsdata" role="tabpanel"
-              aria-labelledby="regions-data-tab">
-              <h6 className="text-center">All Regions Hospital Patients - {regAve ? "7 Day Average" : "Actual"}</h6>
-              <Graph data={regAve ? regionsAveSorted : regionsSorted} desc={ukRegionsNhs} />
-              <button type="button" className="btn btn-outline-info btn-sm float-right mt-5" onClick={switchMode}>{regAve ? "Actual" : "7 Day Average"}</button>
             </div>
 
           </div>
