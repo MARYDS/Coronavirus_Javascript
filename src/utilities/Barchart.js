@@ -51,7 +51,7 @@ export default function Barchart({ data, desc, xaxis } = this.props) {
       {(data.length === 0)
         ?
         <div className="text-info font-weight-bold mt-5 ml-3">
-          No Data Available for this level
+          Waiting for data if available...
         </div>
         :
         <BarChart width={w} height={h} data={data}

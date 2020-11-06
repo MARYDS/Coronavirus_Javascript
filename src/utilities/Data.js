@@ -533,10 +533,11 @@ export default class Data {
     // Got data
     if (results.records !== undefined && results.records != null && results.records.length > 0) {
       latestDate = results.records[0].dateRep
+      const len = results.records.length
 
-      for (let i = 0; i < results.records.length; i++) {
-
+      for (let i = 0; i < len; i++) {
         const c = results.records[i]
+
         // Got some data for this date
         if (c.cases != null || c.deaths != null) {
           // New country, create empty object
