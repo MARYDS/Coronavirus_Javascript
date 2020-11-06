@@ -32,7 +32,7 @@ export default function Tests(
 
         {/* Card Header and Navigation */}
         <div className="card-header text-center">
-          <h5 className="card-title font-weight-bold">Tests</h5>
+          <h5 className="card-title font-weight-bold heading">Tests</h5>
 
           {/* Navigation */}
           <ul className="nav nav-tabs" id="tests-list" role="tablist">

@@ -29,7 +29,7 @@ export default function Admissions(
 
         {/* Card Header and Navigation */}
         <div className="card-header text-center">
-          <h5 className="card-title font-weight-bold">Hospital Admissions</h5>
+          <h5 className="card-title font-weight-bold heading">Hospital Admissions</h5>
           <ul className="nav nav-tabs" id="admissions-list" role="tablist">
             <li className="nav-item">
               <a className="nav-link active" id="admissions-tab" data-toggle="tab" href="#admissions" role="tab" aria-controls="admissions" aria-selected="true">Admissions</a>

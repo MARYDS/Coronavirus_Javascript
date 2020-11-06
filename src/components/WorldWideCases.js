@@ -30,7 +30,7 @@ export default function WorldWideCases(
 
         {/* Card Header and Navigation */}
         <div className="card-header text-center">
-          <h5 className="card-title font-weight-bold">World Wide Cases</h5>
+          <h5 className="card-title font-weight-bold heading">World Wide Cases</h5>
           <ul className="nav nav-tabs" id="worldwidecases-list" role="tablist">
             <li className="nav-item">
               <a className="nav-link active" id="worldwidecases-tab" data-toggle="tab" href="#worldwidecases" role="tab" aria-controls="worldwidecases" aria-selected="true">Cases</a>

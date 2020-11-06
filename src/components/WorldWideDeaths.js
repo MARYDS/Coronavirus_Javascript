@@ -30,7 +30,7 @@ export default function WorldWideDeaths(
 
         {/* Card Header and Navigation */}
         <div className="card-header text-center">
-          <h5 className="card-title font-weight-bold">World Wide Deaths</h5>
+          <h5 className="card-title font-weight-bold heading">World Wide Deaths</h5>
           <ul className="nav nav-tabs" id="worldwidedeaths-list" role="tablist">
             <li className="nav-item">
               <a className="nav-link active" id="worldwidedeaths-tab" data-toggle="tab" href="#worldwidedeaths" role="tab" aria-controls="worldwidedeaths" aria-selected="true">Deaths</a>

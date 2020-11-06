@@ -61,11 +61,11 @@ export default function Deaths(
     <div className="col-sm-6 col-lg-4 mb-3">
 
       {/* Card */}
-      <div className="card card-main shadow h-100">
+      <div className="card card-main h-100">
 
         {/* Card Header and Navigation */}
         <div className="card-header text-center">
-          <h5 className="card-title font-weight-bold">Deaths</h5>
+          <h5 className="card-title font-weight-bold heading">Deaths</h5>
 
           {/* Navigation */}
           <ul className="nav nav-tabs" id="deaths-list" role="tablist">
@@ -227,13 +227,15 @@ export default function Deaths(
             {/* Fifth Tab - Date of Death Table */}
             <div className="tab-pane fade" id="actualdata" role="tabpanel" aria-labelledby="actual-data-tab">
               <h6 className="text-center">Deaths by Date of Death - {areaName}</h6>
-              <TableData data={deathsAct} cols={['Date', 'Day', 'Deaths']} id="casesacttable" />
+              <TableData data={deathsAct} cols={['Date', 'Day', 'Deaths', 'Cum.Rate']} id="casesacttable" />
             </div>
 
             {/* Sixth Tab - Deaths by Region Graph */}
             <div className="tab-pane fade" id="deathregionsdata" role="tabpanel" aria-labelledby="death-regions-data-tab">
-              <h6 className="text-center">All Regions Deaths - {regAve ? "7 Day Average" : "Actual"}</h6>
-              <Graph data={regAve ? regionsAveSorted : regionsSorted} desc={ukRegions} />
+              <h6 className="text-center">All Regions Deaths - {regAve ? "7 Day Average" : "Published"}</h6>
+              <div className="pb-3">
+                <Graph data={regAve ? regionsAveSorted : regionsSorted} desc={ukRegions} />
+              </div>
               <button type="button" className="btn btn-outline-info btn-sm float-right mt-5" onClick={switchMode}>{regAve ? "Actual" : "7 Day Average"}</button>
             </div>
 

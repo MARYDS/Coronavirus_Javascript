@@ -65,11 +65,11 @@ export default function Cases(
     <div className="col-sm-6 col-lg-4 mb-3">
 
       {/* Card */}
-      <div className="card card-main shadow h-100">
+      <div className="card card-main h-100">
 
         {/* Card Header and Navigation */}
         <div className="card-header text-center">
-          <h5 className="card-title font-weight-bold">Cases</h5>
+          <h5 className="card-title font-weight-bold heading">Cases</h5>
 
           {/* Navigation */}
           <ul className="nav nav-tabs" id="cases-list" role="tablist">
@@ -228,7 +228,7 @@ export default function Cases(
             <div className="tab-pane fade" id="actualcasesdata" role="tabpanel"
               aria-labelledby="actual-cases-data-tab">
               <h6 className="text-center">Cases by Specimen Date {areaName}</h6>
-              <TableData data={casesAct} cols={['Date', 'Day', 'Cases']} id="casesacttable" />
+              <TableData data={casesAct} cols={['Date', 'Day', 'Cases', 'Cum.Rate']} id="casesacttable" />
             </div>
 
             {/* Sixth Tab - Cases by Ages Graph */}
@@ -269,15 +269,17 @@ export default function Cases(
               {/* Chart with results */}
               <div>
                 <h6 className="text-center">Cumulative Cases by Age and Gender - {areaName}</h6>
-                <p className="text-muted text-center">Available for England and English Regions</p>
+                <p className="text-muted text-center">Available for England, English Regions and Wales</p>
                 <Barchart data={casesByGender} desc={["Male", "Female"]} xaxis="age" />
               </div>
             </div>
 
             {/* Seventh Tab - Cases by Region Graph */}
             <div className="tab-pane fade" id="caseregionsdata" role="tabpanel" aria-labelledby="case-regions-data-tab">
-              <h6 className="text-center">All Regions Cases - {regAve ? "7 Day Average" : "Actual"}</h6>
-              <Graph data={regAve ? regionsAveSorted : regionsSorted} desc={ukRegions} />
+              <h6 className="text-center">All Regions Cases - {regAve ? "7 Day Average" : "Published"}</h6>
+              <div className="pb-3">
+                <Graph data={regAve ? regionsAveSorted : regionsSorted} desc={ukRegions} />
+              </div>
               <button type="button" className="btn btn-outline-info btn-sm float-right mt-5" onClick={switchMode}>{regAve ? "Actual" : "7 Day Average"}</button>
             </div>
 

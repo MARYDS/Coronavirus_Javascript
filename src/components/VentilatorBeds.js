@@ -24,7 +24,7 @@ export default function VentilatorBeds({ areaName, date, latest, average, ventil
 
         {/* Card Header and Navigation */}
         <div className="card-header text-center">
-          <h5 className="card-title font-weight-bold">Ventilator Beds Occupied</h5>
+          <h5 className="card-title font-weight-bold heading">Ventilator Beds Occupied</h5>
           <ul className="nav nav-tabs" id="intensivecare-list" role="tablist">
             <li className="nav-item">
               <a className="nav-link active" id="intensivecare-tab" data-toggle="tab" href="#intensivecare" role="tab" aria-controls="intensivecare" aria-selected="true">Ventilator Beds</a>
