@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import HospitalHeader from './HospitalHeader'
 import Graph from '../utilities/Graph'
 import Chart from '../utilities/Chart'
 import TableData from '../utilities/TableData'
@@ -46,54 +47,62 @@ export default function Hospital({ areaName, date, latest, average, patients, re
           {/* Tabs Content */}
           <div className="tab-content" id="patients-content">
 
-            {/* Third Tab - Patients by Region */}
+            {/* First Tab - Patients by Region */}
             <div className="tab-pane fade show active" id="regionsdata" role="tabpanel"
               aria-labelledby="regions-data-tab">
-              <h6 className="text-center">All Regions Hospital Patients - {regAve ? "7 Day Average" : "Actual"}</h6>
-              <Graph data={regAve ? regionsAveSorted : regionsSorted} desc={ukRegionsNhs} />
-              <button type="button" className="btn btn-outline-info btn-sm float-right mt-5" onClick={switchMode}>{regAve ? "Actual" : "7 Day Average"}</button>
-            </div>
-
-            {/* First Tab - Hospital Patients with Chart */}
-            <div className="tab-pane fade" id="patients" role="tabpanel" aria-labelledby="patients-tab">
 
               {/* Card with summary details */}
-              <div className="card mb-3">
-                {/* Headline Result */}
-                <div className="card-header pt-2 pb-1 bg-info">
-                  <div className="d-flex flex-row justify-content-between text-white rounded">
-                    <span className="text-left">
-                      <h6 className="font-weight-bold">{date}</h6>
-                    </span>
-                    <span className="text-right">
-                      <h6 className="font-weight-bold">{latest}</h6>
-                    </span>
-                  </div>
-                </div>
-                {/* Other Stats */}
-                <div className="card-body py-1">
-                  <div className="d-flex flex-row justify-content-between">
-                    <span className="text-left">
-                      7 Day Average
-                    </span>
-                    <span className="text-right">
-                      {average}
-                    </span>
-                  </div>
-                </div>
+              <HospitalHeader
+                areaName={areaName}
+                date={date}
+                latest={latest}
+                average={average}
+              />
+              <div>
+                <h6 className="text-center">
+                  All Regions Hospital Patients - {regAve ? "7 Day Average" : "Actual"}
+                </h6>
+                <Graph
+                  data={regAve ? regionsAveSorted : regionsSorted}
+                  desc={ukRegionsNhs}
+                />
+                <button
+                  type="button"
+                  className="btn btn-outline-info btn-sm float-right mt-5"
+                  onClick={switchMode}>
+                  {regAve ? "Actual" : "7 Day Average"}
+                </button>
               </div>
+            </div>
 
+            {/* Second Tab - Hospital Patients with Chart */}
+            <div className="tab-pane fade" id="patients" role="tabpanel" aria-labelledby="patients-tab">
+              {/* Card with summary details */}
+              <HospitalHeader
+                areaName={areaName}
+                date={date}
+                latest={latest}
+                average={average}
+              />
               {/* Graph with results */}
               <div>
                 <h6 className="text-center">Patients in Hospital - {areaName}</h6>
-                <Chart data={patientsSorted} desc={['Patients']} linesDesc={['7 Day Average']} />
+                <Chart
+                  data={patientsSorted}
+                  desc={['Patients']}
+                  linesDesc={['7 Day Average']}
+                />
               </div>
             </div>
 
-            {/* Second Tab - Patients data table*/}
+            {/* Third Tab - Patients data table*/}
             <div className="tab-pane fade" id="patientsdata" role="tabpanel" aria-labelledby="patients-data-tab">
               <h6 className="text-center">Patients in Hospital - {areaName}</h6>
-              <TableData data={patients} cols={['Date', 'Day', 'Patients']} id="hospitaltable" />
+              <TableData
+                data={patients}
+                cols={['Date', 'Day', 'Patients']}
+                id="hospitaltable"
+              />
             </div>
 
           </div>

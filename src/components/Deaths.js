@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import DeathsHeader from './DeathsHeader'
 import Chart from '../utilities/Chart'
 import Graph from '../utilities/Graph'
 import TableData from '../utilities/TableData'
@@ -76,13 +77,13 @@ export default function Deaths(
               <a className="nav-link" id="published-data-tab" data-toggle="tab" href="#publisheddata" role="tab" aria-controls="publisheddata" aria-selected="false">#</a>
             </li>
             <li className="nav-item">
+              <a className="nav-link" id="area-deaths-tab" data-toggle="tab" href="#areadeaths" role="tab" aria-controls="areadeaths" aria-selected="false">Loc</a>
+            </li>
+            <li className="nav-item">
               <a className="nav-link" id="actual-tab" data-toggle="tab" href="#actual" role="tab" aria-controls="actual" aria-selected="false">Date</a>
             </li>
             <li className="nav-item">
               <a className="nav-link" id="actual-data-tab" data-toggle="tab" href="#actualdata" role="tab" aria-controls="actualdata" aria-selected="false">#</a>
-            </li>
-            <li className="nav-item">
-              <a className="nav-link" id="area-deaths-tab" data-toggle="tab" href="#areadeaths" role="tab" aria-controls="areadeaths" aria-selected="false">Loc</a>
             </li>
             <li className="nav-item">
               <a className="nav-link" id="death-regions-data-tab" data-toggle="tab" href="#deathregionsdata" role="tab" aria-controls="deathregionsdata" aria-selected="false">Reg</a>
@@ -100,58 +101,22 @@ export default function Deaths(
             <div className="tab-pane fade show active" id="published" role="tabpanel"
               aria-labelledby="published-tab">
 
-              {/* Card with summary details */}
-              <div className="card mb-3">
-                {/* Headline Result */}
-                <div className="card-header pt-2 pb-1 bg-info">
-                  <div className="d-flex flex-row justify-content-between text-white rounded">
-                    <span className="text-left">
-                      <h6 className="font-weight-bold">{datePub}</h6>
-                    </span>
-                    <span className="text-right">
-                      <h6 className="font-weight-bold">{newPub}</h6>
-                    </span>
-                  </div>
-                </div>
-                {/* Other Stats */}
-                <div className="card-body py-1">
-                  <div className="d-flex flex-row justify-content-between">
-                    <span className="text-left">
-                      7 Day Average
-                    </span>
-                    <span className="text-right">
-                      {averPub}
-                    </span>
-                  </div>
-                  <div className="d-flex flex-row justify-content-between">
-                    <span className="text-left">
-                      Cumulative
-                    </span>
-                    <span className="text-right">
-                      {cumPub}
-                    </span>
-                  </div>
-                  <div className="d-flex flex-row justify-content-between">
-                    <span className="text-left">
-                      Rate per 100K population
-                    </span>
-                    <span className="text-right">
-                      {ratePub}
-                    </span>
-                  </div>
-                  <div className="d-flex flex-row justify-content-between">
-                    <span className="text-left">
-                    </span>
-                    <span className="text-right">
-                    </span>
-                  </div>
-                </div>
-              </div>
-
+              <DeathsHeader
+                areaName={areaName}
+                date={datePub}
+                newDeaths={newPub}
+                averDeaths={averPub}
+                cumDeaths={cumPub}
+                rateDeaths={ratePub}
+              />
               {/* Graph with results */}
               <div>
                 <h6 className="text-center">Deaths by Published Date - {areaName}</h6>
-                <Chart data={deathsPubSorted} desc={['Deaths by Published Date']} linesDesc={['7 Day Average']} />
+                <Chart
+                  data={deathsPubSorted}
+                  desc={['Deaths by Published Date']}
+                  linesDesc={['7 Day Average']}
+                />
               </div>
             </div>
 
@@ -159,7 +124,11 @@ export default function Deaths(
             <div className="tab-pane fade" id="publisheddata" role="tabpanel" aria-labelledby="published-data-tab">
               <h6 className="text-center">Deaths by Published Date - {areaName}</h6>
               <div>
-                <TableData data={deathsPub} cols={['Date', 'Day', 'Deaths', 'Cum.Rate']} id="deathspubtable" />
+                <TableData
+                  data={deathsPub}
+                  cols={['Date', 'Day', 'Deaths', 'Cum.Rate']}
+                  id="deathspubtable"
+                />
               </div>
             </div>
 
@@ -168,54 +137,25 @@ export default function Deaths(
               ?
               <div className="tab-pane fade" id="areadeaths" role="tabpanel" aria-labelledby="area-deaths-tab">
                 <h6 className="text-center">Deaths by Location by Published Date - {areaName}</h6>
-                <TableData data={deathsLoc} cols={['Date', 'Location', 'Deaths']} id="casesareatable" />
+                <TableData
+                  data={deathsLoc}
+                  cols={['Date', 'Location', 'Deaths']}
+                  id="casesareatable"
+                />
               </div>
               : null}
 
             {/* Forth Tab - Deaths by Date of Death */}
             <div className="tab-pane fade" id="actual" role="tabpanel" aria-labelledby="actual-tab">
 
-              {/* Card with summary details */}
-              <div className="card mb-3">
-                {/* Headline Result */}
-                <div className="card-header pt-2 pb-1 bg-info">
-                  <div className="d-flex flex-row justify-content-between text-white rounded">
-                    <span className="text-left">
-                      <h6 className="font-weight-bold">{dateAct}</h6>
-                    </span>
-                    <span className="text-right">
-                      <h6 className="font-weight-bold">{newAct}</h6>
-                    </span>
-                  </div>
-                </div>
-                {/* Other Stats */}
-                <div className="card-body py-1">
-                  <div className="d-flex flex-row justify-content-between">
-                    <span className="text-left">
-                      7 Day Average
-                     </span>
-                    <span className="text-right">
-                      {averAct}
-                    </span>
-                  </div>
-                  <div className="d-flex flex-row justify-content-between">
-                    <span className="text-left">
-                      Cumulative
-                     </span>
-                    <span className="text-right">
-                      {cumAct}
-                    </span>
-                  </div>
-                  <div className="d-flex flex-row justify-content-between">
-                    <span className="text-left">
-                      Rate per 100K population
-                     </span>
-                    <span className="text-right">
-                      {rateAct}
-                    </span>
-                  </div>
-                </div>
-              </div>
+              <DeathsHeader
+                areaName={areaName}
+                date={dateAct}
+                newDeaths={newAct}
+                averDeaths={averAct}
+                cumDeaths={cumAct}
+                rateDeaths={rateAct}
+              />
 
               {/* Graph with results */}
               <div>
@@ -227,16 +167,29 @@ export default function Deaths(
             {/* Fifth Tab - Date of Death Table */}
             <div className="tab-pane fade" id="actualdata" role="tabpanel" aria-labelledby="actual-data-tab">
               <h6 className="text-center">Deaths by Date of Death - {areaName}</h6>
-              <TableData data={deathsAct} cols={['Date', 'Day', 'Deaths', 'Cum.Rate']} id="casesacttable" />
+              <TableData
+                data={deathsAct}
+                cols={['Date', 'Day', 'Deaths', 'Cum.Rate']}
+                id="casesacttable"
+              />
             </div>
 
             {/* Sixth Tab - Deaths by Region Graph */}
             <div className="tab-pane fade" id="deathregionsdata" role="tabpanel" aria-labelledby="death-regions-data-tab">
               <h6 className="text-center">All Regions Deaths - {regAve ? "7 Day Average" : "Published"}</h6>
               <div className="pb-3">
-                <Graph data={regAve ? regionsAveSorted : regionsSorted} desc={ukRegions} />
+                <Graph
+                  data={regAve ? regionsAveSorted : regionsSorted}
+                  desc={ukRegions}
+                />
               </div>
-              <button type="button" className="btn btn-outline-info btn-sm float-right mt-5" onClick={switchMode}>{regAve ? "Actual" : "7 Day Average"}</button>
+              <button
+                type="button"
+                className="btn btn-outline-info btn-sm float-right mt-5"
+                onClick={switchMode}
+              >
+                {regAve ? "Actual" : "7 Day Average"}
+              </button>
             </div>
 
           </div>

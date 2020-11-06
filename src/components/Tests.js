@@ -40,16 +40,16 @@ export default function Tests(
               <a className="nav-link active" id="tests-tab" data-toggle="tab" href="#tests" role="tab" aria-controls="tests" aria-selected="true">Tests</a>
             </li>
             <li className="nav-item">
-              <a className="nav-link" id="p1-data-tab" data-toggle="tab" href="#p1data" role="tab" aria-controls="p1data" aria-selected="false">P1</a>
+              <a className="nav-link" id="p1-data-tab" data-toggle="tab" href="#p1data" role="tab" aria-controls="p1data" aria-selected="false">#P1</a>
             </li>
             <li className="nav-item">
-              <a className="nav-link" id="p2-data-tab" data-toggle="tab" href="#p2data" role="tab" aria-controls="p2data" aria-selected="false">P2</a>
+              <a className="nav-link" id="p2-data-tab" data-toggle="tab" href="#p2data" role="tab" aria-controls="p2data" aria-selected="false">#P2</a>
             </li>
             <li className="nav-item">
-              <a className="nav-link" id="p3-data-tab" data-toggle="tab" href="#p3data" role="tab" aria-controls="p3data" aria-selected="false">P3</a>
+              <a className="nav-link" id="p3-data-tab" data-toggle="tab" href="#p3data" role="tab" aria-controls="p3data" aria-selected="false">#P3</a>
             </li>
             <li className="nav-item">
-              <a className="nav-link" id="p4-data-tab" data-toggle="tab" href="#p4data" role="tab" aria-controls="p4data" aria-selected="false">P4</a>
+              <a className="nav-link" id="p4-data-tab" data-toggle="tab" href="#p4data" role="tab" aria-controls="p4data" aria-selected="false">#P4</a>
             </li>
             <li className="nav-item">
               <a className="nav-link" id="tests-data-tab" data-toggle="tab" href="#testsdata" role="tab" aria-controls="testsdata" aria-selected="false">Total</a>

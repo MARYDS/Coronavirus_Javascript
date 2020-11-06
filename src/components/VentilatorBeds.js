@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import VentilatorBedsHeader from './VentilatorBedsHeader'
 import Graph from '../utilities/Graph'
 import Chart from '../utilities/Chart'
 import TableData from '../utilities/TableData'
@@ -44,53 +45,59 @@ export default function VentilatorBeds({ areaName, date, latest, average, ventil
           {/* Tabs Content */}
           <div className="tab-content" id="intensivecare-content">
 
-            {/* Third Tab - Intensive Care beds by Region */}
+            {/* First Tab - Intensive Care beds by Region */}
             <div className="tab-pane fade show active" id="regionsintensivecaredata" role="tabpanel" aria-labelledby="regions-intensivecare-data-tab">
-              <h6 className="text-center">All Regions Ventilator Beds - {regAve ? "7 Day Average" : "Actual"}</h6>
-              <Graph data={regAve ? regionsAveSorted : regionsSorted} desc={ukRegionsNhs} />
-              <button type="button" className="btn btn-outline-info btn-sm float-right mt-5" onClick={switchMode}>{regAve ? "Actual" : "7 Day Average"}</button>
+              {/* Card with summary details */}
+              <VentilatorBedsHeader
+                areaName={areaName}
+                date={date}
+                latest={latest}
+                average={average}
+              />
+              <h6 className="text-center">
+                All Regions Ventilator Beds - {regAve ? "7 Day Average" : "Actual"}
+              </h6>
+              <Graph
+                data={regAve ? regionsAveSorted : regionsSorted}
+                desc={ukRegionsNhs}
+              />
+              <button
+                type="button"
+                className="btn btn-outline-info btn-sm float-right mt-5"
+                onClick={switchMode}
+              >
+                {regAve ? "Actual" : "7 Day Average"}
+              </button>
             </div>
 
             {/* First Tab - Patients in Intensive Care with Chart */}
             <div className="tab-pane fade" id="intensivecare" role="tabpanel" aria-labelledby="intensivecare-tab">
-
               {/* Card with summary details */}
-              <div className="card mb-3">
-                {/* Headline Result */}
-                <div className="card-header pt-2 pb-1 bg-info">
-                  <div className="d-flex flex-row justify-content-between text-white rounded">
-                    <span className="text-left">
-                      <h6 className="font-weight-bold">{date}</h6>
-                    </span>
-                    <span className="text-right">
-                      <h6 className="font-weight-bold">{latest}</h6>
-                    </span>
-                  </div>
-                </div>
-                {/* Other Stats */}
-                <div className="card-body py-1">
-                  <div className="d-flex flex-row justify-content-between">
-                    <span className="text-left">
-                      7 Day Average
-                    </span>
-                    <span className="text-right">
-                      {average}
-                    </span>
-                  </div>
-                </div>
-              </div>
-
+              <VentilatorBedsHeader
+                areaName={areaName}
+                date={date}
+                latest={latest}
+                average={average}
+              />
               {/* Graph with results */}
               <div>
                 <h6 className="text-center">Patients in Ventilator Beds - {areaName}</h6>
-                <Chart data={ventilatorBedsSorted} desc={['Ventilator Beds']} linesDesc={['7 Day Average']} />
+                <Chart
+                  data={ventilatorBedsSorted}
+                  desc={['Ventilator Beds']}
+                  linesDesc={['7 Day Average']}
+                />
               </div>
             </div>
 
             {/* Second Tab - Intensive Care Data Table */}
             <div className="tab-pane fade" id="intensivecaredata" role="tabpanel" aria-labelledby="intensivecare-data-tab">
               <h6 className="text-center">Patients in Ventilator Beds - {areaName}</h6>
-              <TableData data={ventilatorBeds} cols={['Date', 'Day', 'Beds']} id="intensivecaretable" />
+              <TableData
+                data={ventilatorBeds}
+                cols={['Date', 'Day', 'Beds']}
+                id="intensivecaretable"
+              />
             </div>
 
           </div>

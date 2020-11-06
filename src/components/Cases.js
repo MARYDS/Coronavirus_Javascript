@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import CasesHeader from './CasesHeader'
 import Chart from '../utilities/Chart'
 import Graph from '../utilities/Graph'
 import Barchart from '../utilities/Barchart'
@@ -107,57 +108,33 @@ export default function Cases(
             <div className="tab-pane fade show active" id="publishedcases" role="tabpanel" aria-labelledby="published-cases-tab">
 
               {/* Card with summary details */}
-              <div className="card mb-3">
-                {/* Headline Result */}
-                <div className="card-header pt-2 pb-1 bg-info">
-                  <div className="d-flex flex-row justify-content-between text-white rounded">
-                    <span className="text-left">
-                      <h6 className="font-weight-bold">{datePub}</h6>
-                    </span>
-                    <span className="text-right">
-                      <h6 className="font-weight-bold">{newPub}</h6>
-                    </span>
-                  </div>
-                </div>
-                {/* Other Stats */}
-                <div className="card-body py-1">
-                  <div className="d-flex flex-row justify-content-between">
-                    <span className="text-left">
-                      7 Day Average
-                    </span>
-                    <span className="text-right">
-                      {averPub}
-                    </span>
-                  </div>
-                  <div className="d-flex flex-row justify-content-between">
-                    <span className="text-left">
-                      Cumulative
-                    </span>
-                    <span className="text-right">
-                      {cumPub}
-                    </span>
-                  </div>
-                  <div className="d-flex flex-row justify-content-between">
-                    <span className="text-left">
-                      Rate per 100K population
-                    </span>
-                    <span className="text-right">
-                      {ratePub}
-                    </span>
-                  </div>
-                </div>
-              </div>
+              <CasesHeader
+                areaName={areaName}
+                date={datePub}
+                newCases={newPub}
+                averCases={averPub}
+                cumCases={cumPub}
+                rateCases={ratePub}
+              />
               {/* Graph with results */}
               <div>
                 <h6 className="text-center">Cases by Published Date - {areaName}</h6>
-                <Chart data={casesPubSorted} desc={['Cases by Published Date']} linesDesc={['7 Day Average']} />
+                <Chart
+                  data={casesPubSorted}
+                  desc={['Cases by Published Date']}
+                  linesDesc={['7 Day Average']}
+                />
               </div>
             </div>
 
             {/* Second Tab - Published Cases Table */}
             <div className="tab-pane fade" id="publishedcasesdata" role="tabpanel" aria-labelledby="published-cases-data-tab">
               <h6 className="text-center">Cases by Published Date - {areaName}</h6>
-              <TableData data={casesPub} cols={['Date', 'Day', 'Cases', 'Cum.Rate']} id="casespubtable" />
+              <TableData
+                data={casesPub}
+                cols={['Date', 'Day', 'Cases', 'Cum.Rate']}
+                id="casespubtable"
+              />
             </div>
 
             {/* Third Tab - Cases by Area Table */}
@@ -165,7 +142,11 @@ export default function Cases(
               <h6 className="text-center">Cases by Location by Published Date - {areaName}</h6>
               {(areaType === 'overview' || areaType === 'nation')
                 ?
-                <TableData data={casesLoc} cols={['Date', 'Location', 'Cases']} id="casesareatable" />
+                <TableData
+                  data={casesLoc}
+                  cols={['Date', 'Location', 'Cases']}
+                  id="casesareatable"
+                />
                 :
                 <div className="text-info font-weight-bold mt-5 ml-3">
                   No Data Available for this level
@@ -176,51 +157,22 @@ export default function Cases(
             <div className="tab-pane fade" id="actualcases" role="tabpanel" aria-labelledby="actual-cases-tab">
 
               {/* Card with summary details */}
-              <div className="card mb-3">
-                {/* Headline Result */}
-                <div className="card-header pt-2 pb-1 bg-info">
-                  <div className="d-flex flex-row justify-content-between text-white p-0 m-0 rounded">
-                    <span className="text-left">
-                      <h6 className="font-weight-bold">{dateAct}</h6>
-                    </span>
-                    <span className="text-right">
-                      <h6 className="font-weight-bold">{newAct}</h6>
-                    </span>
-                  </div>
-                </div>
-                {/* Other Stats */}
-                <div className="card-body py-1">
-                  <div className="d-flex flex-row justify-content-between">
-                    <span className="text-left">
-                      7 Day Average
-                    </span>
-                    <span className="text-right">
-                      {averAct}
-                    </span>
-                  </div>
-                  <div className="d-flex flex-row justify-content-between">
-                    <span className="text-left">
-                      Cumulative
-                    </span>
-                    <span className="text-right">
-                      {cumAct}
-                    </span>
-                  </div>
-                  <div className="d-flex flex-row justify-content-between">
-                    <span className="text-left">
-                      Rate per 100K population
-                    </span>
-                    <span className="text-right">
-                      {rateAct}
-                    </span>
-                  </div>
-                </div>
-              </div>
-
+              <CasesHeader
+                areaName={areaName}
+                date={dateAct}
+                newCases={newAct}
+                averCases={averAct}
+                cumCases={cumAct}
+                rateCases={rateAct}
+              />
               {/* Chart with results */}
               <div>
                 <h6 className="text-center">Cases by Specimen Date - {areaName}</h6>
-                <Chart data={casesActSorted} desc={descAct} linesDesc={['7 Day Average']} />
+                <Chart
+                  data={casesActSorted}
+                  desc={descAct}
+                  linesDesc={['7 Day Average']}
+                />
               </div>
             </div>
 
@@ -228,7 +180,11 @@ export default function Cases(
             <div className="tab-pane fade" id="actualcasesdata" role="tabpanel"
               aria-labelledby="actual-cases-data-tab">
               <h6 className="text-center">Cases by Specimen Date {areaName}</h6>
-              <TableData data={casesAct} cols={['Date', 'Day', 'Cases', 'Cum.Rate']} id="casesacttable" />
+              <TableData
+                data={casesAct}
+                cols={['Date', 'Day', 'Cases', 'Cum.Rate']}
+                id="casesacttable"
+              />
             </div>
 
             {/* Sixth Tab - Cases by Ages Graph */}
@@ -239,7 +195,7 @@ export default function Cases(
                 <div className="card-header pt-2 pb-1 bg-info">
                   <div className="d-flex flex-row justify-content-between text-white p-0 m-0 rounded">
                     <span className="text-left">
-                      <h6 className="font-weight-bold">{genderDate}</h6>
+                      <h6 className="font-weight-bold">{areaName} - {genderDate}</h6>
                     </span>
                     <span className="text-left">
                       <h6 className="font-weight-bold">{totalGenderCases}</h6>
@@ -270,7 +226,11 @@ export default function Cases(
               <div>
                 <h6 className="text-center">Cumulative Cases by Age and Gender - {areaName}</h6>
                 <p className="text-muted text-center">Available for England, English Regions and Wales</p>
-                <Barchart data={casesByGender} desc={["Male", "Female"]} xaxis="age" />
+                <Barchart
+                  data={casesByGender}
+                  desc={["Male", "Female"]}
+                  xaxis="age"
+                />
               </div>
             </div>
 
@@ -278,9 +238,16 @@ export default function Cases(
             <div className="tab-pane fade" id="caseregionsdata" role="tabpanel" aria-labelledby="case-regions-data-tab">
               <h6 className="text-center">All Regions Cases - {regAve ? "7 Day Average" : "Published"}</h6>
               <div className="pb-3">
-                <Graph data={regAve ? regionsAveSorted : regionsSorted} desc={ukRegions} />
+                <Graph
+                  data={regAve ? regionsAveSorted : regionsSorted}
+                  desc={ukRegions}
+                />
               </div>
-              <button type="button" className="btn btn-outline-info btn-sm float-right mt-5" onClick={switchMode}>{regAve ? "Actual" : "7 Day Average"}</button>
+              <button
+                type="button"
+                className="btn btn-outline-info btn-sm float-right mt-5"
+                onClick={switchMode}>{regAve ? "Actual" : "7 Day Average"}
+              </button>
             </div>
 
           </div>

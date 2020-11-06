@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import AdmissionsHeader from './AdmissionsHeader'
 import Graph from '../utilities/Graph'
 import Chart from '../utilities/Chart'
 import TableData from '../utilities/TableData'
@@ -52,88 +53,79 @@ export default function Admissions(
           {/* Tabs Content */}
           <div className="tab-content" id="admissions-content">
 
-            {/* Forth Tab - Admissions by Region */}
+            {/* First Tab - Admissions by Region */}
             <div className="tab-pane fade show active" id="regionsadmissionsdata" role="tabpanel" aria-labelledby="regions-admissions-data-tab">
-              <h6 className="text-center">All Regions Hospital Admissions - {regAve ? "7 Day Average" : "Actual"}</h6>
-              <Graph data={regAve ? regionsAveSorted : regionsSorted} desc={ukRegionsNhs} />
-              <button type="button" className="btn btn-outline-info btn-sm float-right mt-5" onClick={switchMode}>{regAve ? "Actual" : "7 Day Average"}</button>
-            </div>
-
-            {/* First Tab - Published Deaths with Chart */}
-            <div className="tab-pane fade" id="admissions" role="tabpanel" aria-labelledby="admissions-tab">
 
               {/* Card with summary details */}
-              <div className="card mb-3">
-                {/* Headline Result */}
-                <div className="card-header pt-2 pb-1 bg-info">
-                  <div className="d-flex flex-row justify-content-between text-white rounded">
-                    <span className="text-left">
-                      <h6 className="font-weight-bold">{date}</h6>
-                    </span>
-                    <span className="text-right">
-                      <h6 className="font-weight-bold">{latest}</h6>
-                    </span>
-                  </div>
-                </div>
-                {/* Other Stats */}
-                <div className="card-body py-1">
-                  <div className="d-flex flex-row justify-content-between">
-                    <span className="text-left">
-                      7 Day Average
-                    </span>
-                    <span className="text-right">
-                      {average}
-                    </span>
-                  </div>
-                </div>
-              </div>
+              <AdmissionsHeader
+                areaName={areaName}
+                date={date}
+                latest={latest}
+                average={average}
+              />
+              <h6 className="text-center">
+                All Regions Hospital Admissions - {regAve ? "7 Day Average" : "Actual"}
+              </h6>
+              <Graph
+                data={regAve ? regionsAveSorted : regionsSorted}
+                desc={ukRegionsNhs}
+              />
+              <button
+                type="button"
+                className="btn btn-outline-info btn-sm float-right mt-5"
+                onClick={switchMode}
+              >
+                {regAve ? "Actual" : "7 Day Average"}
+              </button>
+            </div>
 
+            {/* Second Tab - Published Deaths with Chart */}
+            <div className="tab-pane fade" id="admissions" role="tabpanel" aria-labelledby="admissions-tab">
+              {/* Card with summary details */}
+              <AdmissionsHeader
+                areaName={areaName}
+                date={date}
+                latest={latest}
+                average={average}
+              />
               {/* Chart with results */}
               <div>
                 <h6 className="text-center">New Admissions to Hospital - {areaName}</h6>
-                <Chart data={admissionsSorted} desc={['Admissions']} linesDesc={['7 Day Average']} />
+                <Chart
+                  data={admissionsSorted}
+                  desc={['Admissions']}
+                  linesDesc={['7 Day Average']}
+                />
               </div>
             </div>
 
-            {/* Second Tab - Admissions Data Table */}
+            {/* Third Tab - Admissions Data Table */}
             <div className="tab-pane fade" id="admissionsdata" role="tabpanel" aria-labelledby="admissions-data-tab">
               <h6 className="text-center">New Admissions to Hospital - {areaName}</h6>
-              <TableData data={admissions} cols={['Date', 'Day', 'Admissions']} id='admissionstable' />
+              <TableData
+                data={admissions}
+                cols={['Date', 'Day', 'Admissions']}
+                id='admissionstable' />
             </div>
 
             {/* Third Tab - Admissions By Age */}
             <div className="tab-pane fade" id="admissionsbyagedata" role="tabpanel" aria-labelledby="admissions-byage-data-tab">
-
               {/* Card with summary details */}
-              <div className="card mb-3">
-                {/* Headline Result */}
-                <div className="card-header pt-2 pb-1 bg-info">
-                  <div className="d-flex flex-row justify-content-between text-white rounded">
-                    <span className="text-left">
-                      <h6 className="font-weight-bold">{date}</h6>
-                    </span>
-                    <span className="text-right">
-                      <h6 className="font-weight-bold">{latest}</h6>
-                    </span>
-                  </div>
-                </div>
-                {/* Other Stats */}
-                <div className="card-body py-1">
-                  <div className="d-flex flex-row justify-content-between">
-                    <span className="text-left">
-                      7 Day Average
-                    </span>
-                    <span className="text-right">
-                      {average}
-                    </span>
-                  </div>
-                </div>
-              </div>
+              <AdmissionsHeader
+                areaName={areaName}
+                date={date}
+                latest={latest}
+                average={average}
+              />
 
               {/* Graph with results */}
               <div>
                 <h6 className="text-center">New Admissions to Hospital by Age - {areaName}</h6>
-                <Chart data={admissionsByAgeSorted} desc={['0-5', '6-17', '18-64', '65-84', '85+']} linesDesc={['7 Day Average']} />
+                <Chart
+                  data={admissionsByAgeSorted}
+                  desc={['0-5', '6-17', '18-64', '65-84', '85+']}
+                  linesDesc={['7 Day Average']}
+                />
               </div>
             </div>
 

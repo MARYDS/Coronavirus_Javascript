@@ -44,7 +44,7 @@ export default function Graph({ data, desc } = this.props) {
     <div className="line-chart-wrapper">
       {(data.length === 0)
         ?
-        <div className="text-info font-weight-bold mt-5 ml-3">No Data Available for this level</div>
+        <div className="text-info font-weight-bold mt-5 ml-3">Waiting for data</div>
         :
         <LineChart
           width={w} height={h} data={data}
