@@ -27,13 +27,13 @@ export default function VentilatorBeds({ areaName, date, latest, average, ventil
           <h5 className="card-title font-weight-bold heading">Ventilator Beds Occupied</h5>
           <ul className="nav nav-tabs" id="intensivecare-list" role="tablist">
             <li className="nav-item">
-              <a className="nav-link active" id="intensivecare-tab" data-toggle="tab" href="#intensivecare" role="tab" aria-controls="intensivecare" aria-selected="true">Ventilator Beds</a>
+              <a className="nav-link active" id="regions-intensivecare-data-tab" data-toggle="tab" href="#regionsintensivecaredata" role="tab" aria-controls="regionsintensivecaredata" aria-selected="false">Regions</a>
+            </li>
+            <li className="nav-item">
+              <a className="nav-link" id="intensivecare-tab" data-toggle="tab" href="#intensivecare" role="tab" aria-controls="intensivecare" aria-selected="true">Ventilator Beds</a>
             </li>
             <li className="nav-item">
               <a className="nav-link" id="intensivecare-data-tab" data-toggle="tab" href="#intensivecaredata" role="tab" aria-controls="intensivecaredata" aria-selected="false">Data</a>
-            </li>
-            <li className="nav-item">
-              <a className="nav-link" id="regions-intensivecare-data-tab" data-toggle="tab" href="#regionsintensivecaredata" role="tab" aria-controls="regionsintensivecaredata" aria-selected="false">Regions</a>
             </li>
           </ul>
         </div>

@@ -29,13 +29,13 @@ export default function Hospital({ areaName, date, latest, average, patients, re
           {/* Navigation */}
           <ul className="nav nav-tabs" id="patients-list" role="tablist">
             <li className="nav-item">
-              <a className="nav-link active" id="patients-tab" data-toggle="tab" href="#patients" role="tab" aria-controls="patients" aria-selected="true">Patients</a>
+              <a className="nav-link active" id="regions-data-tab" data-toggle="tab" href="#regionsdata" role="tab" aria-controls="regionsdata" aria-selected="false">Regions</a>
+            </li>
+            <li className="nav-item">
+              <a className="nav-link" id="patients-tab" data-toggle="tab" href="#patients" role="tab" aria-controls="patients" aria-selected="true">Patients</a>
             </li>
             <li className="nav-item">
               <a className="nav-link" id="patients-data-tab" data-toggle="tab" href="#patientsdata" role="tab" aria-controls="patientsdata" aria-selected="false">#</a>
-            </li>
-            <li className="nav-item">
-              <a className="nav-link" id="regions-data-tab" data-toggle="tab" href="#regionsdata" role="tab" aria-controls="regionsdata" aria-selected="false">Regions</a>
             </li>
           </ul>
         </div>
