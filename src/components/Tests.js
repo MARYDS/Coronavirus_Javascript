@@ -25,10 +25,10 @@ export default function Tests(
     ].sort(compare())
 
   return (
-    <div className="col-sm-6 col-lg-4 mb-3">
+    <div className="col-12 col-sm-6 col-lg-4 mb-3">
 
       {/* Card */}
-      <div className="card h-100">
+      <div className="card h-100 w-100">
 
         {/* Card Header and Navigation */}
         <div className="card-header text-center">

@@ -23,10 +23,10 @@ export default function Admissions(
   const switchMode = () => setRegAve(!regAve)
 
   return (
-    <div className="col-sm-6 col-lg-4 mb-3">
+    <div className="col-12 col-sm-6 col-lg-4 mb-3">
 
       {/* Card */}
-      <div className="card card-main h-100">
+      <div className="card card-main h-100 w-100">
 
         {/* Card Header and Navigation */}
         <div className="card-header text-center">

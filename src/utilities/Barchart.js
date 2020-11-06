@@ -47,7 +47,7 @@ export default function Barchart({ data, desc, xaxis } = this.props) {
 
   return (
 
-    <div className="line-chart-wrapper">
+    <div className="bar-chart-wrapper mx-0 px-0">
       {(data.length === 0)
         ?
         <div className="text-info font-weight-bold mt-5 ml-3">
@@ -56,7 +56,7 @@ export default function Barchart({ data, desc, xaxis } = this.props) {
         :
         <BarChart width={w} height={h} data={data}
           margin={{ top: 30, right: 10, left: 10, bottom: 10 }}>
-          <YAxis width={60} tick={{ fontSize: '0.7rem' }} tickFormatter={tick => {
+          <YAxis width={55} tick={{ fontSize: '0.7rem' }} tickFormatter={tick => {
             return tick.toLocaleString();
           }} />
 

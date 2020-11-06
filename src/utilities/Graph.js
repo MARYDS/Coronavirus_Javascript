@@ -41,7 +41,7 @@ export default function Graph({ data, desc } = this.props) {
       "#F08080", "#7e8a97"]
 
   return (
-    <div className="line-chart-wrapper">
+    <div className="line-chart-wrapper mx-0 px-0">
       {(data.length === 0)
         ?
         <div className="text-info font-weight-bold mt-5 ml-3">Waiting for data</div>
@@ -51,9 +51,9 @@ export default function Graph({ data, desc } = this.props) {
           margin={{ top: 30, right: 10, bottom: 10, left: 10 }}
         >
           <CartesianGrid stroke="#ccc" vertical={false} />
-          <YAxis width={40} tick={{ fontSize: '0.8rem' }} />
+          <YAxis width={40} tick={{ fontSize: '0.7rem' }} />
           <XAxis interval={30} tickFormatter={formatXAxis}
-            tick={{ fontSize: '0.8rem' }} dataKey="date" height={50} />
+            tick={{ fontSize: '0.7rem' }} dataKey="date" height={50} />
           <Tooltip content={<CustomTooltip />} />
           <Legend verticalAlign="bottom" height={5}
             wrapperStyle={{ paddingtop: "20px" }} />
