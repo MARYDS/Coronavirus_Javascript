@@ -59,7 +59,7 @@ export default function Deaths(
   }
 
   return (
-    <div className="col-12 col-sm-6 col-lg-4 mb-3">
+    <div className="col-12 col-sm-6 col-lg-4 mb-3 mx-0">
 
       {/* Card */}
       <div className="card card-main">
@@ -110,7 +110,7 @@ export default function Deaths(
                 rateDeaths={ratePub}
               />
               {/* Graph with results */}
-              <div>
+              <div className="mx-0">
                 <h6 className="text-center">Deaths by Published Date - {areaName}</h6>
                 <Chart
                   data={deathsPubSorted}
@@ -123,13 +123,11 @@ export default function Deaths(
             {/* Second Tab - Published Deaths Table */}
             <div className="tab-pane fade" id="publisheddata" role="tabpanel" aria-labelledby="published-data-tab">
               <h6 className="text-center">Deaths by Published Date - {areaName}</h6>
-              <div>
-                <TableData
-                  data={deathsPub}
-                  cols={['Date', 'Day', 'Deaths', 'Cum.Rate']}
-                  id="deathspubtable"
-                />
-              </div>
+              <TableData
+                data={deathsPub}
+                cols={['Date', 'Day', 'Deaths', 'Cum.Rate']}
+                id="deathspubtable"
+              />
             </div>
 
             {/* Third Tab - Deaths by Area Table */}
@@ -158,7 +156,7 @@ export default function Deaths(
               />
 
               {/* Graph with results */}
-              <div>
+              <div className="mx-0">
                 <h6 className="text-center">Deaths by Date of Death - {areaName}</h6>
                 <Chart data={deathsActSorted} desc={descAct} linesDesc={['7 Day Average']} />
               </div>
@@ -177,7 +175,7 @@ export default function Deaths(
             {/* Sixth Tab - Deaths by Region Graph */}
             <div className="tab-pane fade" id="deathregionsdata" role="tabpanel" aria-labelledby="death-regions-data-tab">
               <h6 className="text-center">All Regions Deaths - {regAve ? "7 Day Average" : "Published"}</h6>
-              <div className="pb-3">
+              <div className="pb-3 mx-0">
                 <Graph
                   data={regAve ? regionsAveSorted : regionsSorted}
                   desc={ukRegions}

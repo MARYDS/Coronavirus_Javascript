@@ -80,7 +80,7 @@ export default function VentilatorBeds({ areaName, date, latest, average, ventil
                 average={average}
               />
               {/* Graph with results */}
-              <div>
+              <div className="mx-0">
                 <h6 className="text-center">Patients in Ventilator Beds - {areaName}</h6>
                 <Chart
                   data={ventilatorBedsSorted}

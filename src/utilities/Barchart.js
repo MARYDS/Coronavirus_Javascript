@@ -47,7 +47,7 @@ export default function Barchart({ data, desc, xaxis } = this.props) {
 
   return (
 
-    <div className="bar-chart-wrapper mx-0 px-0">
+    <div className="bar-chart-wrapper">
       {(data.length === 0)
         ?
         <div className="text-info font-weight-bold mt-5 ml-3">

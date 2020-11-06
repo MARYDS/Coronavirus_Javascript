@@ -41,7 +41,7 @@ export default function Graph({ data, desc } = this.props) {
       "#F08080", "#7e8a97"]
 
   return (
-    <div className="line-chart-wrapper mx-0 px-0">
+    <div className="line-chart-wrapper">
       {(data.length === 0)
         ?
         <div className="text-info font-weight-bold mt-5 ml-3">Waiting for data</div>

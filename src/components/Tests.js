@@ -133,7 +133,7 @@ export default function Tests(
               </div>
 
               {/* Graph with results */}
-              <div>
+              <div className="mx-0">
                 <h6 className="text-center">Tests by Published Date - {areaName}</h6>
                 <Chart data={testsTotSorted} desc={['Pillar 1', 'Pillar 2', 'Pillar 3', 'Pillar 4']} />
               </div>

@@ -161,9 +161,10 @@ export default class Data {
 
     let hosp = {}
     let region = ''
+    const len = ukRegionsNhs.length
 
     // Retrieve data for each region and merge results
-    for (let k = 0; k < ukRegionsNhs.length; k++) {
+    for (let k = 0; k < len; k++) {
       region = ukRegionsNhs[k]
 
       let filters = ""
@@ -185,9 +186,10 @@ export default class Data {
 
       // Got data
       if (results.data != null) {
+        const ln = results.data.length
 
         // Merge with other regions data by date
-        for (let i = 0; i < results.data.length; i++) {
+        for (let i = 0; i < ln; i++) {
           const c = results.data[i]
           const rowDay = weekdays[(new Date(c.date)).getDay()]
 
@@ -276,9 +278,10 @@ export default class Data {
 
     let reg = {}
     let region = ''
+    const len = ukRegions.length
 
     // Retrieve data for each region and merge results
-    for (let k = 0; k < ukRegions.length; k++) {
+    for (let k = 0; k < len; k++) {
       region = ukRegions[k]
 
       let filters = ""
@@ -300,9 +303,10 @@ export default class Data {
 
       // Got data
       if (results.data != null) {
+        const l = results.data.length
 
         // Merge with other regions data by date
-        for (let i = 0; i < results.data.length; i++) {
+        for (let i = 0; i < l; i++) {
           const c = results.data[i]
 
           // Arrays of date / values after region data is available

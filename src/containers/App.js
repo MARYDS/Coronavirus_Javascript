@@ -45,6 +45,21 @@ function App() {
   }, [areaType, areaName]);
 
   useEffect(() => {
+    let data = new Data()
+    data
+      .getAPIHospitalDataByNHSRegion()
+      .then((response) => {
+        setAPIHospitalData(response)
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+      .then(() => {
+        data = null
+      })
+  }, []);
+
+  useEffect(() => {
     let data = new Data(areaType, areaName)
     if (apiData !== undefined && apiData.casesDateYMD != null) {
       data
@@ -77,9 +92,9 @@ function App() {
   useEffect(() => {
     let data = new Data()
     data
-      .getAPIHospitalDataByNHSRegion()
+      .getAPINationData()
       .then((response) => {
-        setAPIHospitalData(response)
+        setAPINationData(response)
       })
       .catch((err) => {
         console.log(err)
@@ -95,21 +110,6 @@ function App() {
       .getAPIRegionData()
       .then((response) => {
         setAPIRegionData(response)
-      })
-      .catch((err) => {
-        console.log(err)
-      })
-      .then(() => {
-        data = null
-      })
-  }, []);
-
-  useEffect(() => {
-    let data = new Data()
-    data
-      .getAPINationData()
-      .then((response) => {
-        setAPINationData(response)
       })
       .catch((err) => {
         console.log(err)

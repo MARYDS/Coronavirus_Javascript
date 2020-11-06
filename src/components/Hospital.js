@@ -58,7 +58,7 @@ export default function Hospital({ areaName, date, latest, average, patients, re
                 latest={latest}
                 average={average}
               />
-              <div>
+              <div className="mx-0">
                 <h6 className="text-center">
                   All Regions Hospital Patients - {regAve ? "7 Day Average" : "Actual"}
                 </h6>
@@ -85,7 +85,7 @@ export default function Hospital({ areaName, date, latest, average, patients, re
                 average={average}
               />
               {/* Graph with results */}
-              <div>
+              <div className="mx-0">
                 <h6 className="text-center">Patients in Hospital - {areaName}</h6>
                 <Chart
                   data={patientsSorted}

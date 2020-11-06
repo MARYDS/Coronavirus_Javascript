@@ -117,7 +117,7 @@ export default function Cases(
                 rateCases={ratePub}
               />
               {/* Graph with results */}
-              <div>
+              <div className="mx-0">
                 <h6 className="text-center">Cases by Published Date - {areaName}</h6>
                 <Chart
                   data={casesPubSorted}
@@ -166,7 +166,7 @@ export default function Cases(
                 rateCases={rateAct}
               />
               {/* Chart with results */}
-              <div>
+              <div className="mx-0">
                 <h6 className="text-center">Cases by Specimen Date - {areaName}</h6>
                 <Chart
                   data={casesActSorted}
@@ -237,7 +237,7 @@ export default function Cases(
             {/* Seventh Tab - Cases by Region Graph */}
             <div className="tab-pane fade" id="caseregionsdata" role="tabpanel" aria-labelledby="case-regions-data-tab">
               <h6 className="text-center">All Regions Cases - {regAve ? "7 Day Average" : "Published"}</h6>
-              <div className="pb-3">
+              <div className="pb-3 mx-0">
                 <Graph
                   data={regAve ? regionsAveSorted : regionsSorted}
                   desc={ukRegions}

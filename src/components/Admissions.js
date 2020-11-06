@@ -89,7 +89,7 @@ export default function Admissions(
                 average={average}
               />
               {/* Chart with results */}
-              <div>
+              <div className="mx-0">
                 <h6 className="text-center">New Admissions to Hospital - {areaName}</h6>
                 <Chart
                   data={admissionsSorted}
@@ -119,7 +119,7 @@ export default function Admissions(
               />
 
               {/* Graph with results */}
-              <div>
+              <div className="mx-0">
                 <h6 className="text-center">New Admissions to Hospital by Age - {areaName}</h6>
                 <Chart
                   data={admissionsByAgeSorted}
