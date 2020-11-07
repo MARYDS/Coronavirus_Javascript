@@ -16,7 +16,12 @@ body {
 }
 .card-main {
   /* box-shadow: 2px 2px 3px 0px rgb(204, 204, 204);  */
+  width: 100%;
   min-height: 630px; 
+}
+
+@media(max-width:768px){ 
+  .row.flex { display: inherit; } 
 }
 
 .custom-tooltip {

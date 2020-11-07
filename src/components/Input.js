@@ -32,42 +32,38 @@ export default function Input({ areaType, areaName, updateAreaTypeAndName } = th
 
   return (
 
-    <div className="container-fluid">
-      <div className="row mb-3">
-        <form className="form-inline w-100">
+    <form className="form-inline w-100 mb-3">
 
-          <div className="input-group col-sm-6 col-lg-4">
+      <div className="input-group col-sm-6 col-lg-4">
 
-            <div className="input-group-prepend">
-              <span className="input-group-text prefix">Area Type</span>
-            </div>
-            <select className="form-control custom-select" id="areaType" defaultValue={areaType} onChange={onAreaTypeChange}>
-              <option value='overview'>UK</option>
-              <option value='nation'>Nation</option>
-              <option value='region'>Region</option>
-              <option value='nhsRegion'>NHS Region</option>
-              <option value='utla'>Upper-tier Local Authority</option>
-              <option value='ltla'>Lower-tier Local Authority</option>
-              <option value='world'>World</option>
-            </select>
-          </div>
-
-          <div className="input-group col-sm-6 col-lg-4">
-            <div className="input-group-prepend">
-              <span className="input-group-text prefix">Area Name</span>
-            </div>
-            <select className="form-control custom-select" id="areaName" defaultValue={areaName}>
-              {areaNames.map((name) => (
-                <option value={name} key={name}>{name}</option>
-              ))}
-            </select>
-          </div>
-
-          <div className="form-group col-sm-6 col-lg-4">
-            <button className="form-control btn btn-info" type="button" onClick={onSubmitClick}>Get Data</button>
-          </div>
-        </form >
+        <div className="input-group-prepend">
+          <span className="input-group-text prefix">Area Type</span>
+        </div>
+        <select className="form-control custom-select" id="areaType" defaultValue={areaType} onChange={onAreaTypeChange}>
+          <option value='overview'>UK</option>
+          <option value='nation'>Nation</option>
+          <option value='region'>Region</option>
+          <option value='nhsRegion'>NHS Region</option>
+          <option value='utla'>Upper-tier Local Authority</option>
+          <option value='ltla'>Lower-tier Local Authority</option>
+          <option value='world'>World</option>
+        </select>
       </div>
-    </div >
+
+      <div className="input-group col-sm-6 col-lg-4">
+        <div className="input-group-prepend">
+          <span className="input-group-text prefix">Area Name</span>
+        </div>
+        <select className="form-control custom-select" id="areaName" defaultValue={areaName}>
+          {areaNames.map((name) => (
+            <option value={name} key={name}>{name}</option>
+          ))}
+        </select>
+      </div>
+
+      <div className="form-group col-sm-6 col-lg-4">
+        <button className="form-control btn btn-info" type="button" onClick={onSubmitClick}>Get Data</button>
+      </div>
+    </form >
   )
 }

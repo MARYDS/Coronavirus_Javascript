@@ -10,14 +10,13 @@ export const getChartSize = (sizes) => {
   let w = 0
 
   if (sizes.width >= 992) {
-    w = Math.floor(380 * sizes.width / 1440)
+    w = Math.floor(330 * window.screen.width / 1200)
   } else if (sizes.width >= 576) {
-    w = Math.floor(380 * sizes.width / 1440) * (3 / 2)
+    w = Math.floor(330 * window.screen.width / 1200) * (3 / 2)
   } else {
-    w = Math.floor(380 * sizes.width / 1440) * 3
+    w = Math.floor(330 * window.screen.width / 1200) * 3
   }
   const h = Math.floor(w * 0.8)
-
   return ({ w, h })
 }
 
