@@ -67,10 +67,12 @@ export default function Admissions(
               <h6 className="text-center">
                 All Regions Hospital Admissions - {regAve ? "7 Day Average" : "Actual"}
               </h6>
-              <Graph
-                data={regAve ? regionsAveSorted : regionsSorted}
-                desc={ukRegionsNhs}
-              />
+              <div className="mb-5 mb-sm-0">
+                <Graph
+                  data={regAve ? regionsAveSorted : regionsSorted}
+                  desc={ukRegionsNhs}
+                />
+              </div>
               <button
                 type="button"
                 className="btn btn-outline-info btn-sm float-right mt-5"

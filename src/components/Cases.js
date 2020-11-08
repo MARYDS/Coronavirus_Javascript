@@ -249,10 +249,12 @@ export default function Cases(
                 </div >
               </div>
               <h6 className="text-center">All Regions Cases - {regAve ? "7 Day Average" : "Published"}</h6>
-              <Graph
-                data={regAve ? regionsAveSorted : regionsSorted}
-                desc={ukRegions}
-              />
+              <div className="mb-5 mb-sm-0">
+                <Graph
+                  data={regAve ? regionsAveSorted : regionsSorted}
+                  desc={ukRegions}
+                />
+              </div>
               <button
                 type="button"
                 className="btn btn-outline-info btn-sm float-right mt-5"
