@@ -512,12 +512,14 @@ export default class Data {
       nations.deathsAct[nations.deathsAct.length] = {
         'date': key,
         'day': value.day,
-        'counts': value.deathsAct
+        'counts': value.deathsAct,
+        'rate': null,
       }
       nations.casesAct[nations.casesAct.length] = {
         'date': key,
         'day': value.day,
-        'counts': value.casesAct
+        'counts': value.casesAct,
+        'rate': null,
       }
     }
 
