@@ -145,7 +145,7 @@ function App() {
     <div className="App bg-dark container-fluid">
 
       <div className="row">
-        <div>
+        <div className="col-12">
           <h1 className="heading display-md-1 text-center text-light p-2">
             Coronavirus {areaType === 'world' ? 'World' : areaName === '' ? 'UK' : areaName}
           </h1>

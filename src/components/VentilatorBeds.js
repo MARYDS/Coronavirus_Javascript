@@ -80,14 +80,12 @@ export default function VentilatorBeds({ areaName, date, latest, average, ventil
                 average={average}
               />
               {/* Graph with results */}
-              <div className="mx-0">
-                <h6 className="text-center">Patients in Ventilator Beds - {areaName}</h6>
-                <Chart
-                  data={ventilatorBedsSorted}
-                  desc={['Ventilator Beds']}
-                  linesDesc={['7 Day Average']}
-                />
-              </div>
+              <h6 className="text-center">Patients in Ventilator Beds - {areaName}</h6>
+              <Chart
+                data={ventilatorBedsSorted}
+                desc={['Ventilator Beds']}
+                linesDesc={['7 Day Average']}
+              />
             </div>
 
             {/* Second Tab - Intensive Care Data Table */}
@@ -99,7 +97,6 @@ export default function VentilatorBeds({ areaName, date, latest, average, ventil
                 id="intensivecaretable"
               />
             </div>
-
           </div>
         </div>
       </div>

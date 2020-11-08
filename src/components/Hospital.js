@@ -58,21 +58,19 @@ export default function Hospital({ areaName, date, latest, average, patients, re
                 latest={latest}
                 average={average}
               />
-              <div className="mx-0">
-                <h6 className="text-center">
-                  All Regions Hospital Patients - {regAve ? "7 Day Average" : "Actual"}
-                </h6>
-                <Graph
-                  data={regAve ? regionsAveSorted : regionsSorted}
-                  desc={ukRegionsNhs}
-                />
-                <button
-                  type="button"
-                  className="btn btn-outline-info btn-sm float-right mt-5"
-                  onClick={switchMode}>
-                  {regAve ? "Actual" : "7 Day Average"}
-                </button>
-              </div>
+              <h6 className="text-center">
+                All Regions Hospital Patients - {regAve ? "7 Day Average" : "Actual"}
+              </h6>
+              <Graph
+                data={regAve ? regionsAveSorted : regionsSorted}
+                desc={ukRegionsNhs}
+              />
+              <button
+                type="button"
+                className="btn btn-outline-info btn-sm float-right mt-5"
+                onClick={switchMode}>
+                {regAve ? "Actual" : "7 Day Average"}
+              </button>
             </div>
 
             {/* Second Tab - Hospital Patients with Chart */}
@@ -84,15 +82,14 @@ export default function Hospital({ areaName, date, latest, average, patients, re
                 latest={latest}
                 average={average}
               />
-              {/* Graph with results */}
-              <div className="mx-0">
-                <h6 className="text-center">Patients in Hospital - {areaName}</h6>
-                <Chart
-                  data={patientsSorted}
-                  desc={['Patients']}
-                  linesDesc={['7 Day Average']}
-                />
-              </div>
+              {/* Chart with results */}
+              <h6 className="text-center">Patients in Hospital - {areaName}</h6>
+              <Chart
+                data={patientsSorted}
+                desc={['Patients']}
+                linesDesc={['7 Day Average']}
+              />
+
             </div>
 
             {/* Third Tab - Patients data table*/}

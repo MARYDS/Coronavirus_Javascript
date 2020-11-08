@@ -117,14 +117,12 @@ export default function Cases(
                 rateCases={ratePub}
               />
               {/* Graph with results */}
-              <div className="mx-0">
-                <h6 className="text-center">Cases by Published Date - {areaName}</h6>
-                <Chart
-                  data={casesPubSorted}
-                  desc={['Cases by Published Date']}
-                  linesDesc={['7 Day Average']}
-                />
-              </div>
+              <h6 className="text-center">Cases by Published Date - {areaName}</h6>
+              <Chart
+                data={casesPubSorted}
+                desc={['Cases by Published Date']}
+                linesDesc={['7 Day Average']}
+              />
             </div>
 
             {/* Second Tab - Published Cases Table */}
@@ -166,14 +164,12 @@ export default function Cases(
                 rateCases={rateAct}
               />
               {/* Chart with results */}
-              <div className="mx-0">
-                <h6 className="text-center">Cases by Specimen Date - {areaName}</h6>
-                <Chart
-                  data={casesActSorted}
-                  desc={descAct}
-                  linesDesc={['7 Day Average']}
-                />
-              </div>
+              <h6 className="text-center">Cases by Specimen Date - {areaName}</h6>
+              <Chart
+                data={casesActSorted}
+                desc={descAct}
+                linesDesc={['7 Day Average']}
+              />
             </div>
 
             {/* Fifth Tab - Cases by Specimen Date Table */}
@@ -223,26 +219,40 @@ export default function Cases(
                 </div>
               </div>
               {/* Chart with results */}
-              <div>
-                <h6 className="text-center">Cumulative Cases by Age and Gender - {areaName}</h6>
-                <p className="text-muted text-center">Available for England, English Regions and Wales</p>
-                <Barchart
-                  data={casesByGender}
-                  desc={["Male", "Female"]}
-                  xaxis="age"
-                />
-              </div>
+              <h6 className="text-center">Cumulative Cases by Age and Gender - {areaName}</h6>
+              <p className="text-muted text-center">Available for England, English Regions and Wales</p>
+              <Barchart
+                data={casesByGender}
+                desc={["Male", "Female"]}
+                xaxis="age"
+              />
             </div>
 
             {/* Seventh Tab - Cases by Region Graph */}
             <div className="tab-pane fade" id="caseregionsdata" role="tabpanel" aria-labelledby="case-regions-data-tab">
-              <h6 className="text-center">All Regions Cases - {regAve ? "7 Day Average" : "Published"}</h6>
-              <div className="pb-3 mx-0">
-                <Graph
-                  data={regAve ? regionsAveSorted : regionsSorted}
-                  desc={ukRegions}
-                />
+              < div className="card mb-3" >
+                {/* Heading */}
+                < div className="card-header pt-2 pb-1 bg-info" >
+                  <div className="d-flex flex-row justify-content-between text-white rounded">
+                    <span className="text-left">
+                      <h6 className="font-weight-bold">All Regions</h6>
+                    </span>
+                  </div>
+                </div>
+                {/* Other Stats */}
+                < div className="card-body py-1" >
+                  <div className="d-flex flex-row justify-content-between">
+                    <span className="text-left">
+                      &nbsp;
+                    </span>
+                  </div>
+                </div >
               </div>
+              <h6 className="text-center">All Regions Cases - {regAve ? "7 Day Average" : "Published"}</h6>
+              <Graph
+                data={regAve ? regionsAveSorted : regionsSorted}
+                desc={ukRegions}
+              />
               <button
                 type="button"
                 className="btn btn-outline-info btn-sm float-right mt-5"

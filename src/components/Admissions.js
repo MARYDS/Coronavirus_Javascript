@@ -63,6 +63,7 @@ export default function Admissions(
                 latest={latest}
                 average={average}
               />
+
               <h6 className="text-center">
                 All Regions Hospital Admissions - {regAve ? "7 Day Average" : "Actual"}
               </h6>
@@ -77,6 +78,7 @@ export default function Admissions(
               >
                 {regAve ? "Actual" : "7 Day Average"}
               </button>
+
             </div>
 
             {/* Second Tab - Published Deaths with Chart */}
@@ -89,14 +91,12 @@ export default function Admissions(
                 average={average}
               />
               {/* Chart with results */}
-              <div className="mx-0">
-                <h6 className="text-center">New Admissions to Hospital - {areaName}</h6>
-                <Chart
-                  data={admissionsSorted}
-                  desc={['Admissions']}
-                  linesDesc={['7 Day Average']}
-                />
-              </div>
+              <h6 className="text-center">New Admissions to Hospital - {areaName}</h6>
+              <Chart
+                data={admissionsSorted}
+                desc={['Admissions']}
+                linesDesc={['7 Day Average']}
+              />
             </div>
 
             {/* Third Tab - Admissions Data Table */}
@@ -131,7 +131,7 @@ export default function Admissions(
 
           </div>
         </div>
-      </div>
+      </div >
     </div >
   )
 }

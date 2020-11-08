@@ -44,31 +44,38 @@ export default function Graph({ data, desc } = this.props) {
     <div className="line-chart-wrapper">
       {(data.length === 0)
         ?
-        <div className="text-info font-weight-bold mt-5 ml-3">Waiting for data</div>
+        <div className="text-info font-weight-bold mt-5 ml-3">Waiting for data...</div>
         :
-        <LineChart
-          width={w} height={h} data={data}
-          margin={{ top: 30, right: 10, bottom: 10, left: 10 }}
-        >
-          <CartesianGrid stroke="#ccc" vertical={false} />
-          <YAxis width={40} tick={{ fontSize: '0.7rem' }} />
-          <XAxis interval={30} tickFormatter={formatXAxis}
-            tick={{ fontSize: '0.7rem' }} dataKey="date" height={50} />
-          <Tooltip content={<CustomTooltip />} />
-          <Legend verticalAlign="bottom" height={5}
-            wrapperStyle={{ paddingtop: "20px" }} />
+        <div className="line-chart-wrapper">
+          {(data.length === 0)
+            ?
+            <div className="text-info font-weight-bold mt-5 ml-3">Waiting for data</div>
+            :
+            <LineChart
+              width={w} height={h} data={data}
+              margin={{ top: 30, right: 10, bottom: 10, left: 10 }}
+            >
+              <CartesianGrid stroke="#ccc" vertical={false} />
+              <YAxis width={40} tick={{ fontSize: '0.7rem' }} />
+              <XAxis interval={30} tickFormatter={formatXAxis}
+                tick={{ fontSize: '0.7rem' }} dataKey="date" height={50} />
+              <Tooltip content={<CustomTooltip />} />
+              <Legend verticalAlign="bottom" height={5}
+                wrapperStyle={{ paddingtop: "20px" }} />
 
-          {[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11].map((i) => {
-            if (data[0].counts[i] === undefined) {
-              return null
-            } else {
-              return (
-                <Line key={"l" + i} name={(desc[i] !== undefined) ? desc[i] : 'data'} type="monotone" dataKey={"counts[" + i + "]"} stroke={strokeColours[i]} dot={false} />
-              )
-            }
-          })}
+              {[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11].map((i) => {
+                if (data[0].counts[i] === undefined) {
+                  return null
+                } else {
+                  return (
+                    <Line key={"l" + i} name={(desc[i] !== undefined) ? desc[i] : 'data'} type="monotone" dataKey={"counts[" + i + "]"} stroke={strokeColours[i]} dot={false} />
+                  )
+                }
+              })}
 
-        </LineChart>
+            </LineChart>
+          }
+        </div>
       }
     </div>
   );

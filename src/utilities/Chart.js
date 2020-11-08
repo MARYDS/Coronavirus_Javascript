@@ -56,26 +56,26 @@ export default function Chart({ data, desc, linesDesc, xaxis } = this.props) {
       {(data.length === 0)
         ?
         <div className="text-info font-weight-bold mt-5 ml-3">
-          No Data currently available at this level
+          Retrieving data if available...
         </div>
         :
         <ComposedChart width={w} height={h} data={data}
-          margin={{ top: 30, right: 10, left: 10, bottom: 10 }}>
+          margin={{ top: 20, right: 10, left: 10, bottom: 10 }}>
 
+          <CartesianGrid stroke="#ccc" vertical={false} />
           <YAxis width={40} tick={{ fontSize: '0.7rem' }} tickFormatter={tick => {
             return tick.toLocaleString();
           }} />
           {(xaxis === "date") ?
             <XAxis interval={30} tickFormatter={formatXAxis}
-              tick={{ fontSize: '0.7rem' }} dataKey="date" height={50} />
+              tick={{ fontSize: '0.7rem' }} dataKey="date" height={30} />
             :
             <XAxis interval={1}
               tick={<CustomizedAxisTick xaxis={xaxis} />} dataKey={xaxis} height={50} />
           }
-          <CartesianGrid stroke="#ccc" vertical={false} />
+
           <Tooltip content={<CustomTooltip xaxis={xaxis} />} />
-          <Legend verticalAlign="bottom" height={5}
-            wrapperStyle={{ paddingtop: "20px" }} />
+          <Legend wrapperStyle={{ bottom: -10, left: 20 }} />
 
           {(data.length > 0) ?
             [0, 1, 2, 3, 4, 5, 6, 7, 8, 9].map((i) => {

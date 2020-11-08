@@ -59,7 +59,7 @@ export default function Deaths(
   }
 
   return (
-    <div className="col-sm-6 col-lg-4 mb-3 mx-0">
+    <div className="col-sm-6 col-lg-4 mb-3">
 
       {/* Card */}
       <div className="card card-main">
@@ -100,7 +100,6 @@ export default function Deaths(
             {/* First Tab - Published Deaths with Chart */}
             <div className="tab-pane fade show active" id="published" role="tabpanel"
               aria-labelledby="published-tab">
-
               <DeathsHeader
                 areaName={areaName}
                 date={datePub}
@@ -109,15 +108,13 @@ export default function Deaths(
                 cumDeaths={cumPub}
                 rateDeaths={ratePub}
               />
-              {/* Graph with results */}
-              <div className="mx-0">
-                <h6 className="text-center">Deaths by Published Date - {areaName}</h6>
-                <Chart
-                  data={deathsPubSorted}
-                  desc={['Deaths by Published Date']}
-                  linesDesc={['7 Day Average']}
-                />
-              </div>
+              {/* Chart with results */}
+              <h6 className="text-center">Deaths by Published Date - {areaName}</h6>
+              <Chart
+                data={deathsPubSorted}
+                desc={['Deaths by Published Date']}
+                linesDesc={['7 Day Average']}
+              />
             </div>
 
             {/* Second Tab - Published Deaths Table */}
@@ -155,11 +152,13 @@ export default function Deaths(
                 rateDeaths={rateAct}
               />
 
-              {/* Graph with results */}
-              <div className="mx-0">
-                <h6 className="text-center">Deaths by Date of Death - {areaName}</h6>
-                <Chart data={deathsActSorted} desc={descAct} linesDesc={['7 Day Average']} />
-              </div>
+              {/* Chart with results */}
+              <h6 className="text-center">Deaths by Date of Death - {areaName}</h6>
+              <Chart
+                data={deathsActSorted}
+                desc={descAct}
+                linesDesc={['7 Day Average']}
+              />
             </div>
 
             {/* Fifth Tab - Date of Death Table */}
@@ -174,13 +173,30 @@ export default function Deaths(
 
             {/* Sixth Tab - Deaths by Region Graph */}
             <div className="tab-pane fade" id="deathregionsdata" role="tabpanel" aria-labelledby="death-regions-data-tab">
-              <h6 className="text-center">All Regions Deaths - {regAve ? "7 Day Average" : "Published"}</h6>
-              <div className="pb-3 mx-0">
-                <Graph
-                  data={regAve ? regionsAveSorted : regionsSorted}
-                  desc={ukRegions}
-                />
+              < div className="card mb-3" >
+                {/* Heading */}
+                < div className="card-header pt-2 pb-1 bg-info" >
+                  <div className="d-flex flex-row justify-content-between text-white rounded">
+                    <span className="text-left">
+                      <h6 className="font-weight-bold">All Regions</h6>
+                    </span>
+                  </div>
+                </div>
+                {/* Other Stats */}
+                < div className="card-body py-1" >
+                  <div className="d-flex flex-row justify-content-between">
+                    <span className="text-left">
+                      &nbsp;
+                    </span>
+                  </div>
+                </div >
               </div>
+
+              <h6 className="text-center">All Regions Deaths - {regAve ? "7 Day Average" : "Published"}</h6>
+              <Graph
+                data={regAve ? regionsAveSorted : regionsSorted}
+                desc={ukRegions}
+              />
               <button
                 type="button"
                 className="btn btn-outline-info btn-sm float-right mt-5"
@@ -194,7 +210,7 @@ export default function Deaths(
         </div>
       </div>
 
-    </div >
+    </div>
 
   )
 }

@@ -55,22 +55,21 @@ export default function Barchart({ data, desc, xaxis } = this.props) {
         </div>
         :
         <BarChart width={w} height={h} data={data}
-          margin={{ top: 30, right: 10, left: 10, bottom: 10 }}>
+          margin={{ top: 20, right: 10, left: 10, bottom: 10 }}>
           <YAxis width={55} tick={{ fontSize: '0.7rem' }} tickFormatter={tick => {
             return tick.toLocaleString();
           }} />
 
           {(xaxis === "date") ?
             <XAxis interval={30} tickFormatter={formatXAxis}
-              tick={{ fontSize: '0.7rem' }} dataKey="date" height={50} />
+              tick={{ fontSize: '0.7rem' }} dataKey="date" height={30} />
             :
             <XAxis interval={0}
               tick={<CustomizedAxisTick xaxis={xaxis} />} dataKey={xaxis} height={80} />
           }
           <CartesianGrid stroke="#ccc" vertical={false} />
           <Tooltip content={<CustomTooltip xaxis={xaxis} />} />
-          <Legend verticalAlign="bottom"
-            wrapperStyle={{ paddingtop: "20px" }} />
+          <Legend wrapperStyle={{ bottom: -10, left: 20 }} />
 
           {(data.length > 0) ?
             [0, 1].map((i) => {
