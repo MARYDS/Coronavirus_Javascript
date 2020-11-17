@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "UK Coronavirus Dashboard",
+  "name": "UK Coronavirus Dashboard built using React.js and Bootstrap",
   "icons": [
     {
       "src": "favicon.ico",
