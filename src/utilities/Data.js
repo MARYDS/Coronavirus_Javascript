@@ -592,7 +592,17 @@ export default class Data {
   extractRequiredFields(apiData) {
 
     const data = {
-      dateLatest: null, deathsDate: null, deathsDateYMD: null, deathsNew: null, deathsCum: null, deathsRate: null, deathsAverage: null, deathsDateAct: null, deathsNewAct: null, deathsCumAct: null, deathsRateAct: null, deathsAverageAct: null, casesDate: null, casesDateYMD: null, casesNew: null, casesCum: null, casesRate: null, casesAverage: null, casesDateAct: null, casesNewAct: null, casesCumAct: null, casesRateAct: null, casesAverageAct: null, hospitalDate: null, hospitalNew: null, hospitalAverage: null, admissionsDate: null, admissionsNew: null, admissionsCum: null, admissionsAverage: null, ventilatorBedsDate: null, ventilatorBedsNew: null, ventilatorBedsAverage: null, testsDate: null, newP1: null, newP2: null, newP3: null, newP4: null, newTests: null, cumP1: null, cumP2: null, cumP3: null, cumP4: null, cumTests: null, maleCases: null, femaleCases: null, totalGenderCases: null, genderDate: null, deathsPub: [], deathsAct: [], casesPub: [], casesAct: [], casesByGender: [], tests1: [], tests2: [], tests3: [], tests4: [], testsTot: [], patients: [], admissions: [], admissionsByAge: [], ventilatorBeds: []
+      dateLatest: null,
+      deathsDate: null, deathsDateYMD: null, deathsNew: null, deathsCum: null, deathsRate: null, deathsAverage: null,
+      deathsDateAct: null, deathsNewAct: null, deathsCumAct: null, deathsRateAct: null, deathsAverageAct: null,
+      casesDate: null, casesDateYMD: null, casesNew: null, casesCum: null, casesRate: null, casesAverage: null,
+      casesDateAct: null, casesNewAct: null, casesCumAct: null, casesRateAct: null, casesAverageAct: null,
+      hospitalDate: null, hospitalNew: null, hospitalAverage: null,
+      admissionsDate: null, admissionsNew: null, admissionsCum: null, admissionsAverage: null,
+      ventilatorBedsDate: null, ventilatorBedsNew: null, ventilatorBedsAverage: null,
+      testsDate: null, newP1: null, newP2: null, newP3: null, newP4: null, newTests: null, cumP1: null, cumP2: null, cumP3: null, cumP4: null, cumTests: null,
+      maleCases: null, femaleCases: null, totalGenderCases: null, genderDate: null,
+      deathsPub: [], deathsAct: [], casesPub: [], casesAct: [], casesByGender: [], tests1: [], tests2: [], tests3: [], tests4: [], testsTot: [], patients: [], admissions: [], admissionsByAge: [], ventilatorBeds: []
     }
 
     // Got data

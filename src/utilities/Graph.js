@@ -60,7 +60,7 @@ export default function Graph({ data, desc } = this.props) {
               <XAxis interval={30} tickFormatter={formatXAxis}
                 tick={{ fontSize: '0.7rem' }} dataKey="date" height={50} />
               <Tooltip content={<CustomTooltip />} />
-              <Legend verticalAlign="bottom" height={5}
+              <Legend verticalAlign="bottom" height={25}
                 wrapperStyle={{ paddingtop: "20px" }} />
 
               {[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11].map((i) => {
