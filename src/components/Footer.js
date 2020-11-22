@@ -5,10 +5,13 @@ export default function Footer() {
     <div className="col-sm-12">
       <div className="row">
         <div className="col-sm-4">
-          <p className="text-left text-white">Uk Data from https://api.coronavirus.data.gov.uk/v1/data</p>
+          <p className="text-left text-white text-wrap text-break">Uk Data from https://api.coronavirus.data.gov.uk/v1/data</p>
         </div>
         <div className="col-sm-4">
-          <p className="text-left text-white">World Data from https://opendata.ecdc.europa.eu/covid19/casedistribution/json/</p>
+          <p className="text-left text-white text-wrap text-break">World Data from https://opendata.ecdc.europa.eu/covid19/casedistribution/json/</p>
+        </div>
+        <div className="col-sm-4">
+          <p className="text-left text-white text-wrap text-break">Excess Deaths from https://www.ons.gov.uk/peoplepopulationandcommunity/birthsdeathsandmarriages/deaths/datasets/weeklyprovisionalfiguresondeathsregisteredinenglandandwales</p>
         </div>
       </div>
     </div>

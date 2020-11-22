@@ -2,7 +2,9 @@ import React, { useState } from 'react'
 import DeathsHeader from './DeathsHeader'
 import Chart from '../utilities/Chart'
 import Graph from '../utilities/Graph'
+import Barchart from '../utilities/Barchart'
 import TableData from '../utilities/TableData'
+import { ONS, Deaths2019, DeathsAverage, Deaths2020 } from '../utilities/ONS'
 import { compare, ukNations, ukRegions } from '../utilities/Utils'
 
 export default function Deaths(
@@ -87,6 +89,9 @@ export default function Deaths(
             </li>
             <li className="nav-item">
               <a className="nav-link" id="death-regions-data-tab" data-toggle="tab" href="#deathregionsdata" role="tab" aria-controls="deathregionsdata" aria-selected="false">Reg</a>
+            </li>
+            <li className="nav-item">
+              <a className="nav-link" id="death-excess-data-tab" data-toggle="tab" href="#deathexcessdata" role="tab" aria-controls="deathexcessdata" aria-selected="false">Excess</a>
             </li>
           </ul>
         </div>
@@ -208,10 +213,60 @@ export default function Deaths(
               </button>
             </div>
 
+            {/* Seventh Tab - Excess Deaths England and Wales */}
+            <div className="tab-pane fade" id="deathexcessdata" role="tabpanel" aria-labelledby="death-excess-data-tab">
+              < div className="card mb-3" >
+                {/* Heading */}
+                < div className="card-header pt-2 pb-1 bg-info" >
+                  <div className="d-flex flex-row justify-content-between text-white rounded">
+                    <span className="text-left">
+                      <h6 className="font-weight-bold">England and Wales</h6>
+                    </span>
+                  </div>
+                </div>
+                {/* Other Stats */}
+                < div className="card-body py-1" >
+                  <div className="d-flex flex-row justify-content-between">
+                    <span className="text-left">
+                      Deaths 2019
+                    </span>
+                    <span className="text-right">
+                      {Deaths2019.toLocaleString()}
+                    </span>
+                  </div>
+                  <div className="d-flex flex-row justify-content-between">
+                    <span className="text-left">
+                      5 Year Average
+                    </span>
+                    <span className="text-right">
+                      {DeathsAverage.toLocaleString()}
+                    </span>
+                  </div>
+                  <div className="d-flex flex-row justify-content-between">
+                    <span className="text-left">
+                      Deaths 2020
+                    </span>
+                    <span className="text-right">
+                      {Deaths2020.toLocaleString()}
+                    </span>
+                  </div>
+                </div >
+              </div>
+
+              <h6 className="text-center">Excess Deaths by week - England and Wales</h6>
+              <div className="mb-5 mb-sm-0">
+                <Barchart
+                  data={ONS}
+                  desc={["2019", "5 Year Average", "2020"]}
+                  xaxis="date"
+                  interval={1}
+                />
+              </div>
+            </div>
+
           </div>
         </div>
       </div>
-
     </div>
 
   )

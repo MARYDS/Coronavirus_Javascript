@@ -7,12 +7,15 @@ import CustomTooltip from './CustomTooltip'
 import CustomizedAxisTick from './CustomizedAxisTick'
 import { getChartSize } from './Utils';
 
-export default function Barchart({ data, desc, xaxis } = this.props) {
+export default function Barchart({ data, desc, xaxis, interval } = this.props) {
 
   if (data === undefined) data = []
   if (desc === undefined) desc = []
   if (xaxis === undefined) {
     xaxis = "date"
+  }
+  if (interval === undefined) {
+    interval = 0
   }
 
   const [sizes, setSizes] = useState(
@@ -42,7 +45,7 @@ export default function Barchart({ data, desc, xaxis } = this.props) {
   const { w, h } = getChartSize(sizes)
 
   const fillColours =
-    ["#28abb9", "#a9b1ba", "#ffe05d", "#b8de6f", "#01cfc4",
+    ["#177e89", "#ffc857", "#b0413e", "#b8de6f", "#01cfc4",
       "#ff9a76", "#ffeadb", "#637373", "#ffcbcb", "#e97171"]
 
   return (
@@ -56,23 +59,19 @@ export default function Barchart({ data, desc, xaxis } = this.props) {
         :
         <BarChart width={w} height={h} data={data}
           margin={{ top: 20, right: 10, left: 10, bottom: 10 }}>
-          <YAxis width={55} tick={{ fontSize: '0.7rem' }} tickFormatter={tick => {
+          <YAxis width={25} tick={{ fontSize: '0.5rem' }} tickFormatter={tick => {
             return tick.toLocaleString();
           }} />
 
-          {(xaxis === "date") ?
-            <XAxis interval={30} tickFormatter={formatXAxis}
-              tick={{ fontSize: '0.7rem' }} dataKey="date" height={30} />
-            :
-            <XAxis interval={0}
-              tick={<CustomizedAxisTick xaxis={xaxis} />} dataKey={xaxis} height={80} />
-          }
+          <XAxis interval={interval}
+            tick={<CustomizedAxisTick xaxis={xaxis} />} dataKey={xaxis} height={80} />
+
           <CartesianGrid stroke="#ccc" vertical={false} />
           <Tooltip content={<CustomTooltip xaxis={xaxis} />} />
           <Legend wrapperStyle={{ bottom: -10, left: 20 }} />
 
           {(data.length > 0) ?
-            [0, 1].map((i) => {
+            [0, 1, 2].map((i) => {
               if (data[0].counts[i] === undefined) {
                 return null
               } else {
