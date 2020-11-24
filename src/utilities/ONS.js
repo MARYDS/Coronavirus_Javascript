@@ -44,8 +44,9 @@ export const ONS = [
   { week: 43, date: '2020-10-23', counts: [10021, 9759, 10739] },
   { week: 44, date: '2020-10-30', counts: [10164, 9891, 10887] },
   { week: 45, date: '2020-11-06', counts: [10697, 10331, 11812] },
+  { week: 46, date: '2020-11-13', counts: [10650, 10350, 12254] },
 ]
 
-export const Deaths2019 = 453281
-export const DeathsAverage = 459095
-export const Deaths2020 = 517674
+export const Deaths2019 = 463931
+export const DeathsAverage = 469445
+export const Deaths2020 = 529928

@@ -89,5 +89,3 @@ export default function Barchart({ data, desc, xaxis, interval } = this.props) {
     </div >
   );
 }
-
-
