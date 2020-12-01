@@ -64,7 +64,7 @@ export default function Barchart({ data, desc, xaxis, interval } = this.props) {
           }} />
 
           <XAxis interval={interval}
-            tick={<CustomizedAxisTick xaxis={xaxis} />} dataKey={xaxis} height={30} />
+            tick={<CustomizedAxisTick xaxis={xaxis} />} dataKey={xaxis} height={50} />
 
           <CartesianGrid stroke="#ccc" vertical={false} />
           <Tooltip content={<CustomTooltip xaxis={xaxis} />} />
