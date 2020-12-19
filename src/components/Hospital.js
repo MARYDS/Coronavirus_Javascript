@@ -18,7 +18,7 @@ export default function Hospital({ areaName, date, latest, average, patients, re
   const switchMode = () => setRegAve(!regAve)
 
   return (
-    <div className="col-sm-6 col-lg-4 mb-3">
+    <div className="h-100 col-sm-6 col-lg-4 mb-3">
 
       {/* Card */}
       <div className="card card-main">

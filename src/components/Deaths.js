@@ -61,7 +61,7 @@ export default function Deaths(
   }
 
   return (
-    <div className="col-sm-6 col-lg-4 mb-3">
+    <div className="col-sm-6 col-lg-4 mb-3 h-100">
 
       {/* Card */}
       <div className="card card-main">

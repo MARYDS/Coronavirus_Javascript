@@ -7,7 +7,7 @@ body {
 
 .custom-scrollbar {
   position: relative;
-  height: 430px;
+  height: 560px;
   overflow: auto;
 }
 
@@ -17,7 +17,7 @@ body {
 .card-main {
   /* box-shadow: 2px 2px 3px 0px rgb(204, 204, 204);  */
   width: 100%;
-  min-height: 650px; 
+  min-height: 750px; 
 }
 
 @media(max-width:768px){ 

@@ -63,7 +63,7 @@ export default function Cases(
   }
 
   return (
-    <div className="col-sm-6 col-lg-4 mb-3">
+    <div className="h-100 col-sm-6 col-lg-4 mb-3">
 
       {/* Card */}
       <div className="card card-main">
