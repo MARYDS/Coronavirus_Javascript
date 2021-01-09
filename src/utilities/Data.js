@@ -545,7 +545,7 @@ export default class Data {
         const c = results.records[i]
 
         // Got some data for this date
-        if (c.cases != null || c.deaths != null) {
+        if (c.cases_weekly != null || c.deaths_weekly != null) {
           // New country, create empty object
           if (!(c.countriesAndTerritories in nat)) {
             nat[c.countriesAndTerritories] = {
@@ -556,9 +556,9 @@ export default class Data {
           }
           // Add into cumulative totals
           nat[c.countriesAndTerritories]['cases'] =
-            nat[c.countriesAndTerritories]['cases'] + c.cases
+            nat[c.countriesAndTerritories]['cases'] + c.cases_weekly
           nat[c.countriesAndTerritories]['deaths'] =
-            nat[c.countriesAndTerritories]['deaths'] + c.deaths
+            nat[c.countriesAndTerritories]['deaths'] + c.deaths_weekly
           if (c.dateRep === latestDate) {
             nat[c.countriesAndTerritories]['rate'] = c["Cumulative_number_for_14_days_of_COVID-19_cases_per_100000"]
           }

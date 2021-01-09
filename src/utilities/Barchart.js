@@ -58,8 +58,8 @@ export default function Barchart({ data, desc, xaxis, interval } = this.props) {
         </div>
         :
         <BarChart width={w} height={h} data={data}
-          margin={{ top: 20, right: 10, left: 10, bottom: 10 }}>
-          <YAxis width={25} tick={{ fontSize: '0.5rem' }} tickFormatter={tick => {
+          margin={{ top: 20, right: 5, left: 5, bottom: 10 }}>
+          <YAxis width={45} tick={{ fontSize: '0.5rem' }} tickFormatter={tick => {
             return tick.toLocaleString();
           }} />
 
