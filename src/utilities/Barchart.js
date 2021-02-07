@@ -45,8 +45,8 @@ export default function Barchart({ data, desc, xaxis, interval } = this.props) {
   const { w, h } = getChartSize(sizes)
 
   const fillColours =
-    ["#177e89", "#ffc857", "#b0413e", "#b8de6f", "#01cfc4",
-      "#ff9a76", "#ffeadb", "#637373", "#ffcbcb", "#e97171"]
+    ["#177e89", "#ffc857", "#b0413e", "#637373", "#ff9a76", "#01cfc4", "#b8de6f",
+      "#ffeadb", "#ffcbcb", "#e97171"]
 
   return (
 
@@ -71,7 +71,7 @@ export default function Barchart({ data, desc, xaxis, interval } = this.props) {
           <Legend wrapperStyle={{ bottom: -10, left: 20 }} />
 
           {(data.length > 0) ?
-            [0, 1, 2].map((i) => {
+            [0, 1, 2, 3].map((i) => {
               if (data[0].counts[i] === undefined) {
                 return null
               } else {

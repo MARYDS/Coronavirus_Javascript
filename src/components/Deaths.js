@@ -257,7 +257,7 @@ export default function Deaths(
               <div className="mb-5 mb-sm-0">
                 <Barchart
                   data={ONS}
-                  desc={["2019", "5 Year Average", "2020"]}
+                  desc={["2019", "5 Year Average", "2020", "2021"]}
                   xaxis="date"
                   interval={1}
                 />
