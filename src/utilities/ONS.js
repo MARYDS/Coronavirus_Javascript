@@ -4,7 +4,7 @@ export const ONS = [
   { week: 3, date: '2020-01-17', counts: [11860, 13216, 12990, 18676] },
   { week: 4, date: '2020-01-24', counts: [11740, 12760, 11856, 18448] },
   { week: 5, date: '2020-01-31', counts: [11297, 12206, 11612, 17192] },
-  { week: 6, date: '2020-02-07', counts: [11660, 11925, 10986, 0] },
+  { week: 6, date: '2020-02-07', counts: [11660, 11925, 10986, 15354] },
   { week: 7, date: '2020-02-14', counts: [11824, 11627, 10944, 0] },
   { week: 8, date: '2020-02-21', counts: [11295, 11548, 10841, 0] },
   { week: 9, date: '2020-02-28', counts: [11044, 11183, 10816, 0] },
@@ -57,4 +57,4 @@ export const ONS = [
 export const Deaths2019 = 527234
 export const DeathsAverage = 539083
 export const Deaths2020 = 614114
-export const Deaths2021 = 90109
+export const Deaths2021 = 105463
