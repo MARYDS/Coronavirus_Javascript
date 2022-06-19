@@ -13,9 +13,8 @@ import Input from '../components/Input'
 import './App.css'
 
 function App() {
-
-  const [areaType, setAreaType] = useState('overview')
-  const [areaName, setAreaName] = useState('')
+  const [areaType, setAreaType] = useState('Nation')
+  const [areaName, setAreaName] = useState('England')
   const [apiData, setAPIData] = useState({})
   const [apiCaseData, setAPICaseData] = useState([])
   const [apiDeathData, setAPIDeathData] = useState([])
@@ -42,7 +41,7 @@ function App() {
           data = null
         })
     }
-  }, [areaType, areaName]);
+  }, [areaType, areaName])
 
   useEffect(() => {
     let data = new Data()
@@ -57,7 +56,7 @@ function App() {
       .then(() => {
         data = null
       })
-  }, []);
+  }, [])
 
   useEffect(() => {
     let data = new Data(areaType, areaName)
@@ -87,7 +86,7 @@ function App() {
           data = null
         })
     }
-  }, [apiData.deathsDate, apiData.casesDate, areaType, areaName]);
+  }, [apiData.deathsDate, apiData.casesDate, areaType, areaName])
 
   useEffect(() => {
     let data = new Data()
@@ -102,7 +101,7 @@ function App() {
       .then(() => {
         data = null
       })
-  }, []);
+  }, [])
 
   useEffect(() => {
     let data = new Data()
@@ -117,7 +116,7 @@ function App() {
       .then(() => {
         data = null
       })
-  }, []);
+  }, [])
 
   useEffect(() => {
     if (areaType === 'world' || ecdcCountryData === {}) {
@@ -134,7 +133,7 @@ function App() {
           data = null
         })
     }
-  }, [areaType]);
+  }, [areaType])
 
   const updateAreaTypeAndName = (newAreaType, newAreaName) => {
     setAreaType(newAreaType)
@@ -142,33 +141,31 @@ function App() {
   }
 
   return (
-    <div className="App bg-dark container-fluid">
-
-      <div className="row">
-        <div className="col-12">
-          <h1 className="heading display-md-1 text-center text-light p-2">
-            Coronavirus {areaType === 'world' ? 'World' : areaName === '' ? 'UK' : areaName}
+    <div className='App bg-dark container-fluid'>
+      <div className='row'>
+        <div className='col-12'>
+          <h1 className='heading display-md-1 text-center text-light p-2'>
+            Coronavirus{' '}
+            {areaType === 'world' ? 'World' : areaName === '' ? 'UK' : areaName}
           </h1>
-          {(noData)
-            ?
-            <p className="display-md-3 display-xs-2 text-center text-danger">
+          {noData ? (
+            <p className='display-md-3 display-xs-2 text-center text-danger'>
               No data is currently available
-        </p>
-            : null
-          }
+            </p>
+          ) : null}
         </div>
       </div>
 
-      <div className="row">
-        <Input areaType={areaType}
+      <div className='row'>
+        <Input
+          areaType={areaType}
           areaName={areaName}
-          updateAreaTypeAndName={updateAreaTypeAndName} />
+          updateAreaTypeAndName={updateAreaTypeAndName}
+        />
       </div>
 
-      {(areaType === 'nhsRegion' || areaType === 'world')
-        ? null
-        :
-        <div className="row">
+      {areaType === 'nhsRegion' || areaType === 'world' ? null : (
+        <div className='row'>
           <Deaths
             areaType={areaType}
             areaName={areaName}
@@ -219,37 +216,37 @@ function App() {
             genderDate={apiData.genderDate}
             caseAgeRanges={apiData.caseAgeRanges}
           />
-          {
-            (areaType === 'region' || areaType === 'ltla' || areaType === "utla")
-              ? null
-              :
-              <Tests
-                areaName={areaName}
-                date={apiData.testsDate}
-                newP1={apiData.newP1}
-                newP2={apiData.newP2}
-                newP3={apiData.newP3}
-                newP4={apiData.newP4}
-                newTotal={apiData.newTests}
-                cumP1={apiData.cumP1}
-                cumP2={apiData.cumP2}
-                cumP3={apiData.cumP3}
-                cumP4={apiData.cumP4}
-                cumTotal={apiData.cumTests}
-                tests1={apiData.tests1}
-                tests2={apiData.tests2}
-                tests3={apiData.tests3}
-                tests4={apiData.tests4}
-                testsTot={apiData.testsTot}
-              />
-          }
+          {areaType === 'region' ||
+          areaType === 'ltla' ||
+          areaType === 'utla' ? null : (
+            <Tests
+              areaName={areaName}
+              date={apiData.testsDate}
+              newP1={apiData.newP1}
+              newP2={apiData.newP2}
+              newP3={apiData.newP3}
+              newP4={apiData.newP4}
+              newTotal={apiData.newTests}
+              cumP1={apiData.cumP1}
+              cumP2={apiData.cumP2}
+              cumP3={apiData.cumP3}
+              cumP4={apiData.cumP4}
+              cumTotal={apiData.cumTests}
+              tests1={apiData.tests1}
+              tests2={apiData.tests2}
+              tests3={apiData.tests3}
+              tests4={apiData.tests4}
+              testsTot={apiData.testsTot}
+            />
+          )}
         </div>
-      }
+      )}
 
-      {(areaType === 'region' || areaType === 'ltla' || areaType === "utla" || areaType === 'world')
-        ? null
-        :
-        <div className="row mb-2">
+      {areaType === 'region' ||
+      areaType === 'ltla' ||
+      areaType === 'utla' ||
+      areaType === 'world' ? null : (
+        <div className='row mb-2'>
           <Hospital
             areaName={areaName}
             date={apiData.hospitalDate}
@@ -280,12 +277,10 @@ function App() {
             regionsAve={apiHospitalData.ventilatorBedsAve}
           />
         </div>
-      }
+      )}
 
-      {(areaType !== 'world')
-        ? null
-        :
-        <div className="row mb-3">
+      {areaType !== 'world' ? null : (
+        <div className='row mb-3'>
           <WorldWideDeaths
             latestDate={ecdcCountryData.latestDate}
             deathsTot={ecdcCountryData.deathsTot}
@@ -297,15 +292,13 @@ function App() {
             cases={ecdcCountryData.cases}
           />
         </div>
-      }
+      )}
 
-      <div className="row mb-2">
+      <div className='row mb-2'>
         <Footer />
       </div>
-
     </div>
-
   )
 }
 
-export default App;
+export default App
